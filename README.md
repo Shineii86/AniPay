@@ -1,13 +1,11 @@
-# Zero Two Payment Gateway 🌸
-
-![Zero Two Payment Gateway Screenshot](https://via.placeholder.com/800x400/1a0a2e/ffffff?text=Zero+Two+Payment+Gateway+Screenshot)
+# AniPay | 02
 
 A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002) from Darling in the Franxx. This project combines beautiful UI design with functional payment methods for both Indian and international users.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://your-demo-link.com)
-![License](https://img.shields.io/github/license/yourusername/zero-two-payment?style=for-the-badge)
-![Last Commit](https://img.shields.io/github/last-commit/yourusername/zero-two-payment?style=for-the-badge)
-![Repo Size](https://img.shields.io/github/repo-size/yourusername/zero-two-payment?style=for-the-badge)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://shineii86.github.io/AniPay/)
+![License](https://img.shields.io/github/license/Shineii86/AniPay?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge)
+![Repo Size](https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge) [![GitHub Stars](https://img.shields.io/github/stars/Shineii86/AniPay?style=for-the-badge)](https://github.com/Shineii86/AniPay/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/Shineii86/AniPay?style=for-the-badge)](https://github.com/Shineii86/AniPay/fork)
 
 ## ✨ Features
 
