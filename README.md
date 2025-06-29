@@ -1,4 +1,9 @@
-# AniPay | 02
+<div align="center">
+  <a href="https://github.com/Shineii86">
+    <img src="./Source/Banner1.png" alt="Banner" height="200">
+  </a>
+  
+# [AniPay](https://github.com/Shineii86/AniPay)
 
 A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002) from Darling in the Franxx. This project combines beautiful UI design with functional payment methods for both Indian and international users.
 
@@ -7,43 +12,45 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
 ![Last Commit](https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge)
 ![Repo Size](https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge) [![GitHub Stars](https://img.shields.io/github/stars/Shineii86/AniPay?style=for-the-badge)](https://github.com/Shineii86/AniPay/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/Shineii86/AniPay?style=for-the-badge)](https://github.com/Shineii86/AniPay/fork)
 
-## ✨ Features
+</div>
 
-- **Zero Two Themed UI** 🌸
-  - Beautiful pink and teal color scheme inspired by Zero Two
-  - Particle animation background with anime.js
-  - Responsive design for all devices
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Activity/Sparkles.webp" alt="Sparkles" width="25" height="25" /> Features
+
+- **Zero Two Themed UI**
+  - [x] Beautiful pink and teal color scheme inspired by Zero Two
+  - [x] Particle animation background with anime.js
+  - [x] Responsive design for all devices
   
-- **Payment Methods** 💳
+- **Payment Methods**
   - **Indian Payments**
-    - QR Code payment with download option
-    - UPI payment with copy functionality
+    - [x] QR Code payment with download option
+    - [x] UPI payment with copy functionality
   - **International Payments**
-    - Binance ID
-    - Bybit ID
-    - Tonkeeper address
+    - [x] Binance ID
+    - [x] Bybit ID
+    - [x] Tonkeeper address
 
-- **Advanced Animations** ✨
-  - Smooth entrance animations for all elements
-  - Interactive button hover effects
-  - Particle system background
-  - Notification system
+- **Advanced Animations**
+  - [x] Smooth entrance animations for all elements
+  - [x] Interactive button hover effects
+  - [x] Particle system background
+  - [x] Notification system
 
 - **Modern Technologies** 🔧
-  - Built with pure HTML, CSS, and JavaScript
-  - Uses anime.js for advanced animations
-  - Josefin Sans font for elegant typography
+  - [x] Built with pure HTML, CSS, and JavaScript
+  - [x] Uses anime.js for advanced animations
+  - [x] Josefin Sans font for elegant typography
 
-## 🚀 Getting Started
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Objects/Mobile%20Phone%20With%20Arrow.webp" alt="Mobile Phone With Arrow" width="25" height="25" /> Getting Started
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/zero-two-payment.git
+   git clone https://github.com/Shimeii86/AniPay.git
    ```
 
 2. **Open the project**
    ```bash
-   cd zero-two-payment
+   cd AniPay
    ```
 
 3. **Open index.html in your browser**
@@ -54,23 +61,23 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
      ```
      Then visit `http://localhost:8000`
 
-## 🎨 Customization
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Activity/Artist%20Palette.webp" alt="Artist Palette" width="25" height="25" /> Customization
 
-### Change Payment Details
+1) Change Payment Details
 Edit the payment details in the HTML file:
 ```html
 <!-- Indian Payments -->
 <div class="id-display">
-  zerotwo002@animebank  <!-- Change UPI ID here -->
+  shinei@anipay  <!-- Change UPI ID here -->
 </div>
 
 <!-- International Payments -->
 <div class="id-display">
-  BNCID-ZEROTWO-00288475  <!-- Change Binance ID here -->
+  853904044  <!-- Change Binance ID here -->
 </div>
 ```
 
-### Modify Colors
+2) Modify Colors
 Edit the CSS variables in the style section:
 ```css
 :root {
@@ -80,7 +87,7 @@ Edit the CSS variables in the style section:
 }
 ```
 
-### Adjust Animations
+3) Adjust Animations
 Modify the anime.js parameters in the script section:
 ```javascript
 // Particle count
@@ -96,7 +103,58 @@ anime({
 });
 ```
 
-## 🖥️ Technologies Used
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Symbols/Heart%20On%20Fire.webp" alt="Heart On Fire" width="25" height="25" /> How to Add QR Code by URL
+I've implemented QR code integration using an external URL. Here's how it works:
+
+1) QR Code Generation:
+
+```html
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=zerotwo002@animebank&pn=Zero%20Two%20Pay&mc=0000&mode=02&purpose=00" 
+     alt="UPI QR Code" 
+     class="qr-image"
+     id="qr-image">
+```
+
+2) URL Parameters Explained:
+- [x] `size=150x150`: Sets the dimensions of the QR code
+- [x] `data=upi://pay?pa`=...: Contains the UPI payment details
+- [x] `pn=Zero%20Two%20Pay`: Sets the payee name
+- [x] `mc=0000`: Merchant code
+- [x] `mode=02`: Transaction mode
+
+4) Download Functionality:
+```javascript
+document.getElementById('download-qr').addEventListener('click', function() {
+    const qrImage = document.getElementById('qr-image');
+    const imageUrl = qrImage.src;
+    
+    // Create a temporary link
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = 'anipay-qrcode.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showNotification('QR Code downloaded!');
+});
+```
+
+4) Copy to Clipboard:
+```javascript
+document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const textElement = document.getElementById(targetId);
+        const text = textElement.textContent;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            showNotification('Copied to clipboard!');
+        });
+    });
+});
+```
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Objects/Test%20Tube.webp" alt="Test Tube" width="25" height="25" /> Technologies Used
 
 - **Frontend**
   ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
@@ -110,39 +168,30 @@ anime({
 - **Fonts**
   ![Josefin Sans](https://img.shields.io/badge/Josefin_Sans-000000?style=for-the-badge&logo=google-fonts&logoColor=white)
 
-## 📸 Screenshots
-
-| Indian Payment Methods | International Payment Methods |
-|------------------------|-------------------------------|
-| ![Indian Payments](https://via.placeholder.com/400x600/1a0a2e/ffffff?text=Indian+Payment+Methods) | ![International Payments](https://via.placeholder.com/400x600/1a0a2e/ffffff?text=International+Payment+Methods) |
-
-| Mobile View | Animations |
-|-------------|------------|
-| ![Mobile View](https://via.placeholder.com/300x500/1a0a2e/ffffff?text=Mobile+View) | ![Animations](https://via.placeholder.com/400x300/1a0a2e/ffffff?text=Particle+Animations) |
-
-## 🌟 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a pull request
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 💖 Acknowledgements
-
-- Zero Two (Code:002) from [Darling in the Franxx](https://darli-fra.jp/)
-- [Anime.js](https://animejs.com/) for amazing animations
-- [Font Awesome](https://fontawesome.com/) for beautiful icons
-- [Josefin Sans](https://fonts.google.com/specimen/Josefin+Sans) font
-
 ---
 
-**Made with ❤️ by [Your Name]**  
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/yourhandle)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
+## <img src="https://raw.githubusercontent.com/Shineii86/AniEmojis/main/Objects/Identification%20Card.webp" alt="Identification Card" width="25" height="25" /> License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Symbols/Two%20Hearts.webp" alt="Two Hearts" width="25" height="25" /> Loved My Work?
+
+<img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Animals%20and%20Nature/Star.webp" alt="Star" width="20" height="20" />&nbsp;[Give a star to this project](https://github.com/Shineii86/AniPay/) <br/>
+<img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Animals%20and%20Nature/Cherry%20Blossom.webp" alt="Cherry Blossom" width="20" height="20" />&nbsp;[Follow me on GitHub](https://github.com/Shineii86/Shineii86)<br/>
+
+> <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Smileys/Thinking%20Face.webp" alt="Thinking Face" width="20" height="20" /> Wondering where to get these animated emojis?
+> [Visit here!](https://github.com/Shineii86/AniEmojis) You also should look around my other github repos. Maybe you'll find some cool useful stuff there.
+
+## <img src="https://raw.githubusercontent.com/Shineii86/AniEmojis/refs/heads/main/Objects/Telephone.webp" alt="Telephone" width="25" height="25" /> Contact
+
+<div align="center">
+  
+  *For inquiries or collaborations:*
+     
+[![Telegram Badge](https://img.shields.io/badge/-Telegram-2CA5E0?style=flat&logo=Telegram&logoColor=white)](https://telegram.me/Shineii86 "Contact on Telegram")
+[![Instagram Badge](https://img.shields.io/badge/-Instagram-C13584?style=flat&logo=Instagram&logoColor=white)](https://instagram.com/ikx7.a "Follow on Instagram")
+[![Pinterest Badge](https://img.shields.io/badge/-Pinterest-E60023?style=flat&logo=Pinterest&logoColor=white)](https://pinterest.com/ikx7a "Follow on Pinterest")
+[![Gmail Badge](https://img.shields.io/badge/-Gmail-D14836?style=flat&logo=Gmail&logoColor=white)](mailto:ikx7a@hotmail.com "Send an Email")
+
+  <sup><b>Copyright © 2025 <a href="https://telegram.me/Shineii86">Shinei Nouzen</a> All Rights Reserved</b></sup>
+
+</div>
