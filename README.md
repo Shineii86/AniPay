@@ -1,6 +1,6 @@
 <div align="center">
-  <a href="https://github.com/Shineii86">
-    <img src="./Source/Banner1.png" alt="Banner" height="200">
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/logo.png" alt="logo" height="200">
   </a>
   
 # [AniPay](https://github.com/Shineii86/AniPay)
@@ -11,6 +11,10 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
 ![License](https://img.shields.io/github/license/Shineii86/AniPay?style=for-the-badge)
 ![Last Commit](https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge)
 ![Repo Size](https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge) [![GitHub Stars](https://img.shields.io/github/stars/Shineii86/AniPay?style=for-the-badge)](https://github.com/Shineii86/AniPay/stargazers) [![GitHub Forks](https://img.shields.io/github/forks/Shineii86/AniPay?style=for-the-badge)](https://github.com/Shineii86/AniPay/fork)
+
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/Banner1.png" alt="Banner" height="200">
+  </a>
 
 </div>
 
@@ -41,6 +45,10 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
   - [x] Uses anime.js for advanced animations
   - [x] Josefin Sans font for elegant typography
 
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/Banner2.png" alt="Banner" height="200">
+  </a>
+
 ## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Objects/Mobile%20Phone%20With%20Arrow.webp" alt="Mobile Phone With Arrow" width="25" height="25" /> Getting Started
 
 1. **Clone the repository**
@@ -61,19 +69,33 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
      ```
      Then visit `http://localhost:8000`
 
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/Banner3.png" alt="Banner" height="200">
+  </a>
+
 ## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Activity/Artist%20Palette.webp" alt="Artist Palette" width="25" height="25" /> Customization
 
 1) Change Payment Details
 Edit the payment details in the HTML file:
 ```html
-<!-- Indian Payments -->
+<!-- Indian UPI ID -->
 <div class="id-display">
-  shinei@anipay  <!-- Change UPI ID here -->
+  shinei@anipay
 </div>
 
-<!-- International Payments -->
+<!-- Binance ID -->
 <div class="id-display">
-  853904044  <!-- Change Binance ID here -->
+  853904044
+</div>
+
+<!-- Bybit ID -->
+<div class="id-display">
+  199911528
+</div>
+
+<!-- Tonkeeper Address -->
+<div class="id-display">
+  UQBmK_-2A-gHnhx0hmWdFeQc8X7iZ0O_UkxQbQGU2uA6OwmX
 </div>
 ```
 
@@ -102,6 +124,9 @@ anime({
   easing: 'easeOutExpo'
 });
 ```
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/Banner4.png" alt="Banner" height="200">
+  </a>
 
 ## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Symbols/Heart%20On%20Fire.webp" alt="Heart On Fire" width="25" height="25" /> How to Add QR Code by URL
 I've implemented QR code integration using an external URL. Here's how it works:
@@ -154,6 +179,11 @@ document.querySelectorAll('.copy-btn').forEach(button => {
     });
 });
 ```
+
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/Banner5.png" alt="Banner" height="200">
+  </a>
+
 ## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Objects/Test%20Tube.webp" alt="Test Tube" width="25" height="25" /> Technologies Used
 
 - **Frontend**
@@ -170,6 +200,10 @@ document.querySelectorAll('.copy-btn').forEach(button => {
 
 ---
 
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/Banner6.png" alt="Banner" height="200">
+  </a>
+
 ## <img src="https://raw.githubusercontent.com/Shineii86/AniEmojis/main/Objects/Identification%20Card.webp" alt="Identification Card" width="25" height="25" /> License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -180,6 +214,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 > <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Smileys/Thinking%20Face.webp" alt="Thinking Face" width="20" height="20" /> Wondering where to get these animated emojis?
 > [Visit here!](https://github.com/Shineii86/AniEmojis) You also should look around my other github repos. Maybe you'll find some cool useful stuff there.
+
+  <a href="https://github.com/Shineii86/AniPay">
+    <img src="./Source/Banner7.png" alt="Banner" height="200">
+  </a>
 
 ## <img src="https://raw.githubusercontent.com/Shineii86/AniEmojis/refs/heads/main/Objects/Telephone.webp" alt="Telephone" width="25" height="25" /> Contact
 
