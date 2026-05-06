@@ -254,7 +254,9 @@ Each icon shows a **tooltip on hover** and changes to the **platform's brand col
 | **Top Socials** | Most-clicked social links ranked |
 | **Event Log** | Recent interactions with category, action, timestamp |
 | **30-Day Retention** | Auto-prunes old data |
-| **Open** | `Ctrl+Shift+A` |
+| **Open (Desktop)** | `Ctrl+Shift+A` |
+| **Open (Mobile)** | Tap the footer "AniPay" text **5 times** quickly |
+| **Open (URL)** | Append `?analytics` to page URL |
 
 ### 🔧 Admin Config Editor
 
@@ -551,6 +553,13 @@ seo: {
 | `Ctrl+Shift+A` | Toggle analytics dashboard |
 | `←` `→` | Navigate lightbox images |
 | `↑↑↓↓←→←→BA` | Konami code — Zero Two Mode 🎮 |
+
+### 📱 Mobile Alternatives
+
+| Action | How |
+|--------|-----|
+| **Analytics** | Tap footer "AniPay" text **5 times** — or append `?analytics` to URL |
+| **Admin Panel** | Append `?admin` to URL |
 
 ---
 
