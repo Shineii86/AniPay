@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AniPay | Darling in the Franxx Payment Gateway</title>
-    <meta name="description" content="A beautiful anime-themed multi-method payment gateway. Fork it, customize it, make it yours.">
+    <meta name="description" content="A beautiful anime-themed multi-method payment gateway with social links and posts. Fork it, customize it, make it yours.">
     <meta name="theme-color" content="#ff2a6d">
     <meta name="author" content="Shinei Nouzen">
 
@@ -41,35 +41,74 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-label="Image viewer">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <button class="lightbox-prev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-next" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+        <div class="lightbox-content">
+            <img src="" alt="Post image" class="lightbox-image">
+            <p class="lightbox-caption"></p>
+            <div class="lightbox-dots"></div>
+        </div>
+    </div>
+
     <div class="page-wrapper">
 
-        <!-- Hero -->
-        <header class="hero">
-            <div class="hero-badge">
-                <span class="dot"></span>
-                Open Source &middot; Fork &middot; Customize
-            </div>
-            <h1 class="hero-title">AniPay</h1>
-            <p class="hero-subtitle">
-                Darling in the Franxx inspired payment gateway.<br>
-                One config file. All your payment methods. Zero hassle.
-            </p>
-            <p class="hero-hint">
-                Press <kbd>Esc</kbd> to reset filters &middot; <kbd>Ctrl+K</kbd> to navigate
-            </p>
-            <div class="hero-divider"></div>
-        </header>
+        <!-- ════════════════════════════════════════════════════
+             Profile Section — Twitter/X Style
+             Rendered entirely by JS from SITE_CONFIG.profile
+             ════════════════════════════════════════════════════ -->
+        <section id="profile-section" class="profile-section"></section>
 
-        <!-- Stats -->
-        <div class="stats-bar"></div>
+        <!-- ════════════════════════════════════════════════════
+             Social Media Icons Section
+             Rendered entirely by JS from SITE_CONFIG.socials
+             ════════════════════════════════════════════════════ -->
+        <section id="socials-section" class="socials-section"></section>
 
-        <!-- Category Tabs -->
-        <nav class="category-nav" aria-label="Payment categories"></nav>
+        <!-- ════════════════════════════════════════════════════
+             Instagram-Style Posts Section
+             Rendered entirely by JS from SITE_CONFIG.posts
+             ════════════════════════════════════════════════════ -->
+        <section id="posts-section" class="posts-section"></section>
 
-        <!-- Payment Sections (rendered from config) -->
-        <main id="main-content"></main>
+        <!-- ════════════════════════════════════════════════════
+             Payment Section
+             Rendered entirely by JS from SITE_CONFIG.payments
+             ════════════════════════════════════════════════════ -->
+        <div id="payments-wrapper" class="payments-wrapper">
+            <!-- Hero -->
+            <header class="hero" id="payments-hero">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Open Source &middot; Fork &middot; Customize
+                </div>
+                <h1 class="hero-title">AniPay</h1>
+                <p class="hero-subtitle">
+                    Darling in the Franxx inspired payment gateway.<br>
+                    One config file. All your payment methods. Zero hassle.
+                </p>
+                <p class="hero-hint">
+                    Press <kbd>Esc</kbd> to reset filters &middot; <kbd>Ctrl+K</kbd> to navigate
+                </p>
+                <div class="hero-divider"></div>
+            </header>
 
-        <!-- Footer -->
+            <!-- Stats -->
+            <div class="stats-bar" id="stats-bar"></div>
+
+            <!-- Category Tabs -->
+            <nav class="category-nav" id="category-nav" aria-label="Payment categories"></nav>
+
+            <!-- Payment Sections (rendered from config) -->
+            <main id="main-content"></main>
+        </div>
+
+        <!-- ════════════════════════════════════════════════════
+             Footer
+             Rendered by JS from SITE_CONFIG
+             ════════════════════════════════════════════════════ -->
         <footer class="site-footer">
             <div class="footer-brand">AniPay</div>
             <p class="footer-desc">

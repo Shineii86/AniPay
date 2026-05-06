@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.0.0] - 2026-05-06
+
+### Complete Redesign — Twitter Profile, Social Links, Instagram Posts, Full Customization
+
+#### Added
+- **Twitter/X-style profile section** — banner, avatar, verified badge, bio, location, stats
+- **Social media icons section** — 30+ platforms with enable/disable toggles
+- **Instagram-style posts section** — image grid with carousel support and lightbox
+- **Feature toggle system** — enable/disable any section from config.js
+- **Profile stats** — posts, followers, following counts with animation
+- **Bio link** — clickable link in profile section
+- **Post lightbox** — click to expand images with carousel navigation
+- **Responsive grid** — configurable post columns (2/3/4)
+- **Full config.js documentation** — every field documented with examples
+
+#### Changed
+- **config.js restructured** — new `features`, `profile`, `socials`, `posts` sections
+- **index.html** — new semantic sections for profile, socials, posts
+- **styles.css** — complete redesign with Twitter/Instagram-inspired components
+- **app.js** — modular renderer for all new sections
+
+---
+
 ## [3.1.0] - 2026-05-06
 
 ### Icon Fix, Light/Dark Theme, README Overhaul

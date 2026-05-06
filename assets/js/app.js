@@ -1,7 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════
- *  AniPay v2.0 — Application Engine
- *  Data-driven renderer with modern interactions
+ *  AniPay v4.0 — Application Engine
+ *  Modular renderer: Profile, Socials, Posts, Payments
  * ═══════════════════════════════════════════════════════════
  */
 
@@ -10,6 +10,7 @@
 
   // ── State ──────────────────────────────────────────────
   let activeCategory = 'all';
+  let lightboxState = { images: [], index: 0, caption: '' };
 
   // ── Utilities ──────────────────────────────────────────
   function esc(str) {
@@ -20,6 +21,12 @@
 
   function $(sel, ctx = document) { return ctx.querySelector(sel); }
   function $$(sel, ctx = document) { return [...ctx.querySelectorAll(sel)]; }
+
+  function formatNumber(num) {
+    if (num >= 1000000) return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return num.toString();
+  }
 
   // ── Toast System ───────────────────────────────────────
   function toast(message, icon = 'fa-check-circle') {
@@ -65,13 +72,385 @@
     toast('QR code downloading...', 'fa-download');
   }
 
-  // ── Build Payment Card ─────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  PROFILE SECTION — Twitter/X Style
+  // ═══════════════════════════════════════════════════════════
+
+  function renderProfile() {
+    const section = $('#profile-section');
+    if (!section || !SITE_CONFIG.features.profile) {
+      if (section) section.style.display = 'none';
+      return;
+    }
+
+    const p = SITE_CONFIG.profile;
+    if (!p) { section.style.display = 'none'; return; }
+
+    // Banner
+    let bannerHTML = '';
+    if (p.banner) {
+      bannerHTML = `
+        <div class="profile-banner">
+          <img src="${esc(p.banner)}" alt="Profile banner" loading="lazy">
+        </div>
+      `;
+    }
+
+    // Verified badge
+    const verifiedHTML = p.verified ? `<span class="profile-verified"><i class="fas fa-circle-check"></i></span>` : '';
+
+    // Bio link
+    let bioLinkHTML = '';
+    if (p.bioLink && p.bioLink.enabled && p.bioLink.url) {
+      bioLinkHTML = `
+        <a href="${esc(p.bioLink.url)}" class="profile-bio-link" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-link"></i> ${esc(p.bioLink.label || p.bioLink.url)}
+        </a>
+      `;
+    }
+
+    // Meta items (location, join date)
+    let metaHTML = '';
+    const metaItems = [];
+    if (p.location) {
+      metaItems.push(`<span class="profile-meta-item"><i class="fas fa-location-dot"></i> ${esc(p.location)}</span>`);
+    }
+    if (p.joinDate) {
+      metaItems.push(`<span class="profile-meta-item"><i class="fas fa-calendar"></i> Joined ${esc(p.joinDate)}</span>`);
+    }
+    if (metaItems.length) {
+      metaHTML = `<div class="profile-meta">${metaItems.join('')}</div>`;
+    }
+
+    // Stats
+    let statsHTML = '';
+    if (p.stats) {
+      const statItems = [];
+      const statEntries = [
+        { key: 'posts', data: p.stats.posts },
+        { key: 'followers', data: p.stats.followers },
+        { key: 'following', data: p.stats.following },
+      ];
+      for (const s of statEntries) {
+        if (s.data && s.data.enabled) {
+          statItems.push(`
+            <span class="profile-stat">
+              <span class="profile-stat-count" data-target="${s.data.count}">0</span>
+              <span class="profile-stat-label">${esc(s.data.label)}</span>
+            </span>
+          `);
+        }
+      }
+      if (statItems.length) {
+        statsHTML = `<div class="profile-stats">${statItems.join('')}</div>`;
+      }
+    }
+
+    section.innerHTML = `
+      ${bannerHTML}
+      <div class="profile-info">
+        <div class="profile-avatar-wrap">
+          <img class="profile-avatar" src="${esc(p.avatar)}" alt="${esc(p.displayName)}">
+        </div>
+        <div class="profile-names">
+          <div class="profile-display-name">
+            ${esc(p.displayName)}${verifiedHTML}
+          </div>
+          ${p.username ? `<div class="profile-username">${esc(p.username)}</div>` : ''}
+        </div>
+        ${p.bio ? `<p class="profile-bio">${esc(p.bio)}</p>` : ''}
+        ${bioLinkHTML}
+        ${metaHTML}
+        ${statsHTML}
+      </div>
+    `;
+
+    section.style.display = '';
+
+    // Animate stats
+    setTimeout(() => {
+      $$('.profile-stat-count', section).forEach(el => {
+        const target = +el.dataset.target;
+        const duration = 1200;
+        const start = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          el.textContent = formatNumber(Math.round(target * ease));
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = formatNumber(target);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, 500);
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  SOCIAL MEDIA ICONS SECTION
+  // ═══════════════════════════════════════════════════════════
+
+  function renderSocialsSection() {
+    const section = $('#socials-section');
+    if (!section || !SITE_CONFIG.features.socials) {
+      if (section) section.style.display = 'none';
+      return;
+    }
+
+    const socials = (SITE_CONFIG.socials || []).filter(s => s.enabled && s.url);
+    if (!socials.length) { section.style.display = 'none'; return; }
+
+    const cfg = SITE_CONFIG.socialsSection || {};
+    const showHeader = cfg.enabled !== false;
+
+    let headerHTML = '';
+    if (showHeader && (cfg.title || cfg.subtitle)) {
+      headerHTML = `
+        <div class="socials-header">
+          ${cfg.title ? `<div class="socials-title">${esc(cfg.title)}</div>` : ''}
+          ${cfg.subtitle ? `<div class="socials-subtitle">${esc(cfg.subtitle)}</div>` : ''}
+        </div>
+      `;
+    }
+
+    const iconsHTML = socials.map(s => {
+      const platform = SOCIAL_ICONS[s.platform] || SOCIAL_ICONS.custom;
+      const icon = platform.icon;
+      const label = platform.label;
+      const hoverColor = platform.color;
+
+      return `
+        <a href="${esc(s.url)}" class="social-icon-link" target="_blank" rel="noopener noreferrer"
+           aria-label="${esc(label)}"
+           style="--hover-color: ${hoverColor}"
+           data-color="${esc(hoverColor)}">
+          <i class="${icon}"></i>
+          <span class="social-tooltip">${esc(label)}</span>
+        </a>
+      `;
+    }).join('');
+
+    section.innerHTML = `
+      ${headerHTML}
+      <div class="socials-grid">${iconsHTML}</div>
+    `;
+
+    section.style.display = '';
+
+    // Add hover color effect
+    $$('.social-icon-link', section).forEach(link => {
+      const color = link.dataset.color;
+      link.addEventListener('mouseenter', () => {
+        link.style.background = color;
+        link.style.borderColor = 'transparent';
+        link.style.color = '#fff';
+        link.style.boxShadow = `0 8px 20px ${color}40`;
+      });
+      link.addEventListener('mouseleave', () => {
+        link.style.background = '';
+        link.style.borderColor = '';
+        link.style.color = '';
+        link.style.boxShadow = '';
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  INSTAGRAM-STYLE POSTS SECTION
+  // ═══════════════════════════════════════════════════════════
+
+  function renderPostsSection() {
+    const section = $('#posts-section');
+    if (!section || !SITE_CONFIG.features.posts) {
+      if (section) section.style.display = 'none';
+      return;
+    }
+
+    const posts = (SITE_CONFIG.posts.items || []).filter(p => p.enabled);
+    if (!posts.length) { section.style.display = 'none'; return; }
+
+    const cfg = SITE_CONFIG.posts;
+    const columns = cfg.columns || 3;
+
+    let headerHTML = '';
+    if (cfg.title || cfg.subtitle) {
+      headerHTML = `
+        <div class="posts-header">
+          ${cfg.title ? `<div class="posts-title">${esc(cfg.title)}</div>` : ''}
+          ${cfg.subtitle ? `<div class="posts-subtitle">${esc(cfg.subtitle)}</div>` : ''}
+        </div>
+      `;
+    }
+
+    const postsHTML = posts.map((post, idx) => {
+      const mainImage = post.images[0] || '';
+      const isCarousel = post.images.length > 1;
+      const likes = post.likes != null ? post.likes : null;
+
+      let overlayHTML = '';
+      if (likes != null) {
+        overlayHTML = `
+          <div class="post-overlay">
+            <span class="post-stat"><i class="fas fa-heart"></i> ${formatNumber(likes)}</span>
+          </div>
+        `;
+      }
+
+      let carouselHTML = '';
+      if (isCarousel) {
+        carouselHTML = `<span class="post-carousel-indicator"><i class="fas fa-images"></i> ${post.images.length}</span>`;
+      }
+
+      return `
+        <div class="post-item" data-post-index="${idx}" data-images='${esc(JSON.stringify(post.images))}' data-caption="${esc(post.caption || '')}">
+          <img src="${esc(mainImage)}" alt="${esc(post.caption || 'Post')}" loading="lazy">
+          ${overlayHTML}
+          ${carouselHTML}
+        </div>
+      `;
+    }).join('');
+
+    section.innerHTML = `
+      ${headerHTML}
+      <div class="posts-grid" data-columns="${columns}">${postsHTML}</div>
+    `;
+
+    section.style.display = '';
+
+    // Post click → open lightbox
+    $$('.post-item', section).forEach(item => {
+      item.addEventListener('click', () => {
+        const images = JSON.parse(item.dataset.images);
+        const caption = item.dataset.caption;
+        openLightbox(images, 0, caption);
+      });
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  LIGHTBOX
+  // ═══════════════════════════════════════════════════════════
+
+  function openLightbox(images, index, caption) {
+    lightboxState = { images, index, caption };
+    const overlay = $('#lightbox');
+    if (!overlay) return;
+
+    updateLightboxImage();
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const overlay = $('#lightbox');
+    if (!overlay) return;
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function updateLightboxImage() {
+    const img = $('.lightbox-image');
+    const captionEl = $('.lightbox-caption');
+    const dotsEl = $('.lightbox-dots');
+    if (!img) return;
+
+    const { images, index, caption } = lightboxState;
+    img.src = images[index] || '';
+
+    if (captionEl) {
+      captionEl.textContent = caption || '';
+      captionEl.style.display = caption ? '' : 'none';
+    }
+
+    // Dots
+    if (dotsEl) {
+      if (images.length > 1) {
+        dotsEl.innerHTML = images.map((_, i) =>
+          `<button class="lightbox-dot${i === index ? ' active' : ''}" data-index="${i}"></button>`
+        ).join('');
+        dotsEl.style.display = '';
+      } else {
+        dotsEl.style.display = 'none';
+      }
+    }
+
+    // Prev/Next visibility
+    const prev = $('.lightbox-prev');
+    const next = $('.lightbox-next');
+    if (prev) prev.style.display = images.length > 1 ? '' : 'none';
+    if (next) next.style.display = images.length > 1 ? '' : 'none';
+  }
+
+  function lightboxPrev() {
+    if (lightboxState.images.length <= 1) return;
+    lightboxState.index = (lightboxState.index - 1 + lightboxState.images.length) % lightboxState.images.length;
+    updateLightboxImage();
+  }
+
+  function lightboxNext() {
+    if (lightboxState.images.length <= 1) return;
+    lightboxState.index = (lightboxState.index + 1) % lightboxState.images.length;
+    updateLightboxImage();
+  }
+
+  function initLightbox() {
+    const overlay = $('#lightbox');
+    if (!overlay) return;
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.classList.contains('lightbox-content')) {
+        closeLightbox();
+      }
+    });
+
+    const closeBtn = $('.lightbox-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+    const prevBtn = $('.lightbox-prev');
+    if (prevBtn) prevBtn.addEventListener('click', lightboxPrev);
+
+    const nextBtn = $('.lightbox-next');
+    if (nextBtn) nextBtn.addEventListener('click', lightboxNext);
+
+    // Dots click
+    overlay.addEventListener('click', (e) => {
+      const dot = e.target.closest('.lightbox-dot');
+      if (dot) {
+        lightboxState.index = parseInt(dot.dataset.index, 10);
+        updateLightboxImage();
+      }
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (!overlay.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lightboxPrev();
+      if (e.key === 'ArrowRight') lightboxNext();
+    });
+
+    // Swipe support
+    let touchStartX = 0;
+    overlay.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    overlay.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) lightboxNext();
+        else lightboxPrev();
+      }
+    }, { passive: true });
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  PAYMENT CARDS (existing, preserved)
+  // ═══════════════════════════════════════════════════════════
+
   function buildCard(method) {
     const card = document.createElement('div');
     card.className = 'pay-card';
     card.style.setProperty('--card-accent', method.color || 'var(--gradient-main)');
 
-    // Badge
     if (method.badge) {
       const badge = document.createElement('span');
       badge.className = `card-badge ${method.badge}`;
@@ -79,7 +458,6 @@
       card.appendChild(badge);
     }
 
-    // Icon
     const icon = document.createElement('div');
     icon.className = 'card-icon';
     icon.style.background = method.iconBg || 'var(--bg-glass)';
@@ -88,13 +466,11 @@
     icon.innerHTML = `<i class="${method.icon}"></i>`;
     card.appendChild(icon);
 
-    // Name
     const name = document.createElement('div');
     name.className = 'card-name';
     name.textContent = method.name;
     card.appendChild(name);
 
-    // Label
     if (method.label) {
       const label = document.createElement('div');
       label.className = 'card-label';
@@ -102,13 +478,11 @@
       card.appendChild(label);
     }
 
-    // Description
     const desc = document.createElement('div');
     desc.className = 'card-description';
     desc.textContent = method.description;
     card.appendChild(desc);
 
-    // QR or Value
     if (method.type === 'qr') {
       const qrWrap = document.createElement('div');
       qrWrap.className = 'card-qr';
@@ -133,7 +507,6 @@
       card.appendChild(valWrap);
     }
 
-    // Action Buttons
     const actions = document.createElement('div');
     actions.className = 'card-actions';
 
@@ -167,7 +540,6 @@
     return card;
   }
 
-  // ── Build Section ──────────────────────────────────────
   function buildSection(key, config) {
     const enabled = config.items.filter(m => m.enabled);
     if (!enabled.length) return null;
@@ -192,7 +564,6 @@
     enabled.forEach((method, i) => {
       const card = buildCard(method);
       grid.appendChild(card);
-      // Staggered card reveal
       setTimeout(() => card.classList.add('visible'), 150 + i * 100);
     });
 
@@ -200,12 +571,14 @@
     return section;
   }
 
-  // ── Build Category Tabs ────────────────────────────────
-  function buildTabs() {
-    const nav = $('.category-nav');
-    if (!nav) return;
+  // ═══════════════════════════════════════════════════════════
+  //  PAYMENT TABS & FILTERING
+  // ═══════════════════════════════════════════════════════════
 
-    // "All" tab
+  function buildTabs() {
+    const nav = $('#category-nav');
+    if (!nav || !SITE_CONFIG.features.payments) return;
+
     const allTab = document.createElement('button');
     allTab.className = 'category-tab active';
     allTab.dataset.cat = 'all';
@@ -213,7 +586,6 @@
     allTab.innerHTML = `<i class="fas fa-grip"></i><span class="tab-label">All Methods</span><span class="category-count">${totalCount}</span>`;
     nav.appendChild(allTab);
 
-    // Category tabs
     Object.entries(PAYMENT_METHODS).forEach(([key, cat]) => {
       const count = cat.items.filter(i => i.enabled).length;
       if (!count) return;
@@ -224,7 +596,6 @@
       nav.appendChild(tab);
     });
 
-    // Tab click handler
     nav.addEventListener('click', (e) => {
       const tab = e.target.closest('.category-tab');
       if (!tab) return;
@@ -235,7 +606,6 @@
     });
   }
 
-  // ── Filter Sections ────────────────────────────────────
   function filterSections() {
     $$('.payment-section').forEach(sec => {
       if (activeCategory === 'all' || sec.dataset.category === activeCategory) {
@@ -248,10 +618,13 @@
     });
   }
 
-  // ── Stats Counter ──────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  STATS COUNTER
+  // ═══════════════════════════════════════════════════════════
+
   function buildStats() {
-    const bar = $('.stats-bar');
-    if (!bar) return;
+    const bar = $('#stats-bar');
+    if (!bar || !SITE_CONFIG.features.stats || !SITE_CONFIG.features.payments) return;
 
     const allMethods = Object.values(PAYMENT_METHODS).flatMap(c => c.items);
     const enabled = allMethods.filter(m => m.enabled);
@@ -270,7 +643,6 @@
       bar.appendChild(item);
     });
 
-    // Animate numbers
     setTimeout(() => {
       $$('.stat-number').forEach(el => {
         const target = +el.dataset.target;
@@ -287,24 +659,32 @@
     }, 600);
   }
 
-  // ── Render Social Links ────────────────────────────────
-  function renderSocials() {
+  // ═══════════════════════════════════════════════════════════
+  //  FOOTER SOCIALS
+  // ═══════════════════════════════════════════════════════════
+
+  function renderFooterSocials() {
     const row = $('.social-row');
     if (!row || !SITE_CONFIG.socials) return;
     row.innerHTML = '';
-    SITE_CONFIG.socials.forEach(s => {
+    const enabled = SITE_CONFIG.socials.filter(s => s.enabled && s.url);
+    enabled.forEach(s => {
+      const platform = SOCIAL_ICONS[s.platform] || SOCIAL_ICONS.custom;
       const a = document.createElement('a');
       a.href = s.url;
       a.className = 'social-link';
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
-      a.setAttribute('aria-label', s.label);
-      a.innerHTML = `<i class="${s.icon}"></i>`;
+      a.setAttribute('aria-label', platform.label);
+      a.innerHTML = `<i class="${platform.icon}"></i>`;
       row.appendChild(a);
     });
   }
 
-  // ── Render Footer ──────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  FOOTER CONTENT
+  // ═══════════════════════════════════════════════════════════
+
   function renderFooter() {
     const brand = $('.footer-brand');
     if (brand) brand.textContent = SITE_CONFIG.name;
@@ -315,8 +695,12 @@
     document.title = `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`;
   }
 
-  // ── Background Particles ───────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  BACKGROUND PARTICLES
+  // ═══════════════════════════════════════════════════════════
+
   function initParticles() {
+    if (!SITE_CONFIG.features.particles) return;
     const canvas = $('#bg-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -361,8 +745,12 @@
     loop();
   }
 
-  // ── Scroll Progress ────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  SCROLL PROGRESS
+  // ═══════════════════════════════════════════════════════════
+
   function initScrollProgress() {
+    if (!SITE_CONFIG.features.scrollProgress) return;
     const bar = $('.scroll-progress');
     if (!bar) return;
     window.addEventListener('scroll', () => {
@@ -371,10 +759,17 @@
     }, { passive: true });
   }
 
-  // ── Theme Toggle ───────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  THEME TOGGLE
+  // ═══════════════════════════════════════════════════════════
+
   function initTheme() {
     const toggle = $('#theme-toggle');
     if (!toggle) return;
+    if (!SITE_CONFIG.features.themeToggle) {
+      toggle.style.display = 'none';
+      return;
+    }
     const stored = localStorage.getItem('anipay-theme');
     if (stored) document.documentElement.dataset.theme = stored;
 
@@ -390,17 +785,27 @@
     });
   }
 
-  // ── Back to Top ────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  BACK TO TOP
+  // ═══════════════════════════════════════════════════════════
+
   function initBackToTop() {
     const btn = $('.back-to-top');
     if (!btn) return;
+    if (!SITE_CONFIG.features.backToTop) {
+      btn.style.display = 'none';
+      return;
+    }
     window.addEventListener('scroll', () => {
       btn.classList.toggle('visible', window.scrollY > 400);
     }, { passive: true });
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  // ── Scroll Reveal ──────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  SCROLL REVEAL
+  // ═══════════════════════════════════════════════════════════
+
   function initReveal() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -410,31 +815,53 @@
         }
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    // Observe profile, socials, posts sections
+    ['#profile-section', '#socials-section', '#posts-section'].forEach(sel => {
+      const el = $(sel);
+      if (el && el.style.display !== 'none') observer.observe(el);
+    });
+
+    // Observe payment sections and cards
     $$('.payment-section, .pay-card').forEach(el => observer.observe(el));
   }
 
-  // ── Keyboard Shortcuts ─────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  KEYBOARD SHORTCUTS
+  // ═══════════════════════════════════════════════════════════
+
   function initKeyboard() {
     document.addEventListener('keydown', (e) => {
-      // Ctrl/Cmd + K = focus first tab
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         const firstTab = $('.category-tab');
         if (firstTab) firstTab.focus();
       }
-      // Escape = reset to "All"
       if (e.key === 'Escape') {
         const allTab = $('[data-cat="all"]');
-        if (allTab) allTab.click();
+        if (allTab && !$('#lightbox.active')) allTab.click();
       }
     });
   }
 
-  // ── Entry Animations (anime.js) ────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  ENTRY ANIMATIONS (anime.js)
+  // ═══════════════════════════════════════════════════════════
+
   function initAnimations() {
     if (typeof anime === 'undefined') return;
     const ease = 'easeOutExpo';
 
+    // Profile animation
+    anime({ targets: '#profile-section', opacity: [0, 1], translateY: [20, 0], duration: 800, easing: ease });
+
+    // Socials animation
+    anime({ targets: '.social-icon-link', opacity: [0, 1], scale: [0.5, 1], delay: anime.stagger(30, { start: 300 }), duration: 500, easing: 'easeOutBack' });
+
+    // Posts animation
+    anime({ targets: '.post-item', opacity: [0, 1], scale: [0.9, 1], delay: anime.stagger(50, { start: 400 }), duration: 600, easing: ease });
+
+    // Hero animations
     anime({ targets: '.hero-badge', opacity: [0, 1], translateY: [-15, 0], duration: 800, easing: ease });
     anime({ targets: '.hero-title', opacity: [0, 1], translateY: [-25, 0], delay: 150, duration: 1000, easing: ease });
     anime({ targets: '.hero-subtitle', opacity: [0, 1], translateY: [15, 0], delay: 300, duration: 900, easing: ease });
@@ -442,32 +869,62 @@
     anime({ targets: '.stat-item', opacity: [0, 1], translateY: [20, 0], delay: anime.stagger(100, { start: 400 }), duration: 700, easing: ease });
     anime({ targets: '.category-tab', opacity: [0, 1], scale: [0.9, 1], delay: anime.stagger(60, { start: 600 }), duration: 600, easing: 'easeOutBack' });
 
-    // Social hover
+    // Footer social hover
     $$('.social-link').forEach(link => {
       link.addEventListener('mouseenter', () => anime({ targets: link, scale: 1.15, duration: 200, easing: 'easeOutQuad' }));
       link.addEventListener('mouseleave', () => anime({ targets: link, scale: 1, duration: 200, easing: 'easeOutQuad' }));
     });
   }
 
-  // ── Render Everything ──────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  PAYMENTS VISIBILITY
+  // ═══════════════════════════════════════════════════════════
+
+  function togglePaymentsWrapper() {
+    const wrapper = $('#payments-wrapper');
+    if (!wrapper) return;
+    if (!SITE_CONFIG.features.payments) {
+      wrapper.style.display = 'none';
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  RENDER ALL
+  // ═══════════════════════════════════════════════════════════
+
   function render() {
-    const main = $('#main-content');
-    if (!main) return;
+    // 1. Profile
+    renderProfile();
 
-    // Build sections
-    Object.entries(PAYMENT_METHODS).forEach(([key, config]) => {
-      const section = buildSection(key, config);
-      if (section) main.appendChild(section);
-    });
+    // 2. Socials
+    renderSocialsSection();
 
-    // Build UI
-    buildTabs();
-    buildStats();
-    renderSocials();
+    // 3. Posts
+    renderPostsSection();
+
+    // 4. Payments
+    togglePaymentsWrapper();
+    if (SITE_CONFIG.features.payments) {
+      const main = $('#main-content');
+      if (main) {
+        Object.entries(PAYMENT_METHODS).forEach(([key, config]) => {
+          const section = buildSection(key, config);
+          if (section) main.appendChild(section);
+        });
+      }
+      buildTabs();
+      buildStats();
+    }
+
+    // 5. Footer
+    renderFooterSocials();
     renderFooter();
   }
 
-  // ── Init ───────────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════
+  //  INIT
+  // ═══════════════════════════════════════════════════════════
+
   document.addEventListener('DOMContentLoaded', () => {
     render();
     initTheme();
@@ -475,6 +932,7 @@
     initScrollProgress();
     initBackToTop();
     initKeyboard();
+    initLightbox();
     initAnimations();
     requestAnimationFrame(() => initReveal());
   });
