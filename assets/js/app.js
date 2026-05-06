@@ -780,6 +780,42 @@
   }
 
   // ═══════════════════════════════════════════════════════════
+  //  DESIGN MODE TOGGLE (Anime ↔ Material 3)
+  // ═══════════════════════════════════════════════════════════
+
+  function applyDesignMode(mode) {
+    const root = document.documentElement;
+    if (mode === 'm3') {
+      root.setAttribute('data-design', 'm3');
+    } else {
+      root.removeAttribute('data-design');
+    }
+    localStorage.setItem('anipay-design', mode);
+  }
+
+  function initDesignToggle() {
+    const cfg = SITE_CONFIG.design || {};
+    const toggle = $('#design-toggle');
+    if (!toggle) return;
+
+    if (cfg.allowToggle === false) {
+      toggle.style.display = 'none';
+      return;
+    }
+
+    // Apply stored or config default
+    const stored = localStorage.getItem('anipay-design') || cfg.mode || 'anime';
+    applyDesignMode(stored);
+
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-design');
+      const next = current === 'm3' ? 'anime' : 'm3';
+      applyDesignMode(next);
+      toast(next === 'm3' ? 'Material 3 mode' : 'Anime mode', next === 'm3' ? 'fa-layer-group' : 'fa-palette');
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
   //  ACCENT THEME SYSTEM
   // ═══════════════════════════════════════════════════════════
 
@@ -1311,6 +1347,7 @@
     initLoadingScreen();
     loadCustomFonts();
     render();
+    initDesignToggle();
     initTheme();
     renderAccentPicker();
     initParticles();

@@ -55,7 +55,7 @@ const SITE_CONFIG = {
 
   // ── Site Identity ────────────────────────────────────────
   name: "AniPay",
-  version: "4.0",
+  version: "5.0",
   tagline: "Darling in the Franxx Inspired Payment Gateway",
   description: "A beautiful, anime-themed multi-method payment page with social links and posts. Fork it, customize it, make it yours.",
   footer: "Inspired by Code:002 from Darling in the Franxx",
@@ -110,6 +110,14 @@ const SITE_CONFIG = {
     duration: 1500,            // Minimum display time in ms (before fade-out)
     logo: "./Source/logo.png", // Logo shown during loading
     text: "AniPay",            // Text below logo
+  },
+
+  // ── Design Mode ────────────────────────────────────────
+  // Switch between the original anime glassmorphism style and Material 3 (Pixel) design.
+  // Users can toggle this live via the floating palette button.
+  design: {
+    mode: "anime",              // "anime" = original dark glassmorphism | "m3" = Material 3 / Pixel
+    allowToggle: true,          // Show the floating design mode toggle button
   },
 
   // ── Accent Theme ────────────────────────────────────────

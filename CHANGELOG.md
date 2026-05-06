@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.0.0] - 2026-05-06
+
+### Material 3 (Pixel) Design System with Toggle Mode
+
+#### Added
+- **Material 3 design system** — complete Google Material Design 3 / Material You redesign with proper design tokens, tonal surfaces, state layers, and M3 typography scale
+- **Design mode toggle** — floating palette button (next to theme toggle) lets users switch between "Anime" (original dark glassmorphism) and "Material 3" (Pixel) styles in real-time
+- **M3 dark theme tokens** — full M3 color palette: primary (#FFB1C8), secondary (#E2BDC8), tertiary (#EFBD94), surface tonal hierarchy, error colors, outline/outline-variant
+- **M3 light theme tokens** — proper M3 light palette: primary (#9A4064), surface (#FFFBFF), container hierarchy, inverse colors
+- **M3 component styles** — all components restyled: cards, buttons, tabs, toast, lightbox, social icons, profile, footer, QR popover, share dropdown, scroll progress, back-to-top
+- **M3 state layers** — hover (8%), focus (12%), pressed (12%), dragged (16%) opacity overlays on interactive elements
+- **M3 elevation system** — tonal surface elevation instead of box-shadows; cards use surface-container → surface-container-high on hover
+- **M3 shape system** — consistent border radius tokens: xs(4px), sm(8px), md(12px), lg(16px), xl(28px), full(100px)
+- **Design mode persistence** — user's design choice saved to localStorage and restored on revisit
+- **`material3.css`** — new dedicated M3 stylesheet (29KB) with all M3 tokens and component overrides
+- **Config toggle** — new `design` section in config.js with `mode` ("anime"/"m3") and `allowToggle` (true/false) settings
+
+#### Changed
+- **index.html** — added `material3.css` link, added design toggle button with palette/layer-group icons
+- **config.js** — added `design` configuration section, bumped version to 5.0
+- **app.js** — added `applyDesignMode()`, `initDesignToggle()` functions, integrated into init chain
+
+#### Design Details
+- M3 cards use tonal surface backgrounds (`surface-container`) with `outline-variant` borders
+- M3 buttons use filled tonal style with state layer overlays (no gradient shine)
+- M3 tabs use pill shape with filled primary for active state
+- M3 toast uses inverse-surface for snackbar appearance
+- M3 scrollbar uses outline-variant track with full-radius thumb
+- M3 particles hidden (clean surface aesthetic)
+- Accent picker hidden in M3 mode (M3 has its own color system)
+- Smooth transitions between design modes (CSS-driven, no page reload)
+
+---
+
 ## [4.2.3] - 2026-05-06
 
 ### QR Popover & Share Dropdown — Overflow Fix
