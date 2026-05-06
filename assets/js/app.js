@@ -167,6 +167,18 @@
 
     section.style.display = '';
 
+    // Bio typing animation
+    if (p.bio && p.bioTyping) {
+      const bioEl = section.querySelector('.profile-bio');
+      if (bioEl) {
+        const bioText = bioEl.textContent;
+        setTimeout(() => typeWriter(bioEl, bioText, 40), 600);
+      }
+    }
+
+    // QR Code popover
+    renderQRPopover();
+
     // Animate stats
     setTimeout(() => {
       $$('.profile-stat-count', section).forEach(el => {
@@ -696,6 +708,171 @@
   }
 
   // ═══════════════════════════════════════════════════════════
+  //  TYPING ANIMATION — Bio text
+  // ═══════════════════════════════════════════════════════════
+
+  function typeWriter(element, text, speed = 40) {
+    if (!element || !text) return;
+    element.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'profile-bio-cursor';
+    element.appendChild(cursor);
+
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        // Remove cursor after a delay
+        setTimeout(() => {
+          if (cursor.parentNode) cursor.remove();
+        }, 2000);
+      }
+    }
+    type();
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  ACCENT THEME SYSTEM
+  // ═══════════════════════════════════════════════════════════
+
+  function applyAccent(accentName) {
+    const theme = SITE_CONFIG.theme || {};
+    const accents = theme.accents || {};
+    const root = document.documentElement;
+
+    if (accentName === 'custom') {
+      const custom = theme.customColor || '#ff2a6d';
+      root.removeAttribute('data-accent');
+      root.style.setProperty('--accent-main', custom);
+      // Inline gradient override
+      root.style.setProperty('--gradient-main', `linear-gradient(135deg, ${custom}, #d16ba5, #86a8e7, #5ffbf1)`);
+      root.style.setProperty('--gradient-pink', `linear-gradient(135deg, ${custom}, #d16ba5)`);
+    } else {
+      root.style.removeProperty('--accent-main');
+      root.style.removeProperty('--gradient-main');
+      root.style.removeProperty('--gradient-pink');
+      root.setAttribute('data-accent', accentName);
+    }
+
+    localStorage.setItem('anipay-accent', accentName);
+
+    // Update active dot
+    $$('.accent-dot').forEach(dot => {
+      dot.classList.toggle('active', dot.dataset.accent === accentName);
+    });
+  }
+
+  function renderAccentPicker() {
+    const container = $('#accent-picker');
+    if (!container) return;
+
+    const theme = SITE_CONFIG.theme || {};
+    if (!theme.accentPicker) {
+      container.style.display = 'none';
+      return;
+    }
+
+    const accents = theme.accents || {};
+    const stored = localStorage.getItem('anipay-accent') || theme.accent || 'pink';
+
+    container.innerHTML = '';
+
+    Object.entries(accents).forEach(([key, data]) => {
+      const dot = document.createElement('button');
+      dot.className = 'accent-dot' + (key === stored ? ' active' : '');
+      dot.dataset.accent = key;
+      dot.style.background = data.color;
+      dot.style.color = data.color;
+      dot.setAttribute('aria-label', `${data.label} accent`);
+      dot.innerHTML = `<span class="accent-tooltip">${esc(data.label)}</span>`;
+      dot.addEventListener('click', () => applyAccent(key));
+      container.appendChild(dot);
+    });
+
+    // Custom color dot
+    if (theme.accent === 'custom' || stored === 'custom') {
+      const dot = document.createElement('button');
+      dot.className = 'accent-dot' + ('custom' === stored ? ' active' : '');
+      dot.dataset.accent = 'custom';
+      dot.style.background = theme.customColor || '#ff2a6d';
+      dot.style.color = theme.customColor || '#ff2a6d';
+      dot.setAttribute('aria-label', 'Custom accent');
+      dot.innerHTML = `<span class="accent-tooltip">Custom</span>`;
+      dot.addEventListener('click', () => applyAccent('custom'));
+      container.appendChild(dot);
+    }
+
+    // Apply stored accent
+    applyAccent(stored);
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  QR CODE POPOVER
+  // ═══════════════════════════════════════════════════════════
+
+  function renderQRPopover() {
+    const profile = SITE_CONFIG.profile;
+    if (!profile || !profile.qrCode || !profile.qrCode.enabled) return;
+
+    const bioLinkWrap = $('.profile-bio-link');
+    if (!bioLinkWrap) return;
+
+    // Create QR button next to bio link
+    const qrBtn = document.createElement('button');
+    qrBtn.className = 'profile-qr-btn';
+    qrBtn.setAttribute('aria-label', 'Show QR code');
+    qrBtn.innerHTML = '<i class="fas fa-qrcode"></i>';
+
+    // Create popover
+    const pageUrl = window.location.href;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(pageUrl)}`;
+
+    const popover = document.createElement('div');
+    popover.className = 'qr-popover';
+    popover.innerHTML = `
+      <button class="qr-popover-close" aria-label="Close"><i class="fas fa-xmark"></i></button>
+      <img src="${qrUrl}" alt="QR Code for this page">
+      <div class="qr-popover-text">Scan to visit</div>
+      <div class="qr-popover-url">${esc(pageUrl)}</div>
+    `;
+
+    // Position relative to the button's parent
+    const wrapper = document.createElement('span');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-flex';
+    wrapper.style.alignItems = 'center';
+    bioLinkWrap.parentNode.insertBefore(wrapper, bioLinkWrap);
+    wrapper.appendChild(bioLinkWrap);
+    wrapper.appendChild(qrBtn);
+    wrapper.appendChild(popover);
+
+    // Toggle popover
+    qrBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      popover.classList.toggle('open');
+    });
+
+    // Close button
+    const closeBtn = popover.querySelector('.qr-popover-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        popover.classList.remove('open');
+      });
+    }
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!popover.contains(e.target) && e.target !== qrBtn && !qrBtn.contains(e.target)) {
+        popover.classList.remove('open');
+      }
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
   //  BACKGROUND PARTICLES
   // ═══════════════════════════════════════════════════════════
 
@@ -928,6 +1105,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     render();
     initTheme();
+    renderAccentPicker();
     initParticles();
     initScrollProgress();
     initBackToTop();

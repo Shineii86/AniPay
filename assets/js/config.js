@@ -65,6 +65,34 @@ const SITE_CONFIG = {
     url: "https://github.com/shineii86"
   },
 
+  // ── SEO & Open Graph ────────────────────────────────────
+  // Controls meta tags for social sharing (Twitter, Discord, Telegram, etc.)
+  // and PWA manifest metadata.
+  seo: {
+    enabled: true,                // Set false to skip injecting OG/Twitter meta tags
+    title: "AniPay | Darling in the Franxx Payment Gateway",
+    description: "A beautiful, anime-themed profile page with social links, posts, and payments.",
+    image: "./Source/Banner1.png",   // OG image — recommended 1200x630
+    url: "https://shineii86.github.io/AniPay/",  // Canonical URL
+    twitterCard: "summary_large_image",            // "summary" | "summary_large_image"
+    type: "website",                              // OG type
+  },
+
+  // ── Accent Theme ────────────────────────────────────────
+  // Multiple accent color options with a floating picker UI.
+  // Stored in localStorage so the user's choice persists.
+  theme: {
+    accentPicker: true,           // Show the floating accent color picker
+    accent: "pink",               // Default accent: "pink" | "teal" | "purple" | "gold" | "custom"
+    customColor: "#ff2a6d",       // Only used when accent is "custom" — any valid CSS color
+    accents: {
+      pink:   { color: "#ff2a6d", label: "Pink" },
+      teal:   { color: "#5ffbf1", label: "Teal" },
+      purple: { color: "#a855f7", label: "Purple" },
+      gold:   { color: "#fbbf24", label: "Gold" },
+    },
+  },
+
   // ── Feature Toggles ──────────────────────────────────────
   // Set any to false to hide that entire section
   features: {
@@ -95,6 +123,10 @@ const SITE_CONFIG = {
     location: "Tokyo, Japan",          // Location text (set to "" to hide)
     joinDate: "January 2024",          // Join date text (set to "" to hide)
     verified: true,                     // Show verified badge (blue checkmark)
+    bioTyping: true,                    // Typing animation on bio text (character-by-character reveal)
+    qrCode: {                           // QR code popover — generates QR linking to current page
+      enabled: true,                    // Set false to hide QR button
+    },
 
     // Profile stats — each can be enabled/disabled
     stats: {

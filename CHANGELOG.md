@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.1.0] - 2026-05-06
+
+### Quick Wins — PWA, OG Tags, Typing Bio, Accent Themes, Profile QR
+
+#### Added
+- **PWA support** — installable on phone/desktop, service worker caching, manifest.json
+- **Open Graph meta tags** — social share previews for Twitter, Discord, Telegram, etc.
+- **Typing animation on bio** — character-by-character reveal with blinking cursor
+- **Multiple accent themes** — pink, teal, purple, gold, custom — with floating picker
+- **Profile QR code** — generate QR linking to your profile, share easily
+- **Favicon** — logo.png as browser tab icon
+
+#### Changed
+- **config.js** — new `seo`, `theme`, `profile.bioTyping`, `profile.qrCode` sections
+- **index.html** — PWA meta tags, OG tags, favicon, service worker registration
+- **styles.css** — accent theme variables, typing cursor, QR popover, accent picker UI
+- **app.js** — typeWriter function, accent theme system, QR popover renderer
+
+---
+
 ## [4.0.1] - 2026-05-06
 
 ### README Overhaul for v4.0

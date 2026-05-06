@@ -8,6 +8,25 @@
     <meta name="theme-color" content="#ff2a6d">
     <meta name="author" content="Shinei Nouzen">
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AniPay | Darling in the Franxx Payment Gateway">
+    <meta property="og:description" content="A beautiful, anime-themed profile page with social links, posts, and payments.">
+    <meta property="og:image" content="./Source/Banner1.png">
+    <meta property="og:url" content="https://shineii86.github.io/AniPay/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AniPay | Darling in the Franxx Payment Gateway">
+    <meta name="twitter:description" content="A beautiful, anime-themed profile page with social links, posts, and payments.">
+    <meta name="twitter:image" content="./Source/Banner1.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./Source/logo.png">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +51,9 @@
         <i class="fas fa-moon"></i>
         <i class="fas fa-sun"></i>
     </button>
+
+    <!-- Accent Theme Picker -->
+    <div class="accent-picker" id="accent-picker"></div>
 
     <!-- Toast Container -->
     <div class="toast-container"></div>
@@ -131,5 +153,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
     <script src="assets/js/config.js"></script>
     <script src="assets/js/app.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
+        });
+      }
+    </script>
 </body>
 </html>
