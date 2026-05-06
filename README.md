@@ -1,35 +1,55 @@
 <div align="center">
 
-  <a href="https://github.com/Shineii86/AniPay">
-    <img src="./Source/logo.png" alt="AniPay Logo" height="180">
+  <img src="./Source/logo.png" alt="AniPay Logo" width="120" height="120" style="border-radius: 50%; box-shadow: 0 0 40px rgba(255,42,109,0.3);">
+
+  <h1>AniPay</h1>
+
+  <p><strong>Darling in the Franxx Inspired Payment Gateway</strong></p>
+
+  <p>A beautiful, anime-themed personal profile page with social links, posts, and payments.<br>
+  One config file. Full customization. Zero code changes needed.</p>
+
+  <br>
+
+  <a href="https://shineii86.github.io/AniPay/">
+    <img src="https://img.shields.io/badge/LIVE_DEMO-ff2a6d?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
+  </a>
+  <img src="https://img.shields.io/badge/Version-4.2.0-ff2a6d?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/github/license/Shineii86/AniPay?style=for-the-badge&color=5ffbf1" alt="License">
+  <img src="https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge&color=a855f7" alt="Last Commit">
+  <img src="https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge" alt="Repo Size">
+  <a href="https://github.com/Shineii86/AniPay/stargazers">
+    <img src="https://img.shields.io/github/stars/Shineii86/AniPay?style=for-the-badge&color=ffdd00" alt="Stars">
+  </a>
+  <a href="https://github.com/Shineii86/AniPay/fork">
+    <img src="https://img.shields.io/github/forks/Shineii86/AniPay?style=for-the-badge" alt="Forks">
   </a>
 
   <br><br>
 
-  # ✨ AniPay
-
-  **Darling in the Franxx Inspired Payment Gateway**
-
-  A beautiful, anime-themed profile page with social links, posts, and payments.<br>
-  One config file. Full customization. Zero code changes needed.
-
-  <br>
-
-  [![Live Demo](https://img.shields.io/badge/Live-Demo-ff2a6d?style=for-the-badge&logo=vercel&logoColor=white)](https://shineii86.github.io/AniPay/)
-  ![Version](https://img.shields.io/badge/Version-4.0-ff2a6d?style=for-the-badge)
-  ![License](https://img.shields.io/github/license/Shineii86/AniPay?style=for-the-badge&color=5ffbf1)
-  ![Last Commit](https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge&color=a855f7)
-  ![Repo Size](https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge)
-  [![Stars](https://img.shields.io/github/stars/Shineii86/AniPay?style=for-the-badge&color=ffdd00)](https://github.com/Shineii86/AniPay/stargazers)
-  [![Forks](https://img.shields.io/github/forks/Shineii86/AniPay?style=for-the-badge)](https://github.com/Shineii86/AniPay/fork)
-
-  <br>
-
-  <a href="https://github.com/Shineii86/AniPay">
-    <img src="./Source/Banner1.png" alt="AniPay Banner" style="border-radius: 16px;">
-  </a>
+  <img src="./Source/Banner1.png" alt="AniPay Banner" width="100%" style="border-radius: 16px;">
 
 </div>
+
+<br>
+
+---
+
+## 📖 Table of Contents
+
+- [What is AniPay?](#-what-is-anipay)
+- [Screenshots](#-screenshots)
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Customization](#-customization)
+- [Configuration Reference](#-configuration-reference)
+- [Project Structure](#-project-structure)
+- [Tech Stack](#%EF%B8%8F-tech-stack)
+- [Changelog](#-changelog)
+- [Contributing](#-contributing)
+- [Support](#-support)
+- [License](#-license)
+- [Contact](#-contact)
 
 ---
 
@@ -37,7 +57,11 @@
 
 AniPay is a **single-page personal profile & payment gateway** with an anime aesthetic. It combines a **Twitter-style profile**, **social media links**, **Instagram-style posts**, and **multi-method payments** — all controlled by one config file.
 
-Fork it → edit `config.js` → done. No HTML. No build tools.
+```
+Fork → Edit config.js → Done.
+```
+
+**No HTML editing. No build tools. No npm install. Pure HTML + CSS + JS.**
 
 <table>
   <tr>
@@ -47,10 +71,10 @@ Fork it → edit `config.js` → done. No HTML. No build tools.
     <td align="center"><strong>💳 Payments</strong></td>
   </tr>
   <tr>
-    <td align="center">Twitter/X style<br>Banner, avatar, bio<br>Verified badge, stats</td>
-    <td align="center">34 platforms<br>Enable/disable any<br>Hover color effects</td>
-    <td align="center">Instagram grid<br>Carousel + lightbox<br>Configurable columns</td>
-    <td align="center">11 methods<br>3 categories<br>Copy, QR, links</td>
+    <td>Twitter/X style<br>Banner, avatar, bio<br>Verified badge, stats<br>Typing animation</td>
+    <td>34 platforms<br>Enable/disable any<br>Hover color effects</td>
+    <td>Instagram grid<br>Carousel + lightbox<br>Configurable columns</td>
+    <td>11 methods<br>3 categories<br>Copy, QR, links</td>
   </tr>
 </table>
 
@@ -59,32 +83,12 @@ Fork it → edit `config.js` → done. No HTML. No build tools.
 ## 📸 Screenshots
 
 <div align="center">
-  <a href="https://github.com/Shineii86/AniPay">
-    <img src="./Source/Banner2.png" alt="AniPay Dark Mode" width="48%" style="border-radius: 12px; margin: 4px;">
-  </a>
-  <a href="https://github.com/Shineii86/AniPay">
-    <img src="./Source/Banner3.png" alt="AniPay Features" width="48%" style="border-radius: 12px; margin: 4px;">
-  </a>
+  <img src="./Source/Banner2.png" alt="AniPay Dark Mode" width="48%" style="border-radius: 12px; margin: 4px;">
+  <img src="./Source/Banner3.png" alt="AniPay Features" width="48%" style="border-radius: 12px; margin: 4px;">
+  <br>
+  <img src="./Source/Banner4.png" alt="AniPay Payments" width="48%" style="border-radius: 12px; margin: 4px;">
+  <img src="./Source/Banner5.png" alt="AniPay Posts" width="48%" style="border-radius: 12px; margin: 4px;">
 </div>
-
----
-
-## 🚀 Quick Start
-
-```bash
-# 1. Fork this repo on GitHub
-
-# 2. Clone your fork
-git clone https://github.com/YOUR_USERNAME/AniPay.git
-cd AniPay
-
-# 3. Open in browser (no build step needed)
-open index.html
-# or
-python3 -m http.server 8000
-```
-
-**That's it.** No npm install. No build tools. Pure HTML + CSS + JS.
 
 ---
 
@@ -95,18 +99,18 @@ python3 -m http.server 8000
 | Feature | Description |
 |---------|-------------|
 | **Banner Image** | Full-width banner with gradient overlay |
-| **Profile Avatar** | Circular avatar with border and hover effect |
+| **Profile Avatar** | Circular avatar with border and hover zoom |
 | **Verified Badge** | Blue checkmark — toggle on/off |
 | **Display Name + Username** | Bold name + muted handle |
-| **Bio** | Multi-line bio text |
+| **Bio** | Multi-line bio with **typing animation** (character-by-character reveal) |
 | **Bio Link** | Clickable link with icon |
 | **Location** | Location with map pin icon |
 | **Join Date** | Calendar icon + date text |
 | **Stats** | Posts / Followers / Following — animated counters |
+| **Profile QR Code** | One-click QR popover linking to your profile |
+| **Share Button** | Share to Twitter/X, WhatsApp, or copy link |
 
-### 🔗 Social Media Icons
-
-**34 platforms** with per-platform enable/disable:
+### 🔗 Social Media Icons (34 Platforms)
 
 <details>
 <summary><strong>Developer & Code</strong></summary>
@@ -205,6 +209,8 @@ Each icon shows a **tooltip on hover** and changes to the **platform's brand col
 | Feature | Description |
 |---------|-------------|
 | **Dark / Light Theme** | Toggle with one click, persists via localStorage |
+| **Multiple Accent Themes** | Pink, teal, purple, gold — with floating picker |
+| **Custom Accent Color** | Pick any hex color for your accent |
 | **Glassmorphism** | Frosted glass cards with backdrop blur |
 | **Particle Background** | Animated multi-color canvas particles |
 | **Scroll Progress** | Gradient bar at the top of the page |
@@ -214,25 +220,60 @@ Each icon shows a **tooltip on hover** and changes to the **platform's brand col
 | **Responsive** | Desktop, tablet, and mobile |
 | **Keyboard Shortcuts** | `Esc` reset · `Ctrl+K` navigate · Arrow keys in lightbox |
 
+### ⚡ Quick Wins
+
+| Feature | Description |
+|---------|-------------|
+| **PWA Support** | Installable on phone/desktop with service worker caching |
+| **Open Graph / SEO** | Social share previews for Twitter, Discord, Telegram |
+| **Page Loading Animation** | Animated splash screen with pulsing logo |
+| **Custom Fonts** | Pick fonts from config — no CSS editing |
+| **Typing Animation** | Bio text types out character-by-character |
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# 1. Fork this repo on GitHub
+
+# 2. Clone your fork
+git clone https://github.com/YOUR_USERNAME/AniPay.git
+cd AniPay
+
+# 3. Open in browser (no build step needed)
+open index.html
+
+# Or serve locally
+python3 -m http.server 8000
+# → http://localhost:8000
+```
+
+**Deploy to GitHub Pages:**
+1. Go to **Settings → Pages**
+2. Source: **Deploy from a branch**
+3. Branch: **main** / folder: **/ (root)**
+4. Save → your site is live at `https://YOUR_USERNAME.github.io/AniPay/`
+
 ---
 
 ## 🔧 Customization
 
-Everything is in **`assets/js/config.js`**. No HTML editing needed.
+Everything lives in **`assets/js/config.js`**. No HTML editing needed.
 
 ### Enable / Disable Sections
 
 ```javascript
 features: {
-  profile: true,       // Twitter-style profile at top
-  socials: true,       // Social media icons grid
-  posts: true,         // Instagram-style posts
-  payments: true,      // Payment methods
-  themeToggle: true,   // Light/dark toggle button
-  particles: true,     // Animated background
-  scrollProgress: true,// Top scroll bar
-  backToTop: true,     // Back to top button
-  stats: true,         // Stats counter
+  profile: true,        // Twitter-style profile at top
+  socials: true,        // Social media icons grid
+  posts: true,          // Instagram-style posts
+  payments: true,       // Payment methods
+  themeToggle: true,    // Light/dark toggle button
+  particles: true,      // Animated background
+  scrollProgress: true, // Top scroll bar
+  backToTop: true,      // Back to top button
+  stats: true,          // Stats counter
 }
 ```
 
@@ -244,15 +285,17 @@ profile: {
   avatar: "https://...",          // Profile picture URL
   displayName: "Your Name",       // Display name
   username: "@yourhandle",        // Username
-  bio: "Your bio text here...",   // Bio
+  bio: "Your bio text here...",   // Bio (typing animation auto-enabled)
+  bioTyping: true,                // Character-by-character reveal
   bioLink: {
     url: "https://...",
     label: "your-site.com",
     enabled: true,
   },
-  location: "City, Country",      // Location (set "" to hide)
-  joinDate: "January 2024",       // Join date (set "" to hide)
+  location: "City, Country",      // Set "" to hide
+  joinDate: "January 2024",       // Set "" to hide
   verified: true,                 // Blue checkmark
+  qrCode: { enabled: true },     // QR code popover
   stats: {
     posts:     { count: 420,  label: "Posts",     enabled: true },
     followers: { count: 12500, label: "Followers", enabled: true },
@@ -268,7 +311,7 @@ socials: [
   { platform: "github",   url: "https://github.com/you",   enabled: true  },
   { platform: "twitter",  url: "https://x.com/you",        enabled: true  },
   { platform: "discord",  url: "https://discord.gg/you",   enabled: false }, // hidden
-  // ... 34 platforms available
+  // ... 34 platforms available — see config.js for full list
 ]
 ```
 
@@ -287,7 +330,7 @@ posts: {
       enabled: true,
     },
     {
-      images: ["https://...", "..."],    // Carousel
+      images: ["https://...", "..."],    // Carousel (multiple images)
       caption: "Multiple photos!",
       likes: 512,
       enabled: true,
@@ -334,26 +377,129 @@ payments: {
 
 ---
 
+## 📝 Configuration Reference
+
+### Accent Themes
+
+```javascript
+theme: {
+  accentPicker: true,           // Show floating color picker
+  accent: "pink",               // Default: "pink" | "teal" | "purple" | "gold" | "custom"
+  customColor: "#ff2a6d",       // Used when accent is "custom"
+  accents: {
+    pink:   { color: "#ff2a6d", label: "Pink" },
+    teal:   { color: "#5ffbf1", label: "Teal" },
+    purple: { color: "#a855f7", label: "Purple" },
+    gold:   { color: "#fbbf24", label: "Gold" },
+  },
+}
+```
+
+### Custom Fonts
+
+```javascript
+fonts: {
+  main:    { family: "Inter",        weights: "300;400;500;600;700;800" },
+  heading: { family: "Josefin Sans", weights: "300;400;600;700" },
+  mono:    { family: "JetBrains Mono", weights: "400;500" },
+}
+```
+
+Use any [Google Fonts](https://fonts.google.com/) name — fonts are loaded dynamically.
+
+### Share Button
+
+```javascript
+share: {
+  enabled: true,
+  platforms: ["twitter", "whatsapp", "copy"],  // Which options to show
+}
+```
+
+### Loading Animation
+
+```javascript
+loading: {
+  enabled: true,
+  duration: 1500,            // Minimum display time (ms)
+  logo: "./Source/logo.png", // Logo path
+  text: "AniPay",            // Text below logo
+}
+```
+
+### SEO / Open Graph
+
+```javascript
+seo: {
+  enabled: true,
+  title: "AniPay | Darling in the Franxx Payment Gateway",
+  description: "A beautiful, anime-themed profile page...",
+  image: "./Source/Banner1.png",    // OG image (1200x630 recommended)
+  url: "https://your-domain.com/",
+  twitterCard: "summary_large_image",
+}
+```
+
+### Social Platform Reference
+
+| Category | Platforms |
+|----------|-----------|
+| **Developer** | GitHub, CodePen, Dev.to, Hashnode, Stack Overflow, Figma |
+| **Social** | X/Twitter, Instagram, Threads, Bluesky, Mastodon, Facebook, LinkedIn, Pinterest, Snapchat, Reddit |
+| **Messaging** | Telegram, Discord, WhatsApp, Signal |
+| **Streaming** | YouTube, TikTok, Twitch, Spotify |
+| **Creative** | Dribbble, Behance, Medium, Steam |
+| **Support** | Buy Me a Coffee, Ko-fi, Patreon, PayPal, Email |
+
+### Payment Field Reference
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Display name (required) |
+| `icon` | string | Font Awesome 6 class (required) |
+| `iconBg` | string | Background color for icon circle |
+| `type` | string | `"id"` · `"url"` · `"qr"` · `"address"` · `"wallet"` |
+| `value` | string | Payment ID / URL / address (required) |
+| `label` | string | Small label above value |
+| `description` | string | One-line description |
+| `color` | string | Card accent color |
+| `enabled` | boolean | `true` = shown · `false` = hidden |
+| `copyable` | boolean | Shows copy button |
+| `downloadable` | boolean | Shows download button (qr type) |
+| `badge` | string | `"popular"` · `"new"` · `"beta"` · `null` |
+
+---
+
 ## 📁 Project Structure
 
 ```
 AniPay/
-├── index.html                 → Semantic HTML, zero inline code
+├── index.html                    → Semantic HTML, zero inline code
+├── manifest.json                 → PWA manifest (installable app)
+├── sw.js                         → Service worker (offline caching)
 ├── assets/
 │   ├── css/
-│   │   └── styles.css         → All styles, themes, responsive
-│   └── js/
-│       ├── config.js          → ⚡ EDIT THIS — profile, socials, posts, payments
-│       └── app.js             → Rendering engine, particles, lightbox, animations
-├── Source/                    → Images and banners
-├── CHANGELOG.md               → Version history
-├── LICENSE                    → MIT License
-└── README.md                  → You're reading it
+│   │   └── styles.css            → All styles, themes, responsive
+│   ├── js/
+│   │   ├── config.js             → ⚡ EDIT THIS — all site content
+│   │   └── app.js                → Rendering engine, animations, features
+│   └── favicons/
+│       ├── favicon.ico           → Multi-size ICO (16/32/48)
+│       ├── favicon-16x16.png     → Small favicon
+│       ├── favicon-32x32.png     → Standard favicon
+│       ├── apple-touch-icon.png  → iOS home screen icon
+│       ├── android-chrome-*.png  → Android install icons
+├── Source/
+│   ├── logo.png                  → Site logo
+│   └── Banner*.png               → Screenshots & banners
+├── CHANGELOG.md                  → Version history
+├── LICENSE                       → MIT License
+└── README.md                     → You're reading it
 ```
 
 ---
 
-## 🛠️ Technologies
+## 🛠️ Tech Stack
 
 <div align="center">
 
@@ -362,14 +508,18 @@ AniPay/
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Anime.js](https://img.shields.io/badge/Anime.js-2C2D72?style=for-the-badge&logo=javascript&logoColor=white)
 ![Font Awesome](https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=font-awesome&logoColor=white)
+![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)
 
 </div>
 
-- **Fonts:** Inter (primary) · Josefin Sans (display) · JetBrains Mono (code)
-- **Icons:** Font Awesome 6.5.1 (Free) — 34 social platform mappings
-- **Animations:** Anime.js 3.2.2
-- **QR API:** goqr.me API (auto-generated)
-- **Hosting:** GitHub Pages
+| Component | Details |
+|-----------|---------|
+| **Fonts** | Inter (primary) · Josefin Sans (display) · JetBrains Mono (code) — configurable |
+| **Icons** | Font Awesome 6.5.1 (Free) — 34 social platform mappings |
+| **Animations** | Anime.js 3.2.2 |
+| **QR API** | goqr.me API (auto-generated) |
+| **Hosting** | GitHub Pages (static) |
+| **PWA** | Service worker + manifest — installable on mobile & desktop |
 
 ---
 
@@ -379,10 +529,52 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| **v4.2.0** | 2026-05-06 | Share button, custom fonts in config, page loading animation |
+| **v4.1.1** | 2026-05-06 | Proper favicon suite (ICO, PNG, apple-touch, android-chrome) |
+| **v4.1.0** | 2026-05-06 | PWA support, OG/SEO tags, typing bio, accent themes, profile QR |
 | **v4.0.0** | 2026-05-06 | Twitter profile, 34 social links, Instagram posts, lightbox, feature toggles |
+| **v3.1.0** | 2026-05-06 | Icon CDN fix, light/dark theme, README overhaul |
 | **v3.0.0** | 2026-05-06 | Complete rebuild, new design, all methods enabled, theme toggle |
 | **v2.0.0** | 2026-05-06 | Modular architecture, data-driven config |
 | **v1.0.0** | 2025-01-01 | Initial release |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how:
+
+1. **Fork** the repo
+2. **Create** a branch (`git checkout -b feature/awesome`)
+3. **Commit** your changes (`git commit -m "Add awesome feature"`)
+4. **Push** to the branch (`git push origin feature/awesome`)
+5. **Open** a Pull Request
+
+### Ideas for Contributions
+
+- New payment methods or categories
+- New social platform icons
+- Accessibility improvements
+- Animation performance optimizations
+- New background presets (stars, waves, nebula)
+- i18n / multi-language support
+- Guestbook feature
+- Blog/articles section
+
+---
+
+## 💖 Support
+
+If you find AniPay useful, consider supporting:
+
+<div align="center">
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/shineii86)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/shineii86)
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/shineii86)
+[![Patreon](https://img.shields.io/badge/Patreon-FF424D?style=for-the-badge&logo=patreon&logoColor=white)](https://patreon.com/shineii86)
+
+</div>
 
 ---
 
@@ -390,29 +582,7 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
----
-
-## 💖 Support
-
-<div align="center">
-
-If you find this useful, consider supporting:
-
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/shineii86)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/shineii86)
-[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/shineii86)
-
-</div>
-
----
-
-## 🤝 Contributing
-
-1. Fork the repo
-2. Create a branch (`git checkout -b feature/awesome`)
-3. Commit (`git commit -m "Add awesome feature"`)
-4. Push (`git push origin feature/awesome`)
-5. Open a Pull Request
+You are free to use, modify, and distribute this project. Attribution appreciated but not required.
 
 ---
 
@@ -427,8 +597,14 @@ If you find this useful, consider supporting:
 [![Pinterest](https://img.shields.io/badge/Pinterest-E60023?style=for-the-badge&logo=pinterest&logoColor=white)](https://pinterest.com/ikx7a)
 [![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ikx7a@hotmail.com)
 
-<br>
+<br><br>
 
 **Made with ❤️ by [Shinei Nouzen](https://github.com/shineii86)**
+
+<br>
+
+<a href="https://github.com/Shineii86/AniPay/fork">
+  <img src="https://img.shields.io/badge/Fork_this_repo-make_it_yours-ff2a6d?style=for-the-badge&logo=github&logoColor=white" alt="Fork">
+</a>
 
 </div>

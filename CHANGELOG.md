@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.2.1] - 2026-05-06
+
+### README Overhaul for v4.2
+
+#### Changed
+- **README.md** — complete rewrite with better structure and visuals
+- Added table of contents with anchor links
+- Updated version badges to v4.2.0
+- Added 2 more screenshot banners (Banner4, Banner5)
+- Documented all new features: accent themes, custom fonts, share button, loading animation, profile QR
+- Added full Configuration Reference section with code examples
+- Updated project structure to include `assets/favicons/`, `manifest.json`, `sw.js`
+- Updated tech stack table with PWA badge
+- Updated changelog table through v4.2.0
+- Added Patreon to support buttons
+- Added contribution ideas list
+- Improved responsive badge layout and visual hierarchy
+
+---
+
 ## [4.2.0] - 2026-05-06
 
 ### Low-Effort Feature Pack — Share Button, Custom Fonts, Loading Animation
