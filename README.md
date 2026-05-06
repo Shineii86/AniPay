@@ -24,8 +24,13 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
   - [x] Beautiful pink and teal color scheme inspired by Zero Two
   - [x] Particle animation background with anime.js
   - [x] Responsive design for all devices
+  - [x] Glassmorphism cards with backdrop blur
   
-- **Payment Methods**
+- **Data-Driven Payment Methods** ⚡
+  - [x] Toggle any payment method on/off with `enabled: true/false`
+  - [x] Add new methods by appending a JSON object — no HTML editing needed
+  - [x] Pre-configured: PayPal, Buy Me a Coffee, Ko-fi (disabled by default)
+  - [x] Supports `id`, `url`, `qr`, and `address` payment types
   - **Indian Payments**
     - [x] QR Code payment with download option
     - [x] UPI payment with copy functionality
@@ -33,17 +38,24 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
     - [x] Binance ID
     - [x] Bybit ID
     - [x] Tonkeeper address
+    - [ ] PayPal (toggle `enabled: true` in config to activate)
+    - [ ] Buy Me a Coffee (toggle `enabled: true` in config to activate)
+    - [ ] Ko-fi (toggle `enabled: true` in config to activate)
 
 - **Advanced Animations**
-  - [x] Smooth entrance animations for all elements
-  - [x] Interactive button hover effects
+  - [x] Smooth entrance animations with anime.js
+  - [x] Scroll-reveal card animations via IntersectionObserver
+  - [x] Interactive button hover effects with shine sweep
   - [x] Particle system background
-  - [x] Notification system
+  - [x] Toast notification system
+  - [x] Animated gradient title
 
-- **Modern Technologies** 🔧
+- **Modular Architecture** 🔧
+  - [x] Separated HTML, CSS, and JavaScript files
+  - [x] Config-driven rendering — edit `assets/js/config.js` to manage methods
   - [x] Built with pure HTML, CSS, and JavaScript
   - [x] Uses anime.js for advanced animations
-  - [x] Josefin Sans font for elegant typography
+  - [x] Josefin Sans + JetBrains Mono fonts
 
 ㅤㅤ
   <a href="https://github.com/Shineii86/AniPay">
@@ -76,110 +88,102 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
 
 ## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Activity/Artist%20Palette.webp" alt="Artist Palette" width="25" height="25" /> Customization
 
-1) Change Payment Details
-Edit the payment details in the HTML file:
-```html
-<!-- Indian UPI ID -->
-<div class="id-display">
-  shinei@anipay
-</div>
+### 1) Add / Toggle Payment Methods
 
-<!-- Binance ID -->
-<div class="id-display">
-  853904044
-</div>
+All payment methods are managed in **`assets/js/config.js`**. No HTML editing needed!
 
-<!-- Bybit ID -->
-<div class="id-display">
-  199911528
-</div>
-
-<!-- Tonkeeper Address -->
-<div class="id-display">
-  UQBmK_-2A-gHnhx0hmWdFeQc8X7iZ0O_UkxQbQGU2uA6OwmX
-</div>
-```
-
-2) Modify Colors
-Edit the CSS variables in the style section:
-```css
-:root {
-  --primary: #ff2a6d;      /* Pink color */
-  --secondary: #5ffbf1;    /* Teal color */
-  --dark-bg: #0c0c1d;      /* Dark background */
+**To enable a pre-configured method** (e.g. PayPal):
+```javascript
+{
+  name: "PayPal",
+  icon: "fab fa-paypal",        // Font Awesome icon
+  iconColor: "#00457C",         // Icon color
+  type: "id",                   // "id" | "url" | "qr" | "address"
+  value: "your@email.com",     // Payment ID / URL / address
+  description: "Send via PayPal",
+  enabled: true,                // ← Change to true to show
+  copyable: true                // ← Shows copy button
 }
 ```
 
-3) Adjust Animations
-Modify the anime.js parameters in the script section:
+**To add a brand new method**, append to the appropriate array:
 ```javascript
-// Particle count
-const particleCount = 150;  /* Increase for more particles */
+// In PAYMENT_CONFIG → indian.methods[] or international.methods[]
+{
+  name: "Google Pay",
+  icon: "fab fa-google",
+  iconColor: "#4285F4",
+  type: "id",
+  value: "your-gpay@okaxis",
+  description: "Pay via Google Pay UPI",
+  enabled: true,
+  copyable: true
+}
+```
 
-// Title animation
-anime({
-  targets: '.title',
-  opacity: [0, 1],
-  translateY: [-30, 0],
-  duration: 1500,          /* Animation duration */
-  easing: 'easeOutExpo'
-});
+**To disable a method**, set `enabled: false`:
+```javascript
+{ ..., enabled: false }  // This method will not render
+```
+
+### 2) Supported Payment Types
+
+| Type | Renders | Buttons |
+|------|---------|---------|
+| `qr` | QR code image | Download QR |
+| `id` | Monospace value display | Copy |
+| `address` | Monospace value display | Copy |
+| `url` | Monospace value display | Copy + Open |
+
+### 3) Site Identity
+
+Edit the `site` object in config to change name, tagline, footer text, and social links:
+```javascript
+site: {
+  name: "AniPay",
+  tagline: "Your custom tagline",
+  footer: "Your footer text",
+  year: 2025,
+  socials: [
+    { icon: "fab fa-twitter", url: "https://...", label: "Twitter" }
+  ]
+}
 ```
   <a href="https://github.com/Shineii86/AniPay">
     <img src="./Source/Banner4.png" alt="Banner">
   </a>
 
-## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Symbols/Heart%20On%20Fire.webp" alt="Heart On Fire" width="25" height="25" /> How to Add QR Code by URL
-I've implemented QR code integration using an external URL. Here's how it works:
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Symbols/Heart%20On%20Fire.webp" alt="Heart On Fire" width="25" height="25" /> Project Structure
 
-1) QR Code Generation:
-
-```html
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=zerotwo002@animebank&pn=Zero%20Two%20Pay&mc=0000&mode=02&purpose=00" 
-     alt="UPI QR Code" 
-     class="qr-image"
-     id="qr-image">
+```
+AniPay/
+├── index.html              # Main page (clean HTML, no inline code)
+├── assets/
+│   ├── css/
+│   │   └── styles.css      # All styles (glassmorphism, animations, responsive)
+│   └── js/
+│       ├── config.js       # ⚡ Payment methods config (edit this to add/toggle methods)
+│       └── app.js          # Rendering engine, particles, animations
+├── Source/                 # Images and banners
+├── CHANGELOG.md            # Version history
+├── LICENSE
+└── README.md
 ```
 
-2) URL Parameters Explained:
-- [x] `size=150x150`: Sets the dimensions of the QR code
-- [x] `data=upi://pay?pa`=...: Contains the UPI payment details
-- [x] `pn=Zero%20Two%20Pay`: Sets the payee name
-- [x] `mc=0000`: Merchant code
-- [x] `mode=02`: Transaction mode
-
-4) Download Functionality:
+**To add a QR-type payment method:**
 ```javascript
-document.getElementById('download-qr').addEventListener('click', function() {
-    const qrImage = document.getElementById('qr-image');
-    const imageUrl = qrImage.src;
-    
-    // Create a temporary link
-    const link = document.createElement('a');
-    link.href = imageUrl;
-    link.download = 'anipay-qrcode.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    showNotification('QR Code downloaded!');
-});
+{
+  name: "My UPI QR",
+  icon: "fas fa-qrcode",
+  iconColor: "#5ffbf1",
+  type: "qr",
+  value: "upi://pay?pa=your@upi&pn=YourName",  // Any URL or UPI string
+  description: "Scan to pay via UPI",
+  enabled: true,
+  downloadable: true  // Shows download button
+}
 ```
-
-4) Copy to Clipboard:
-```javascript
-document.querySelectorAll('.copy-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
-        const textElement = document.getElementById(targetId);
-        const text = textElement.textContent;
-        
-        navigator.clipboard.writeText(text).then(() => {
-            showNotification('Copied to clipboard!');
-        });
-    });
-});
-```
+The QR code is auto-generated from the `value` field using the qrserver.com API.
 
   <a href="https://github.com/Shineii86/AniPay">
     <img src="./Source/Banner5.png" alt="Banner">

@@ -4,668 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AniPay | Zero Two Payment Gateway</title>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Josefin Sans', sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #0c0c1d 0%, #1a0a2e 100%);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        #particles-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 10;
-        }
-        
-        header {
-            text-align: center;
-            padding: 40px 0 30px;
-            position: relative;
-        }
-        
-        .title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #ff2a6d, #d16ba5, #86a8e7, #5ffbf1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #86a8e7;
-            font-weight: 300;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
-        }
-        
-        .divider {
-            height: 3px;
-            width: 150px;
-            background: linear-gradient(90deg, #ff2a6d, #5ffbf1);
-            margin: 20px auto;
-            border-radius: 10px;
-        }
-        
-        .payment-section {
-            background: rgba(10, 15, 35, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px auto;
-            border: 1px solid rgba(134, 168, 231, 0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 1000px;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .section-title {
-            font-size: 2.2rem;
-            color: #ff2a6d;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
-        .section-subtitle {
-            color: #86a8e7;
-            font-weight: 300;
-        }
-        
-        .methods-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
-        }
-        
-        .method-card {
-            background: rgba(20, 25, 50, 0.6);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(134, 168, 231, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .method-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(255, 42, 109, 0.2);
-            border-color: rgba(255, 42, 109, 0.3);
-        }
-        
-        .method-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #ff2a6d, #5ffbf1);
-        }
-        
-        .method-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-            color: #5ffbf1;
-            text-shadow: 0 0 10px rgba(95, 251, 241, 0.5);
-        }
-        
-        .method-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #fff;
-            font-weight: 600;
-        }
-        
-        .method-description {
-            color: #aab6e5;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-        
-        .qr-container {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 0 auto 20px;
-            width: 180px;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .qr-code {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border: 2px solid #5ffbf1;
-            border-radius: 5px;
-        }
-        
-        .id-display {
-            background: rgba(0,0,0,0.3);
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-family: monospace;
-            word-break: break-all;
-            margin: 15px 0;
-            font-size: 14px;
-            border: 1px solid rgba(134, 168, 231, 0.3);
-            color: #5ffbf1;
-        }
-        
-        .action-btn {
-            background: linear-gradient(45deg, #ff2a6d, #d16ba5);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin: 10px 5px 0;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(255, 42, 109, 0.4);
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 42, 109, 0.6);
-        }
-        
-        .action-btn.secondary {
-            background: linear-gradient(45deg, #5ffbf1, #86a8e7);
-            box-shadow: 0 5px 15px rgba(95, 251, 241, 0.4);
-        }
-        
-        .action-btn.secondary:hover {
-            box-shadow: 0 8px 20px rgba(95, 251, 241, 0.6);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 40px 0 30px;
-            margin-top: 50px;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.6);
-            border-top: 1px solid rgba(134, 168, 231, 0.1);
-            position: relative;
-            z-index: 10;
-        }
-        
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .footer-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #ff2a6d;
-            font-weight: 600;
-        }
-        
-        .footer-text {
-            line-height: 1.8;
-            margin-bottom: 25px;
-            font-weight: 300;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 25px 0;
-        }
-        
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ff2a6d;
-            font-size: 24px;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 42, 109, 0.3);
-        }
-        
-        .social-icon:hover {
-            background: #ff2a6d;
-            color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 42, 109, 0.4);
-        }
-        
-        .horns {
-            position: absolute;
-            top: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 80px;
-            color: #ff2a6d;
-            opacity: 0.2;
-        }
-        
-        .copyright {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.4);
-        }
-        
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .methods-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .social-links {
-                flex-wrap: wrap;
-            }
-        }
-    </style>
+    <meta name="description" content="An anime-inspired payment gateway featuring Zero Two from Darling in the Franxx. Secure, beautiful, and functional.">
+    <meta name="theme-color" content="#ff2a6d">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <!-- Particles Canvas -->
+
+    <!-- Particles Background -->
     <canvas id="particles-canvas"></canvas>
-    
+
     <div class="container">
+
+        <!-- Header -->
         <header>
+            <div class="logo-wrapper">
+                <div class="logo-glow"></div>
+            </div>
             <h1 class="title">AniPay</h1>
-            <p class="subtitle">02 - Darling in the Franxx Inspired Payment Gateway</p>
+            <p class="subtitle">Darling in the Franxx Inspired Payment Gateway</p>
             <div class="divider"></div>
         </header>
-        
-        <!-- Indian Payment Section -->
-        <section class="payment-section">
-            <div class="section-header">
-                <h2 class="section-title">For Nation (Indian)</h2>
-                <p class="section-subtitle">Secure payment methods for Indian users</p>
-            </div>
-            
-            <div class="methods-grid">
-                <!-- QR Payment -->
-                <div class="method-card">
-                    <div class="method-icon">
-                        <i class="fas fa-qrcode"></i>
-                    </div>
-                    <h3 class="method-title">QR Payment</h3>
-                    <p class="method-description">Scan this QR code with any UPI app to complete your payment</p>
-                    
-                    <div class="qr-container">
-                        <!-- QR Code from URL -->
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://telegram.me/shineii86" 
-                             alt="Zero Two UPI QR Code" 
-                             class="qr-code">
-                    </div>
-                    
-                    <button class="action-btn secondary" id="downloadQR">
-                        <i class="fas fa-download"></i> Download QR
-                    </button>
-                </div>
-                
-                <!-- UPI Payment -->
-                <div class="method-card">
-                    <div class="method-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="method-title">UPI Payment</h3>
-                    <p class="method-description">Copy our UPI ID and paste it in your payment app</p>
-                    
-                    <div class="id-display">
-                        shinei@anipay
-                    </div>
-                    
-                    <button class="action-btn" id="copyUPI">
-                        <i class="fas fa-copy"></i> Copy UPI ID
-                    </button>
-                </div>
-            </div>
-        </section>
-        
-        <!-- International Payment Section -->
-        <section class="payment-section">
-            <div class="section-header">
-                <h2 class="section-title">International Payments</h2>
-                <p class="section-subtitle">Global payment methods for worldwide users</p>
-            </div>
-            
-            <div class="methods-grid">
-                <!-- Binance -->
-                <div class="method-card">
-                    <div class="method-icon">
-                        <i class="fab fa-bitcoin"></i>
-                    </div>
-                    <h3 class="method-title">Binance Pay</h3>
-                    <p class="method-description">Send payment via Binance using our ID</p>
-                    
-                    <div class="id-display">
-                        853904044
-                    </div>
-                    
-                    <button class="action-btn" data-text="853904044">
-                        <i class="fas fa-copy"></i> Copy Binance ID
-                    </button>
-                </div>
-                
-                <!-- Bybit -->
-                <div class="method-card">
-                    <div class="method-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h3 class="method-title">Bybit Wallet</h3>
-                    <p class="method-description">Send payment via Bybit using our ID</p>
-                    
-                    <div class="id-display">
-                        199911528
-                    </div>
-                    
-                    <button class="action-btn" data-text="199911528">
-                        <i class="fas fa-copy"></i> Copy Bybit ID
-                    </button>
-                </div>
-                
-                <!-- Tonkeeper -->
-                <div class="method-card">
-                    <div class="method-icon">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <h3 class="method-title">Tonkeeper</h3>
-                    <p class="method-description">Send payment via Tonkeeper using our address</p>
-                    
-                    <div class="id-display">
-                        UQBmK_-2A-gHnhx0hmWdFeQc8X7iZ0O_UkxQbQGU2uA6OwmX
-                    </div>
-                    
-                    <button class="action-btn" data-text="UQBmK_-2A-gHnhx0hmWdFeQc8X7iZ0O_UkxQbQGU2uA6OwmX">
-                        <i class="fas fa-copy"></i> Copy Address
-                    </button>
-                </div>
-            </div>
-        </section>
-        
+
+        <!-- Payment Sections (rendered dynamically from config) -->
+        <main id="main-content"></main>
+
+        <!-- Footer -->
         <footer>
-            <div class="horns">
-                <i class="fas fa-code"></i>
-            </div>
             <div class="footer-content">
+                <div class="footer-icon"><i class="fas fa-code"></i></div>
                 <h3 class="footer-title">Zero Two Payment Gateway</h3>
-                <p class="footer-text">Inspired by Code:002 from Darling in the Franxx<br>Secure, reliable, and anime-themed payment solutions</p>
-                
+                <p class="footer-text">
+                    Inspired by Code:002 from Darling in the Franxx<br>
+                    Secure, reliable, and anime-themed payment solutions
+                </p>
+
                 <div class="social-links">
-                    <a href="https://x.com/shineii86" class="social-icon">
+                    <a href="https://x.com/shineii86" class="social-icon" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="https://github.com/shineii86" class="social-icon">
+                    <a href="https://github.com/shineii86" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://telegram.me/shineii86" class="social-icon">
+                    <a href="https://telegram.me/shineii86" class="social-icon" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-telegram"></i>
                     </a>
                 </div>
-                
-                <p class="copyright">© 2025 Zero Two Payments | All rights reserved</p>
+
+                <p class="copyright">© 2025 AniPay | All rights reserved</p>
             </div>
         </footer>
+
     </div>
 
-    <script>
-        // Particle system using anime.js
-        document.addEventListener('DOMContentLoaded', function() {
-            const canvas = document.getElementById('particles-canvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Set canvas size
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            // Particle class
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 3 + 1;
-                    this.speedX = Math.random() * 1 - 0.5;
-                    this.speedY = Math.random() * 2 + 1;
-                    this.color = Math.random() > 0.5 ? '#ff2a6d' : '#5ffbf1';
-                    this.alpha = Math.random() * 0.5 + 0.3;
-                }
-                
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    
-                    if (this.y > canvas.height) {
-                        this.y = 0;
-                        this.x = Math.random() * canvas.width;
-                    }
-                }
-                
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.globalAlpha = this.alpha;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-            
-            // Create particles
-            const particles = [];
-            const particleCount = 150;
-            
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-            
-            // Animation loop
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                }
-                
-                requestAnimationFrame(animate);
-            }
-            
-            animate();
-            
-            // Handle window resize
-            window.addEventListener('resize', function() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-            
-            // Title animation with anime.js
-            anime({
-                targets: '.title',
-                opacity: [0, 1],
-                translateY: [-30, 0],
-                duration: 1500,
-                easing: 'easeOutExpo'
-            });
-            
-            anime({
-                targets: '.subtitle',
-                opacity: [0, 1],
-                translateY: [20, 0],
-                delay: 300,
-                duration: 1200,
-                easing: 'easeOutExpo'
-            });
-            
-            anime({
-                targets: '.divider',
-                width: [0, 150],
-                delay: 600,
-                duration: 1000,
-                easing: 'easeOutExpo'
-            });
-            
-            // Card animations
-            anime({
-                targets: '.method-card',
-                opacity: [0, 1],
-                translateY: [50, 0],
-                delay: anime.stagger(200),
-                duration: 1200,
-                easing: 'easeOutExpo'
-            });
-            
-            // Social icon animations
-            anime({
-                targets: '.social-icon',
-                opacity: [0, 1],
-                translateY: [30, 0],
-                delay: anime.stagger(100),
-                duration: 1000,
-                easing: 'easeOutExpo'
-            });
-            
-            // Button hover effects
-            document.querySelectorAll('.action-btn').forEach(button => {
-                button.addEventListener('mouseenter', () => {
-                    anime({
-                        targets: button,
-                        scale: 1.05,
-                        duration: 300
-                    });
-                });
-                
-                button.addEventListener('mouseleave', () => {
-                    anime({
-                        targets: button,
-                        scale: 1,
-                        duration: 300
-                    });
-                });
-            });
-            
-            // Copy functionality
-            document.querySelectorAll('.action-btn[data-text]').forEach(button => {
-                button.addEventListener('click', () => {
-                    const text = button.getAttribute('data-text');
-                    navigator.clipboard.writeText(text).then(() => {
-                        showNotification('Copied to clipboard!');
-                    });
-                });
-            });
-            
-            // Special handling for UPI copy button
-            document.getElementById('copyUPI').addEventListener('click', () => {
-                navigator.clipboard.writeText('zerotwo002@animebank').then(() => {
-                    showNotification('UPI ID copied to clipboard!');
-                });
-            });
-            
-            // Download QR functionality
-            document.getElementById('downloadQR').addEventListener('click', function() {
-                // Create a temporary link
-                const link = document.createElement('a');
-                link.href = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://telegram.me/shineii86';
-                link.download = 'anipay-qrcode.png';
-                
-                // Simulate click
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                showNotification('QR Code download started!');
-            });
-            
-            // Show notification function
-            function showNotification(message) {
-                const notification = document.createElement('div');
-                notification.textContent = message;
-                notification.style.position = 'fixed';
-                notification.style.bottom = '20px';
-                notification.style.left = '50%';
-                notification.style.transform = 'translateX(-50%)';
-                notification.style.backgroundColor = '#ff2a6d';
-                notification.style.color = 'white';
-                notification.style.padding = '15px 30px';
-                notification.style.borderRadius = '30px';
-                notification.style.zIndex = '1000';
-                notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-                notification.style.fontWeight = '600';
-                notification.style.letterSpacing = '1px';
-                document.body.appendChild(notification);
-                
-                // Animate in
-                anime({
-                    targets: notification,
-                    opacity: [0, 1],
-                    bottom: ['0px', '20px'],
-                    duration: 500,
-                    easing: 'easeOutExpo'
-                });
-                
-                // Animate out after delay
-                setTimeout(() => {
-                    anime({
-                        targets: notification,
-                        opacity: 0,
-                        bottom: '0px',
-                        duration: 500,
-                        easing: 'easeInExpo',
-                        complete: () => {
-                            document.body.removeChild(notification);
-                        }
-                    });
-                }, 3000);
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
