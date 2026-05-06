@@ -3,7 +3,7 @@
  * Cache-first for static assets, network-first for HTML
  */
 
-const CACHE_NAME = 'anipay-v5.0.0';
+const CACHE_NAME = 'anipay-v6.0.1';
 const STATIC_ASSETS = [
   './',
   './index.html',
