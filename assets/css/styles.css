@@ -38,6 +38,7 @@
   --radius-xl: 32px;
   --radius-full: 100px;
   --font-main: 'Inter', 'Josefin Sans', -apple-system, sans-serif;
+  --font-heading: 'Josefin Sans', 'Inter', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -341,6 +342,7 @@ img { max-width: 100%; display: block; }
 .profile-display-name {
   font-size: 1.5rem;
   font-weight: 800;
+  font-family: var(--font-heading);
   color: var(--text-primary);
   letter-spacing: -0.3px;
   display: flex;
@@ -471,6 +473,7 @@ img { max-width: 100%; display: block; }
 .socials-title {
   font-size: 1.3rem;
   font-weight: 700;
+  font-family: var(--font-heading);
   color: var(--text-primary);
   letter-spacing: -0.3px;
 }
@@ -558,6 +561,7 @@ img { max-width: 100%; display: block; }
 .posts-title {
   font-size: 1.3rem;
   font-weight: 700;
+  font-family: var(--font-heading);
   color: var(--text-primary);
   letter-spacing: -0.3px;
 }
@@ -812,6 +816,7 @@ img { max-width: 100%; display: block; }
   font-weight: 800;
   letter-spacing: -1px;
   line-height: 1.1;
+  font-family: var(--font-heading);
   margin-bottom: 20px;
   background: var(--gradient-main);
   background-size: 300% 300%;
@@ -986,6 +991,7 @@ img { max-width: 100%; display: block; }
 .section-title {
   font-size: 1.4rem;
   font-weight: 700;
+  font-family: var(--font-heading);
   color: var(--text-primary);
   letter-spacing: -0.3px;
 }
@@ -1286,6 +1292,7 @@ img { max-width: 100%; display: block; }
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 8px;
+  font-family: var(--font-heading);
   background: var(--gradient-main);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

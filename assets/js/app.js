@@ -45,8 +45,8 @@
       root.style.setProperty('--font-main', `'${fonts.main.family}', -apple-system, sans-serif`);
     }
     if (fonts.heading && fonts.heading.family) {
-      const currentMain = fonts.main ? fonts.main.family : 'Inter';
-      root.style.setProperty('--font-main', `'${fonts.heading.family}', '${currentMain}', -apple-system, sans-serif`);
+      const fallbackMain = fonts.main ? fonts.main.family : 'Inter';
+      root.style.setProperty('--font-heading', `'${fonts.heading.family}', '${fallbackMain}', -apple-system, sans-serif`);
     }
     if (fonts.mono && fonts.mono.family) {
       root.style.setProperty('--font-mono', `'${fonts.mono.family}', 'Fira Code', monospace`);
@@ -453,7 +453,8 @@
     if (!overlay) return;
 
     overlay.addEventListener('click', (e) => {
-      if (e.target === overlay || e.target.classList.contains('lightbox-content')) {
+      // Close when clicking the backdrop (not the image or controls)
+      if (e.target === overlay || e.target.classList.contains('lightbox-content') || e.target.classList.contains('lightbox-image')) {
         closeLightbox();
       }
     });
@@ -861,11 +862,13 @@
     const shareCfg = SITE_CONFIG.share || {};
     if (!shareCfg.enabled) return;
 
-    // Find the QR button wrapper (which is inside profile-bio-link parent)
+    // Find anchor point: QR button if exists, otherwise bio link
     const qrBtn = $('.profile-qr-btn');
-    if (!qrBtn) return;
+    const bioLink = $('.profile-bio-link');
+    const anchor = qrBtn || bioLink;
+    if (!anchor) return;
 
-    const parent = qrBtn.parentNode;
+    const parent = anchor.parentNode;
     const pageUrl = encodeURIComponent(window.location.href);
     const pageTitle = encodeURIComponent(document.title);
     const platforms = shareCfg.platforms || ['twitter', 'whatsapp', 'copy'];
