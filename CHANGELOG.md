@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.2.2] - 2026-05-06
+
+### Deep Audit — Bug Fixes
+
+#### Fixed
+- **Service Worker CDN mismatch** — cached `jsdelivr` URL but HTML loads from `cdnjs`; SW pre-cache would fail silently
+- **Service Worker stale fonts cache** — removed hardcoded Google Fonts URL from pre-cache (fonts now loaded dynamically from config)
+- **Share button invisible when QR disabled** — `renderShareButton()` now falls back to bio link as anchor instead of requiring QR button
+- **Lightbox won't close on image click** — added `.lightbox-image` to click-outside handler
+- **Heading font overrides body font** — `loadCustomFonts()` was overwriting `--font-main` with heading font; now sets `--font-heading` separately
+- **CSS missing `--font-heading` variable** — added to `:root` and applied to all title/heading elements
+- **`fonts.heading.weights` typo** — was reading `fonts.weights` (already fixed in v4.2.1)
+
+#### Changed
+- **sw.js** — bump cache to v4.2.0, fix CDN URLs, remove stale font cache entry
+- **styles.css** — add `--font-heading` custom property, apply to `.hero-title`, `.section-title`, `.profile-display-name`, `.socials-title`, `.posts-title`, `.footer-brand`
+- **app.js** — `loadCustomFonts()` sets `--font-heading` instead of `--font-main`; `renderShareButton()` uses fallback anchor
+
+---
+
 ## [4.2.1] - 2026-05-06
 
 ### README Overhaul for v4.2
