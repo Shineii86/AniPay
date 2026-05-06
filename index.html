@@ -30,10 +30,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
 
-    <!-- Fonts -->
+    <!-- Fonts (loaded dynamically from config.js) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
@@ -42,6 +41,17 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-content">
+        <img class="loading-logo" src="./Source/logo.png" alt="AniPay">
+        <div class="loading-text">AniPay</div>
+        <div class="loading-spinner">
+          <div class="loading-bar"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- Background -->
     <canvas id="bg-canvas"></canvas>

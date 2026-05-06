@@ -78,6 +78,40 @@ const SITE_CONFIG = {
     type: "website",                              // OG type
   },
 
+  // ── Fonts ───────────────────────────────────────────────
+  // Pick fonts from config — no CSS editing required.
+  // Use any Google Fonts name. Fallbacks are automatic.
+  fonts: {
+    main: {
+      family: "Inter",                    // Primary font for body text
+      weights: "300;400;500;600;700;800", // Google Fonts weights string
+    },
+    heading: {
+      family: "Josefin Sans",             // Font for headings & display text
+      weights: "300;400;600;700",
+    },
+    mono: {
+      family: "JetBrains Mono",           // Monospace for code-style values
+      weights: "400;500",
+    },
+  },
+
+  // ── Share Button ────────────────────────────────────────
+  // One-click share to Twitter, WhatsApp, or copy link.
+  share: {
+    enabled: true,             // Set false to hide share button
+    platforms: ["twitter", "whatsapp", "copy"],  // Which platforms to show
+  },
+
+  // ── Loading Animation ──────────────────────────────────
+  // Splash screen with logo while page content loads.
+  loading: {
+    enabled: true,             // Set false to skip loading screen
+    duration: 1500,            // Minimum display time in ms (before fade-out)
+    logo: "./Source/logo.png", // Logo shown during loading
+    text: "AniPay",            // Text below logo
+  },
+
   // ── Accent Theme ────────────────────────────────────────
   // Multiple accent color options with a floating picker UI.
   // Stored in localStorage so the user's choice persists.

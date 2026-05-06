@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.2.0] - 2026-05-06
+
+### Low-Effort Feature Pack — Share Button, Custom Fonts, Loading Animation
+
+#### Added
+- **Share Button** — one-click share to Twitter/X, WhatsApp, or copy link; dropdown appears in profile section next to QR button
+- **Custom Fonts in Config** — new `fonts` section in config.js; pick main, heading, and mono fonts by name — no CSS editing required
+- **Page Loading Animation** — animated splash screen with pulsing logo, gradient text, and sliding progress bar; config-driven duration, logo, and text
+- **Loading screen HTML** — `#loading-screen` in index.html with logo, text, and spinner
+- **Share dropdown CSS** — hover-colored platform options (Twitter blue, WhatsApp green, teal for copy)
+- **Loading screen CSS** — pulse animation, glow keyframes, sliding bar, fade-out transition
+
+#### Changed
+- **config.js** — new `fonts`, `share`, and `loading` sections with full documentation
+- **index.html** — fonts now loaded dynamically from config (removed hardcoded Google Fonts link), added loading screen markup
+- **app.js** — `loadCustomFonts()` reads config and injects Google Fonts link + CSS overrides; `renderShareButton()` creates share dropdown; `initLoadingScreen()` manages splash screen lifecycle
+
+---
+
 ## [4.1.1] - 2026-05-06
 
 ### Proper Favicon Suite

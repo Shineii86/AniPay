@@ -12,6 +12,47 @@
   let activeCategory = 'all';
   let lightboxState = { images: [], index: 0, caption: '' };
 
+  // ═══════════════════════════════════════════════════════════
+  //  CUSTOM FONTS — Load from config
+  // ═══════════════════════════════════════════════════════════
+
+  function loadCustomFonts() {
+    const fonts = (SITE_CONFIG.fonts || {});
+    const families = [];
+
+    if (fonts.main && fonts.main.family) {
+      families.push(`family=${encodeURIComponent(fonts.main.family)}:wght@${fonts.main.weights || '300;400;500;600;700'}`);
+    }
+    if (fonts.heading && fonts.heading.family) {
+      families.push(`family=${encodeURIComponent(fonts.heading.family)}:wght@${fonts.weights || '300;400;600;700'}`);
+    }
+    if (fonts.mono && fonts.mono.family) {
+      families.push(`family=${encodeURIComponent(fonts.mono.family)}:wght@${fonts.mono.weights || '400;500'}`);
+    }
+
+    if (!families.length) return;
+
+    // Inject Google Fonts link
+    const url = `https://fonts.googleapis.com/css2?${families.join('&')}&display=swap`;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = url;
+    document.head.appendChild(link);
+
+    // Override CSS custom properties
+    const root = document.documentElement;
+    if (fonts.main && fonts.main.family) {
+      root.style.setProperty('--font-main', `'${fonts.main.family}', -apple-system, sans-serif`);
+    }
+    if (fonts.heading && fonts.heading.family) {
+      const currentMain = fonts.main ? fonts.main.family : 'Inter';
+      root.style.setProperty('--font-main', `'${fonts.heading.family}', '${currentMain}', -apple-system, sans-serif`);
+    }
+    if (fonts.mono && fonts.mono.family) {
+      root.style.setProperty('--font-mono', `'${fonts.mono.family}', 'Fira Code', monospace`);
+    }
+  }
+
   // ── Utilities ──────────────────────────────────────────
   function esc(str) {
     const d = document.createElement('div');
@@ -178,6 +219,9 @@
 
     // QR Code popover
     renderQRPopover();
+
+    // Share button
+    renderShareButton();
 
     // Animate stats
     setTimeout(() => {
@@ -810,6 +854,132 @@
   }
 
   // ═══════════════════════════════════════════════════════════
+  //  SHARE BUTTON
+  // ═══════════════════════════════════════════════════════════
+
+  function renderShareButton() {
+    const shareCfg = SITE_CONFIG.share || {};
+    if (!shareCfg.enabled) return;
+
+    // Find the QR button wrapper (which is inside profile-bio-link parent)
+    const qrBtn = $('.profile-qr-btn');
+    if (!qrBtn) return;
+
+    const parent = qrBtn.parentNode;
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+    const platforms = shareCfg.platforms || ['twitter', 'whatsapp', 'copy'];
+
+    // Build share options
+    const optionMap = {
+      twitter: {
+        icon: 'fab fa-x-twitter',
+        label: 'X / Twitter',
+        cls: 'twitter',
+        action: () => window.open(`https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`, '_blank', 'noopener,noreferrer'),
+      },
+      whatsapp: {
+        icon: 'fab fa-whatsapp',
+        label: 'WhatsApp',
+        cls: 'whatsapp',
+        action: () => window.open(`https://wa.me/?text=${pageTitle}%20${pageUrl}`, '_blank', 'noopener,noreferrer'),
+      },
+      copy: {
+        icon: 'fas fa-link',
+        label: 'Copy Link',
+        cls: 'copy',
+        action: () => {
+          copy(window.location.href, 'Link');
+          toast('Link copied!', 'fa-link');
+        },
+      },
+    };
+
+    const optionsHTML = platforms
+      .filter(p => optionMap[p])
+      .map(p => {
+        const opt = optionMap[p];
+        return `<button class="share-option ${opt.cls}" data-platform="${p}">
+          <i class="${opt.icon}"></i>
+          <span>${opt.label}</span>
+        </button>`;
+      })
+      .join('');
+
+    const wrap = document.createElement('span');
+    wrap.className = 'share-btn-wrap';
+    wrap.innerHTML = `
+      <button class="profile-share-btn" aria-label="Share profile">
+        <i class="fas fa-share-nodes"></i>
+        <span>Share</span>
+      </button>
+      <div class="share-dropdown">${optionsHTML}</div>
+    `;
+
+    parent.appendChild(wrap);
+
+    const btn = wrap.querySelector('.profile-share-btn');
+    const dropdown = wrap.querySelector('.share-dropdown');
+
+    // Toggle dropdown
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('open');
+    });
+
+    // Option click
+    wrap.querySelectorAll('.share-option').forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const platform = opt.dataset.platform;
+        if (optionMap[platform]) {
+          optionMap[platform].action();
+        }
+        dropdown.classList.remove('open');
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  //  LOADING SCREEN
+  // ═══════════════════════════════════════════════════════════
+
+  function initLoadingScreen() {
+    const cfg = SITE_CONFIG.loading || {};
+    if (!cfg.enabled) {
+      const el = $('#loading-screen');
+      if (el) el.remove();
+      return;
+    }
+
+    // Update logo and text from config
+    const logo = $('.loading-logo');
+    const text = $('.loading-text');
+    if (logo && cfg.logo) logo.src = cfg.logo;
+    if (text && cfg.text) text.textContent = cfg.text;
+
+    const duration = cfg.duration || 1500;
+
+    // Fade out after content loads + minimum duration
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const screen = $('#loading-screen');
+        if (screen) {
+          screen.classList.add('fade-out');
+          setTimeout(() => screen.remove(), 700);
+        }
+      }, duration);
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
   //  QR CODE POPOVER
   // ═══════════════════════════════════════════════════════════
 
@@ -1103,6 +1273,8 @@
   // ═══════════════════════════════════════════════════════════
 
   document.addEventListener('DOMContentLoaded', () => {
+    initLoadingScreen();
+    loadCustomFonts();
     render();
     initTheme();
     renderAccentPicker();
