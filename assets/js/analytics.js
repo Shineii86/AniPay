@@ -23,9 +23,29 @@ const Analytics = (() => {
         toggleDashboard();
       }
     });
-    // URL parameter ?analytics
+    // URL parameter ?analytics — wait for loading screen to dismiss first
     if (window.location.search.includes('analytics')) {
-      setTimeout(toggleDashboard, 500);
+      const openAnalytics = () => toggleDashboard();
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        // Wait for loading screen to be removed or fade out
+        const observer = new MutationObserver((mutations) => {
+          for (const m of mutations) {
+            for (const node of m.removedNodes) {
+              if (node === loadingScreen) {
+                observer.disconnect();
+                setTimeout(openAnalytics, 100);
+                return;
+              }
+            }
+          }
+        });
+        observer.observe(loadingScreen.parentNode || document.body, { childList: true });
+        // Fallback: if loading screen is already gone or takes too long
+        setTimeout(() => { observer.disconnect(); openAnalytics(); }, 2000);
+      } else {
+        setTimeout(openAnalytics, 300);
+      }
     }
     // Mobile: 5-tap on footer brand
     initSecretTap();

@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [6.0.1] - 2026-05-06
+
+### Bug Fixes — Admin Panel, Mobile Analytics, Payments Hero Visibility
+
+#### Fixed
+- **Admin panel config not applying after save** — `mergeConfigOverrides()` now validates saved data before merging, coerces string values back to numbers when the original config field is numeric (form inputs read as strings), and recovers from corrupted localStorage by clearing stale overrides
+- **Analytics dashboard not showing on mobile via `?analytics`** — `toggleDashboard()` was firing at 500ms while the loading screen (z-index 99999) covered it until 1500ms; now waits for loading screen removal via `MutationObserver` with a 2s fallback timeout
+- **Admin form values losing type on save** — `applyChanges()` now reads existing config types via `getByPath()` and coerces form values to match (e.g., `loading.duration` stays `number`, not `"1500"`)
+
+#### Changed
+- **app.js** — `deepMerge()` skips null/undefined source values, coerces string→number for numeric targets, clears corrupted localStorage on parse failure
+- **admin.js** — added `getByPath()` helper for type-aware form value reading; `applyChanges()` respects original field types
+- **analytics.js** — `?analytics` URL parameter waits for `#loading-screen` removal before opening dashboard
+
+---
+
 ## [6.0.0] - 2026-05-06
 
 ### High-Impact Feature Pack — Admin Panel, Analytics, Anime Effects, Sound System

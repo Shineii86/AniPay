@@ -1438,18 +1438,41 @@
       const saved = localStorage.getItem('anipay-config-overrides');
       if (saved) {
         const overrides = JSON.parse(saved);
-        deepMerge(SITE_CONFIG, overrides);
+        if (overrides && typeof overrides === 'object' && !Array.isArray(overrides)) {
+          deepMerge(SITE_CONFIG, overrides);
+        }
       }
-    } catch (e) { /* ignore */ }
+    } catch (e) {
+      // If saved config is corrupted, remove it to prevent recurring issues
+      try { localStorage.removeItem('anipay-config-overrides'); } catch (_) {}
+    }
   }
 
   function deepMerge(target, source) {
     for (const key of Object.keys(source)) {
-      if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
-        if (!target[key] || typeof target[key] !== 'object') target[key] = {};
-        deepMerge(target[key], source[key]);
+      const srcVal = source[key];
+      const tgtVal = target[key];
+
+      // Skip null/undefined source values to preserve defaults
+      if (srcVal === null || srcVal === undefined) continue;
+
+      if (srcVal && typeof srcVal === 'object' && !Array.isArray(srcVal)) {
+        // Recursively merge objects
+        if (!tgtVal || typeof tgtVal !== 'object' || Array.isArray(tgtVal)) {
+          target[key] = {};
+        }
+        deepMerge(target[key], srcVal);
       } else {
-        target[key] = source[key];
+        // For arrays and primitives — coerce numbers from strings
+        // (admin form inputs read values as strings)
+        if (typeof tgtVal === 'number' && typeof srcVal === 'string') {
+          const num = Number(srcVal);
+          if (!isNaN(num)) {
+            target[key] = num;
+            continue;
+          }
+        }
+        target[key] = srcVal;
       }
     }
     return target;

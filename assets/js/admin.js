@@ -443,13 +443,24 @@ const AdminPanel = (() => {
     // Read all inputs and apply to SITE_CONFIG
     document.querySelectorAll('[data-path]').forEach(el => {
       const path = el.dataset.path;
+      if (!path) return;
       let value;
       if (el.type === 'checkbox') {
         value = el.checked;
-      } else if (el.type === 'number') {
-        value = parseInt(el.value) || 0;
-      } else {
+      } else if (el.type === 'number' || el.type === 'range') {
+        value = parseInt(el.value, 10) || 0;
+      } else if (el.type === 'color') {
         value = el.value;
+      } else {
+        // Text inputs: coerce to number if the existing config value is a number
+        const raw = el.value;
+        const existing = getByPath(SITE_CONFIG, path);
+        if (typeof existing === 'number' && raw !== '') {
+          const num = Number(raw);
+          value = isNaN(num) ? raw : num;
+        } else {
+          value = raw;
+        }
       }
       setByPath(SITE_CONFIG, path, value);
     });
@@ -461,6 +472,17 @@ const AdminPanel = (() => {
 
     // Reload without ?admin so the main page renders with new config
     window.location.href = window.location.pathname;
+  }
+
+  function getByPath(obj, path) {
+    const keys = path.split('.');
+    let current = obj;
+    for (let i = 0; i < keys.length; i++) {
+      if (current === null || current === undefined) return undefined;
+      const key = isNaN(keys[i]) ? keys[i] : parseInt(keys[i]);
+      current = current[key];
+    }
+    return current;
   }
 
   function exportConfig() {
