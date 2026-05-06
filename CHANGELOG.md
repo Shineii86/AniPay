@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.1.0] - 2026-05-06
+
+### Icon Fix, Light/Dark Theme, README Overhaul
+
+#### Fixed
+- **Icon CDN** — switched from cdnjs to jsdelivr for Font Awesome 6.5.1 (icons now load reliably)
+- **Grid icon** — fixed `fa-grid-2` → `fa-grip` (FA 6 Free compatible)
+
+#### Added
+- **Light/Dark theme toggle** — floating button (top-right) with sun/moon icons
+- **Theme persistence** — saved to localStorage, remembers user preference
+- **Light theme CSS** — full light mode palette: white cards, dark text, subtle shadows
+- **Canvas opacity** — particles fade to 15% opacity in light mode for readability
+- **README overhaul** — badges, tables, collapsible sections, screenshots, quick start guide, full customization docs
+
+#### Changed
+- **README.md** — complete rewrite with visual badges, feature tables, collapsible payment method lists, code examples, project structure, tech stack, contributing guide
+- **Card value backgrounds** — now use CSS variable `--bg-input` for theme compatibility
+- **QR container backgrounds** — theme-aware via CSS variables
+
+---
+
 ## [3.0.0] - 2026-05-06
 
 ### Complete Rebuild — New Design, New Features, All Methods Enabled

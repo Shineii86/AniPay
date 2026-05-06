@@ -210,7 +210,7 @@
     allTab.className = 'category-tab active';
     allTab.dataset.cat = 'all';
     const totalCount = Object.values(PAYMENT_METHODS).reduce((n, c) => n + c.items.filter(i => i.enabled).length, 0);
-    allTab.innerHTML = `<i class="fas fa-grid-2"></i><span class="tab-label">All Methods</span><span class="category-count">${totalCount}</span>`;
+    allTab.innerHTML = `<i class="fas fa-grip"></i><span class="tab-label">All Methods</span><span class="category-count">${totalCount}</span>`;
     nav.appendChild(allTab);
 
     // Category tabs
@@ -371,6 +371,25 @@
     }, { passive: true });
   }
 
+  // ── Theme Toggle ───────────────────────────────────────
+  function initTheme() {
+    const toggle = $('#theme-toggle');
+    if (!toggle) return;
+    const stored = localStorage.getItem('anipay-theme');
+    if (stored) document.documentElement.dataset.theme = stored;
+
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.dataset.theme;
+      const next = current === 'light' ? 'dark' : 'light';
+      if (next === 'dark') {
+        delete document.documentElement.dataset.theme;
+      } else {
+        document.documentElement.dataset.theme = next;
+      }
+      localStorage.setItem('anipay-theme', next);
+    });
+  }
+
   // ── Back to Top ────────────────────────────────────────
   function initBackToTop() {
     const btn = $('.back-to-top');
@@ -451,6 +470,7 @@
   // ── Init ───────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     render();
+    initTheme();
     initParticles();
     initScrollProgress();
     initBackToTop();
