@@ -4,19 +4,6 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [3.2.0] - 2026-05-06
-
-### Support Badges (BMC, Ko-fi, PayPal)
-
-#### Added
-- **Official Buy Me a Coffee badge** — uses BMC's official button-api image with custom text, emoji, and colors
-- **Official Ko-fi badge** — uses Ko-fi's hosted badge image (kofi3.png)
-- **PayPal shield badge** — via shields.io with PayPal branding
-- **Support badges section** in footer with hover lift + glow effects
-- Badges link directly to `buymeacoffee.com/shineii86`, `ko-fi.com/shineii86`, `paypal.me/shineii86`
-
----
-
 ## [3.1.0] - 2026-05-06
 
 ### Icon Fix, Light/Dark Theme, README Overhaul
