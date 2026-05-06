@@ -6,35 +6,31 @@ All notable changes to this project will be documented in this file.
 
 ## [5.0.0] - 2026-05-06
 
-### Material 3 (Pixel) Design System with Toggle Mode
-
-#### Added
-- **Material 3 design system** — complete Google Material Design 3 / Material You redesign with proper design tokens, tonal surfaces, state layers, and M3 typography scale
-- **Design mode toggle** — floating palette button (next to theme toggle) lets users switch between "Anime" (original dark glassmorphism) and "Material 3" (Pixel) styles in real-time
-- **M3 dark theme tokens** — full M3 color palette: primary (#FFB1C8), secondary (#E2BDC8), tertiary (#EFBD94), surface tonal hierarchy, error colors, outline/outline-variant
-- **M3 light theme tokens** — proper M3 light palette: primary (#9A4064), surface (#FFFBFF), container hierarchy, inverse colors
-- **M3 component styles** — all components restyled: cards, buttons, tabs, toast, lightbox, social icons, profile, footer, QR popover, share dropdown, scroll progress, back-to-top
-- **M3 state layers** — hover (8%), focus (12%), pressed (12%), dragged (16%) opacity overlays on interactive elements
-- **M3 elevation system** — tonal surface elevation instead of box-shadows; cards use surface-container → surface-container-high on hover
-- **M3 shape system** — consistent border radius tokens: xs(4px), sm(8px), md(12px), lg(16px), xl(28px), full(100px)
-- **Design mode persistence** — user's design choice saved to localStorage and restored on revisit
-- **`material3.css`** — new dedicated M3 stylesheet (29KB) with all M3 tokens and component overrides
-- **Config toggle** — new `design` section in config.js with `mode` ("anime"/"m3") and `allowToggle` (true/false) settings
+### iOS Liquid Glass Design System — Replaces Material 3
 
 #### Changed
-- **index.html** — added `material3.css` link, added design toggle button with palette/layer-group icons
-- **config.js** — added `design` configuration section, bumped version to 5.0
-- **app.js** — added `applyDesignMode()`, `initDesignToggle()` functions, integrated into init chain
+- **Replaced Material 3 with iOS Liquid Glass** — removed `material3.css`, added `liquid-glass.css` with Apple's Liquid Glass aesthetic (WWDC 2025 / iOS 26)
+- **Design toggle** — palette icon replaced with droplet icon; switches between "Anime" and "Liquid Glass" modes
+- **Config** — `design.mode` options changed from "anime"/"m3" to "anime"/"glass"
 
-#### Design Details
-- M3 cards use tonal surface backgrounds (`surface-container`) with `outline-variant` borders
-- M3 buttons use filled tonal style with state layer overlays (no gradient shine)
-- M3 tabs use pill shape with filled primary for active state
-- M3 toast uses inverse-surface for snackbar appearance
-- M3 scrollbar uses outline-variant track with full-radius thumb
-- M3 particles hidden (clean surface aesthetic)
-- Accent picker hidden in M3 mode (M3 has its own color system)
-- Smooth transitions between design modes (CSS-driven, no page reload)
+#### Added (Liquid Glass)
+- **Frosted glass surfaces** — `backdrop-filter: blur(40px) saturate(180%)` on all cards, sections, buttons, popovers
+- **Prismatic edge refraction** — rainbow gradient borders that appear on hover via CSS mask composite
+- **Inner highlight lines** — top-edge light streaks on cards simulating glass surface reflection
+- **Glass tint system** — subtle color washes: pink, teal, purple, gold tints over glass surfaces
+- **iOS dark palette** — vibrant accents: pink (#ff375f), teal (#64d2ff), purple (#bf5af2), gold (#ffd60a)
+- **iOS light palette** — clean white frosted glass with proper light-mode tinting
+- **Glass scrollbar** — translucent thumb with no track background
+- **Glass toast** — iOS-style frosted snackbar with heavy blur
+- **Glass buttons** — shimmer sweep effect on hover, gradient primary fills
+- **Glass badges** — translucent tinted backgrounds with colored borders
+- **Glass tooltips** — frosted popover style with blur backdrop
+- **Depth particles** — canvas particles blurred and desaturated for depth illusion in glass mode
+- **Spring animations** — iOS-style cubic-bezier curves (0.34, 1.56, 0.64, 1) for bouncy motion
+
+#### Removed
+- **Material 3 design system** — deleted `material3.css` (M3 tokens, tonal surfaces, state layers, shape system)
+- **M3-specific behaviors** — removed M3 accent picker hiding, M3 particle hiding, M3 tonal elevation
 
 ---
 

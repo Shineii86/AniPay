@@ -785,8 +785,8 @@
 
   function applyDesignMode(mode) {
     const root = document.documentElement;
-    if (mode === 'm3') {
-      root.setAttribute('data-design', 'm3');
+    if (mode === 'glass') {
+      root.setAttribute('data-design', 'glass');
     } else {
       root.removeAttribute('data-design');
     }
@@ -809,9 +809,9 @@
 
     toggle.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-design');
-      const next = current === 'm3' ? 'anime' : 'm3';
+      const next = current === 'glass' ? 'anime' : 'glass';
       applyDesignMode(next);
-      toast(next === 'm3' ? 'Material 3 mode' : 'Anime mode', next === 'm3' ? 'fa-layer-group' : 'fa-palette');
+      toast(next === 'glass' ? 'Liquid Glass mode' : 'Anime mode', next === 'glass' ? 'fa-droplet' : 'fa-palette');
     });
   }
 

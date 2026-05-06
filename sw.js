@@ -9,7 +9,7 @@ const STATIC_ASSETS = [
   './index.html',
   './manifest.json',
   './assets/css/styles.css',
-  './assets/css/material3.css',
+  './assets/css/liquid-glass.css',
   './assets/js/config.js',
   './assets/js/app.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',

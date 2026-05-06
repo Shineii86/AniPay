@@ -113,10 +113,10 @@ const SITE_CONFIG = {
   },
 
   // ── Design Mode ────────────────────────────────────────
-  // Switch between the original anime glassmorphism style and Material 3 (Pixel) design.
-  // Users can toggle this live via the floating palette button.
+  // Switch between the original anime glassmorphism style and iOS Liquid Glass design.
+  // Users can toggle this live via the floating droplet button.
   design: {
-    mode: "anime",              // "anime" = original dark glassmorphism | "m3" = Material 3 / Pixel
+    mode: "anime",              // "anime" = original dark glassmorphism | "glass" = iOS Liquid Glass
     allowToggle: true,          // Show the floating design mode toggle button
   },
 
