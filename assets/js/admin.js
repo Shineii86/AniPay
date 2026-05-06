@@ -86,6 +86,7 @@ const AdminPanel = (() => {
           <div class="admin-header-right">
             <button class="admin-btn admin-btn-secondary" id="admin-export"><i class="fas fa-download"></i> Export</button>
             <button class="admin-btn admin-btn-secondary" id="admin-import"><i class="fas fa-upload"></i> Import</button>
+            <button class="admin-btn admin-btn-danger" id="admin-reset"><i class="fas fa-rotate-left"></i> Reset</button>
             <button class="admin-btn admin-btn-primary" id="admin-apply"><i class="fas fa-check"></i> Apply</button>
             <a href="?" class="admin-btn admin-btn-ghost"><i class="fas fa-xmark"></i></a>
           </div>
@@ -144,6 +145,17 @@ const AdminPanel = (() => {
     document.getElementById('admin-apply').addEventListener('click', () => {
       applyChanges();
     });
+
+    // Reset
+    const resetBtn = document.getElementById('admin-reset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (confirm('Reset all admin changes? This will restore the original config.js values.')) {
+          localStorage.removeItem('anipay-config-overrides');
+          window.location.href = window.location.pathname;
+        }
+      });
+    }
 
     bindSectionEvents('identity');
   }
@@ -442,15 +454,13 @@ const AdminPanel = (() => {
       setByPath(SITE_CONFIG, path, value);
     });
 
-    // Show success toast
-    if (typeof toast === 'function') {
-      toast('Config applied! Refreshing...', 'fa-check-circle');
-    }
+    // Persist to localStorage so changes survive page reload
+    try {
+      localStorage.setItem('anipay-config-overrides', JSON.stringify(SITE_CONFIG));
+    } catch (e) { /* quota exceeded */ }
 
-    // Refresh the page after a short delay
-    setTimeout(() => {
-      window.location.href = window.location.pathname;
-    }, 800);
+    // Reload without ?admin so the main page renders with new config
+    window.location.href = window.location.pathname;
   }
 
   function exportConfig() {
@@ -618,6 +628,8 @@ const AdminPanel = (() => {
       }
       .admin-btn-primary { background: linear-gradient(135deg, var(--accent-pink, #ff2a6d), #d16ba5); color: #fff; }
       .admin-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(255,42,109,0.3); }
+      .admin-btn-danger { background: rgba(255,71,87,0.12); border: 1px solid rgba(255,71,87,0.2); color: #ff4757; }
+      .admin-btn-danger:hover { background: #ff4757; color: #fff; border-color: transparent; }
       .admin-btn-secondary { background: var(--bg-glass, rgba(255,255,255,0.03)); border: 1px solid var(--border, rgba(255,255,255,0.06)); color: var(--text-secondary, #8a8aad); }
       .admin-btn-secondary:hover { border-color: var(--accent-teal, #5ffbf1); color: var(--accent-teal, #5ffbf1); }
       .admin-btn-ghost { background: transparent; color: var(--text-muted, #555570); padding: 8px 12px; }

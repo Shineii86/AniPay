@@ -1433,6 +1433,28 @@
   //  RENDER ALL
   // ═══════════════════════════════════════════════════════════
 
+  function mergeConfigOverrides() {
+    try {
+      const saved = localStorage.getItem('anipay-config-overrides');
+      if (saved) {
+        const overrides = JSON.parse(saved);
+        deepMerge(SITE_CONFIG, overrides);
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  function deepMerge(target, source) {
+    for (const key of Object.keys(source)) {
+      if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        if (!target[key] || typeof target[key] !== 'object') target[key] = {};
+        deepMerge(target[key], source[key]);
+      } else {
+        target[key] = source[key];
+      }
+    }
+    return target;
+  }
+
   function render() {
     // 1. Profile
     renderProfile();
@@ -1469,6 +1491,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initLoadingScreen();
     loadCustomFonts();
+    mergeConfigOverrides();
     render();
     initTheme();
     renderAccentPicker();
