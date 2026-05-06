@@ -40,8 +40,8 @@
   --font-main: 'Inter', 'Josefin Sans', -apple-system, sans-serif;
   --font-heading: 'Josefin Sans', 'Inter', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   --canvas-opacity: 1;
   --accent-main: #ff2a6d;
@@ -71,7 +71,14 @@
 
 /* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-overflow-scrolling: touch;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 body {
   font-family: var(--font-main);
   background: var(--bg-primary);
@@ -80,6 +87,7 @@ body {
   overflow-x: hidden;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
 }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
@@ -111,6 +119,7 @@ img { max-width: 100%; display: block; }
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transform: scale(1.02);
 }
 
 .loading-content {
@@ -235,6 +244,52 @@ img { max-width: 100%; display: block; }
   padding: 0 24px;
 }
 
+/* ── GPU Acceleration & Smoothness Hints ────────────────── */
+.profile-section,
+.socials-section,
+.pay-card,
+.category-tab,
+.social-icon-link,
+.social-link,
+.theme-toggle,
+.back-to-top,
+.btn,
+.toast,
+.lightbox-overlay,
+.qr-popover,
+.share-dropdown,
+.post-item,
+.scroll-progress {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Smoother scroll-driven elements */
+.scroll-progress {
+  will-change: width;
+}
+
+/* Remove will-change after animations settle */
+.profile-section.visible,
+.socials-section.visible,
+.pay-card.visible {
+  will-change: auto;
+}
+
+/* ── Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .loading-screen { display: none !important; }
+  #bg-canvas { display: none !important; }
+  .scroll-progress { display: none !important; }
+}
+
 /* ═══════════════════════════════════════════════════════════
    PROFILE SECTION — Twitter/X Style
    ═══════════════════════════════════════════════════════════ */
@@ -270,7 +325,8 @@ img { max-width: 100%; display: block; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
 .profile-banner:hover img {
@@ -508,7 +564,7 @@ img { max-width: 100%; display: block; }
 }
 
 .social-icon-link:hover {
-  transform: translateY(-4px) scale(1.1);
+  transform: translateY(-3px) scale(1.08);
   border-color: transparent;
   box-shadow: var(--shadow-md);
 }
@@ -597,7 +653,8 @@ img { max-width: 100%; display: block; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
 .post-item:hover img {
@@ -1032,7 +1089,7 @@ img { max-width: 100%; display: block; }
 .pay-card:hover {
   border-color: var(--border-hover);
   background: var(--bg-card-hover);
-  transform: translateY(-6px) scale(1.01);
+  transform: translateY(-4px) scale(1.005);
   box-shadow: var(--shadow-md), var(--shadow-glow-pink);
 }
 

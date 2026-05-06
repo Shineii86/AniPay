@@ -6,31 +6,36 @@ All notable changes to this project will be documented in this file.
 
 ## [5.0.0] - 2026-05-06
 
-### iOS Liquid Glass Design System — Replaces Material 3
-
-#### Changed
-- **Replaced Material 3 with iOS Liquid Glass** — removed `material3.css`, added `liquid-glass.css` with Apple's Liquid Glass aesthetic (WWDC 2025 / iOS 26)
-- **Design toggle** — palette icon replaced with droplet icon; switches between "Anime" and "Liquid Glass" modes
-- **Config** — `design.mode` options changed from "anime"/"m3" to "anime"/"glass"
-
-#### Added (Liquid Glass)
-- **Frosted glass surfaces** — `backdrop-filter: blur(40px) saturate(180%)` on all cards, sections, buttons, popovers
-- **Prismatic edge refraction** — rainbow gradient borders that appear on hover via CSS mask composite
-- **Inner highlight lines** — top-edge light streaks on cards simulating glass surface reflection
-- **Glass tint system** — subtle color washes: pink, teal, purple, gold tints over glass surfaces
-- **iOS dark palette** — vibrant accents: pink (#ff375f), teal (#64d2ff), purple (#bf5af2), gold (#ffd60a)
-- **iOS light palette** — clean white frosted glass with proper light-mode tinting
-- **Glass scrollbar** — translucent thumb with no track background
-- **Glass toast** — iOS-style frosted snackbar with heavy blur
-- **Glass buttons** — shimmer sweep effect on hover, gradient primary fills
-- **Glass badges** — translucent tinted backgrounds with colored borders
-- **Glass tooltips** — frosted popover style with blur backdrop
-- **Depth particles** — canvas particles blurred and desaturated for depth illusion in glass mode
-- **Spring animations** — iOS-style cubic-bezier curves (0.34, 1.56, 0.64, 1) for bouncy motion
+### Smooth Scrolling & Animation Overhaul — Removes Design Toggles
 
 #### Removed
-- **Material 3 design system** — deleted `material3.css` (M3 tokens, tonal surfaces, state layers, shape system)
-- **M3-specific behaviors** — removed M3 accent picker hiding, M3 particle hiding, M3 tonal elevation
+- **Material 3 design system** — deleted `material3.css`
+- **iOS Liquid Glass design system** — deleted `liquid-glass.css`
+- **Design mode toggle** — removed palette/droplet toggle button and all related logic
+- **`design` config section** — removed from config.js
+
+#### Added
+- **GPU acceleration hints** — `will-change`, `translateZ(0)`, `backface-visibility: hidden` on all animated elements
+- **rAF-throttled scroll handlers** — scroll progress, back-to-top, banner parallax all use requestAnimationFrame with tick guards to prevent jank
+- **Banner parallax** — profile banner subtly shifts on scroll for depth effect
+- **Hero fade-out on scroll** — hero title and badge gracefully fade and drift as user scrolls down
+- **Smooth card stagger** — payment cards reveal with per-card transition-delay for cascading entrance
+- **Adaptive particle frame rate** — 30fps on mobile, 60fps on desktop with frame-time gating
+- **Debounced resize** — canvas resize handler debounced to 150ms to prevent layout thrash
+- **Reduced motion support** — `prefers-reduced-motion: reduce` disables all animations, particles, and loading screen
+- **Overscroll behavior** — `overscroll-behavior-y: none` prevents bounce chaining on iOS
+- **Font smoothing** — `text-rendering: optimizeLegibility` + `-webkit-font-smoothing: antialiased` on html
+- **iOS momentum scrolling** — `-webkit-overflow-scrolling: touch` for smooth inertial scroll
+
+#### Changed
+- **Smarter IntersectionObserver** — multi-threshold [0, 0.05, 0.1] with rAF-synced class toggles
+- **Smoother transitions** — faster `--transition-fast` (0.15s), refined easing curves
+- **Reduced hover displacement** — cards move -4px (was -6px), social icons -3px (was -4px) for subtlety
+- **Improved entry animations** — tighter stagger timing, spring easing on footer hover-out, reduced durations
+- **Loading screen** — fade-out includes subtle scale(1.02) for a zoom-away feel
+- **Post images** — will-change: transform for GPU-composited hover zoom
+- **Particle count reduced** — 30/60 (was 40/80) for smoother performance
+- **Filter transitions** — staggered card delays when switching categories
 
 ---
 

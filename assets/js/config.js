@@ -112,14 +112,6 @@ const SITE_CONFIG = {
     text: "AniPay",            // Text below logo
   },
 
-  // ── Design Mode ────────────────────────────────────────
-  // Switch between the original anime glassmorphism style and iOS Liquid Glass design.
-  // Users can toggle this live via the floating droplet button.
-  design: {
-    mode: "anime",              // "anime" = original dark glassmorphism | "glass" = iOS Liquid Glass
-    allowToggle: true,          // Show the floating design mode toggle button
-  },
-
   // ── Accent Theme ────────────────────────────────────────
   // Multiple accent color options with a floating picker UI.
   // Stored in localStorage so the user's choice persists.
