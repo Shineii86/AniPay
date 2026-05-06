@@ -744,34 +744,6 @@ img { max-width: 100%; display: block; }
   color: var(--accent-pink);
 }
 
-/* ── Support Badges ──────────────────────────────────────── */
-.support-badges {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-top: 24px;
-  flex-wrap: wrap;
-}
-
-.support-badges a {
-  display: inline-block;
-  transition: all var(--transition-smooth);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.support-badges a:hover {
-  transform: translateY(-3px);
-  filter: brightness(1.1);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.support-badges img {
-  height: 42px;
-  border-radius: 8px;
-}
-
 /* ── Back to Top ─────────────────────────────────────────── */
 .back-to-top {
   position: fixed;
