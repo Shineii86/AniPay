@@ -16,13 +16,19 @@ const Analytics = (() => {
     load();
     trackView();
     observeClicks();
-    // Keyboard shortcut to open dashboard
+    // Keyboard shortcut to open dashboard (desktop)
     document.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.shiftKey && e.key === 'A') {
         e.preventDefault();
         toggleDashboard();
       }
     });
+    // URL parameter ?analytics
+    if (window.location.search.includes('analytics')) {
+      setTimeout(toggleDashboard, 500);
+    }
+    // Mobile: 5-tap on footer brand
+    initSecretTap();
   }
 
   function load() {
@@ -72,6 +78,26 @@ const Analytics = (() => {
     const t = today();
     if (!d.days[t]) d.days[t] = { views: 0, clicks: 0 };
     return t;
+  }
+
+  // ── Secret Tap (Mobile) ───────────────────────────────
+  function initSecretTap() {
+    const brand = document.querySelector('.footer-brand');
+    if (!brand) return;
+    let taps = 0;
+    let timer = null;
+
+    brand.addEventListener('click', (e) => {
+      e.preventDefault();
+      taps++;
+      clearTimeout(timer);
+      timer = setTimeout(() => { taps = 0; }, 1500);
+      if (taps >= 5) {
+        taps = 0;
+        clearTimeout(timer);
+        toggleDashboard();
+      }
+    });
   }
 
   // ── Tracking ─────────────────────────────────────────
