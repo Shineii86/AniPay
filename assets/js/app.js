@@ -24,7 +24,7 @@
       families.push(`family=${encodeURIComponent(fonts.main.family)}:wght@${fonts.main.weights || '300;400;500;600;700'}`);
     }
     if (fonts.heading && fonts.heading.family) {
-      families.push(`family=${encodeURIComponent(fonts.heading.family)}:wght@${fonts.weights || '300;400;600;700'}`);
+      families.push(`family=${encodeURIComponent(fonts.heading.family)}:wght@${fonts.heading.weights || '300;400;600;700'}`);
     }
     if (fonts.mono && fonts.mono.family) {
       families.push(`family=${encodeURIComponent(fonts.mono.family)}:wght@${fonts.mono.weights || '400;500'}`);
@@ -967,8 +967,7 @@
 
     const duration = cfg.duration || 1500;
 
-    // Fade out after content loads + minimum duration
-    window.addEventListener('load', () => {
+    function dismissLoading() {
       setTimeout(() => {
         const screen = $('#loading-screen');
         if (screen) {
@@ -976,7 +975,14 @@
           setTimeout(() => screen.remove(), 700);
         }
       }, duration);
-    });
+    }
+
+    // If page already loaded (cached), dismiss immediately
+    if (document.readyState === 'complete') {
+      dismissLoading();
+    } else {
+      window.addEventListener('load', dismissLoading);
+    }
   }
 
   // ═══════════════════════════════════════════════════════════
