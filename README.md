@@ -14,7 +14,7 @@
   <a href="https://shineii86.github.io/AniPay/">
     <img src="https://img.shields.io/badge/LIVE_DEMO-ff2a6d?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
   </a>
-  <img src="https://img.shields.io/badge/Version-6.0.1-ff2a6d?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-4.2.0-ff2a6d?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/github/license/Shineii86/AniPay?style=for-the-badge&color=5ffbf1" alt="License">
   <img src="https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge&color=a855f7" alt="Last Commit">
   <img src="https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge" alt="Repo Size">
@@ -43,7 +43,6 @@
 - [Quick Start](#-quick-start)
 - [Customization](#-customization)
 - [Configuration Reference](#-configuration-reference)
-- [Keyboard Shortcuts](#-keyboard-shortcuts)
 - [Project Structure](#-project-structure)
 - [Tech Stack](#%EF%B8%8F-tech-stack)
 - [Changelog](#-changelog)
@@ -99,7 +98,7 @@ Fork → Edit config.js → Done.
 
 | Feature | Description |
 |---------|-------------|
-| **Banner Image** | Full-width banner with gradient overlay and scroll parallax |
+| **Banner Image** | Full-width banner with gradient overlay |
 | **Profile Avatar** | Circular avatar with border and hover zoom |
 | **Verified Badge** | Blue checkmark — toggle on/off |
 | **Display Name + Username** | Bold name + muted handle |
@@ -219,72 +218,7 @@ Each icon shows a **tooltip on hover** and changes to the **platform's brand col
 | **Toast Notifications** | Stacking toasts for copy/download feedback |
 | **Anime.js Animations** | Smooth entry animations for all sections |
 | **Responsive** | Desktop, tablet, and mobile |
-
-### 🖱️ Custom Cursor & Anime Effects
-
-| Feature | Description |
-|---------|-------------|
-| **Custom Cursor** | Dot + ring follows mouse with smooth interpolation |
-| **Cursor Trail** | 6 fading trail particles behind the cursor |
-| **Hover State** | Ring expands and glows pink on interactive elements |
-| **Click Burst** | 8 colored particles explode on every click |
-| **Konami Code** | ↑↑↓↓←→←→BA triggers "Zero Two Mode" — confetti, ASCII art, screen flash |
-| **Touch-Safe** | All cursor effects auto-disabled on mobile/touch devices |
-
-### 🔊 Sound System
-
-| Feature | Description |
-|---------|-------------|
-| **Procedural Audio** | All sounds via Web Audio API — zero external files (~1KB) |
-| **Click Sound** | Short tap on interactive elements |
-| **Copy Sound** | Ascending arpeggio on clipboard copy |
-| **Toggle Sound** | Triangle wave on theme/tab toggle |
-| **Success Sound** | C-E-G chord on achievements |
-| **Open / Close** | Rising/falling tones for lightbox |
-| **Footer Toggle** | Speaker icon to enable/disable — persists in localStorage |
-
-### 📊 Analytics Dashboard
-
-| Feature | Description |
-|---------|-------------|
-| **localStorage Tracking** | Zero external dependencies, no cookies, no network |
-| **Tracks** | Page views, payment copies, link opens, social clicks, tab switches |
-| **7-Day Chart** | Canvas bar chart — views vs clicks over last 7 days |
-| **Top Payments** | Most-copied payment methods ranked |
-| **Top Socials** | Most-clicked social links ranked |
-| **Event Log** | Recent interactions with category, action, timestamp |
-| **30-Day Retention** | Auto-prunes old data |
-| **Open (Desktop)** | `Ctrl+Shift+A` |
-| **Open (Mobile)** | Tap the footer "AniPay" text **5 times** quickly |
-| **Open (URL)** | Append `?analytics` to page URL |
-
-### 🔧 Admin Config Editor
-
-| Feature | Description |
-|---------|-------------|
-| **Visual Editor** | Form-based UI at `?admin` — no code editing |
-| **Password Protected** | Default: `anipay` (configurable in `config.admin.password`) |
-| **Sections** | Identity · Features · Profile · Socials · Payments · Appearance |
-| **Feature Toggles** | Enable/disable any section with toggle switches |
-| **Social Editor** | URL inputs + toggles for all 34 platforms |
-| **Payment Editor** | Name, value, description, color for each method |
-| **Export** | Download current config as `config.js` |
-| **Import** | Upload a `config.js` to merge settings |
-| **Apply & Refresh** | Changes apply to live config, page refreshes |
-
-### ⚡ Performance & Smoothness
-
-| Feature | Description |
-|---------|-------------|
-| **GPU Acceleration** | `will-change`, `translateZ(0)`, `backface-visibility` on animated elements |
-| **rAF Scroll Throttling** | All scroll handlers use `requestAnimationFrame` with tick guards |
-| **Banner Parallax** | Profile banner shifts on scroll for depth |
-| **Hero Fade-Out** | Hero title/badge gracefully fade as user scrolls |
-| **Card Stagger** | Payment cards reveal with per-card `transition-delay` |
-| **Adaptive Particles** | 30fps mobile / 60fps desktop with frame-time gating |
-| **Debounced Resize** | Canvas resize debounced to 150ms |
-| **Reduced Motion** | `prefers-reduced-motion` disables all animations |
-| **iOS Overscroll** | `overscroll-behavior-y: none` prevents bounce chain |
+| **Keyboard Shortcuts** | `Esc` reset · `Ctrl+K` navigate · Arrow keys in lightbox |
 
 ### ⚡ Quick Wins
 
@@ -441,14 +375,6 @@ payments: {
 }
 ```
 
-### Change Admin Password
-
-```javascript
-admin: {
-  password: "your-secure-password",  // Default: "anipay"
-}
-```
-
 ---
 
 ## 📝 Configuration Reference
@@ -544,25 +470,6 @@ seo: {
 
 ---
 
-## ⌨️ Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Esc` | Reset payment category filter / Close lightbox |
-| `Ctrl+K` | Focus category tabs |
-| `Ctrl+Shift+A` | Toggle analytics dashboard |
-| `←` `→` | Navigate lightbox images |
-| `↑↑↓↓←→←→BA` | Konami code — Zero Two Mode 🎮 |
-
-### 📱 Mobile Alternatives
-
-| Action | How |
-|--------|-----|
-| **Analytics** | Tap footer "AniPay" text **5 times** — or append `?analytics` to URL |
-| **Admin Panel** | Append `?admin` to URL |
-
----
-
 ## 📁 Project Structure
 
 ```
@@ -572,14 +479,10 @@ AniPay/
 ├── sw.js                         → Service worker (offline caching)
 ├── assets/
 │   ├── css/
-│   │   └── styles.css            → All styles, effects, themes, responsive
+│   │   └── styles.css            → All styles, themes, responsive
 │   ├── js/
 │   │   ├── config.js             → ⚡ EDIT THIS — all site content
-│   │   ├── app.js                → Rendering engine, animations, features
-│   │   ├── sounds.js             → Web Audio API sound effects (~1KB)
-│   │   ├── analytics.js          → localStorage analytics + dashboard
-│   │   ├── effects.js            → Custom cursor, click bursts, Konami
-│   │   └── admin.js              → Visual config editor at ?admin
+│   │   └── app.js                → Rendering engine, animations, features
 │   └── favicons/
 │       ├── favicon.ico           → Multi-size ICO (16/32/48)
 │       ├── favicon-16x16.png     → Small favicon
@@ -606,7 +509,6 @@ AniPay/
 ![Anime.js](https://img.shields.io/badge/Anime.js-2C2D72?style=for-the-badge&logo=javascript&logoColor=white)
 ![Font Awesome](https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=font-awesome&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)
-![Web Audio](https://img.shields.io/badge/Web_Audio-FF2A6D?style=for-the-badge&logo=webassembly&logoColor=white)
 
 </div>
 
@@ -615,8 +517,6 @@ AniPay/
 | **Fonts** | Inter (primary) · Josefin Sans (display) · JetBrains Mono (code) — configurable |
 | **Icons** | Font Awesome 6.5.1 (Free) — 34 social platform mappings |
 | **Animations** | Anime.js 3.2.2 |
-| **Sounds** | Web Audio API — procedural, zero external files |
-| **Analytics** | localStorage — zero network, 30-day retention |
 | **QR API** | goqr.me API (auto-generated) |
 | **Hosting** | GitHub Pages (static) |
 | **PWA** | Service worker + manifest — installable on mobile & desktop |
@@ -629,13 +529,12 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 | Version | Date | Highlights |
 |---------|------|------------|
-| **v6.0.1** | 2026-05-06 | Bug fixes: admin panel persistence, mobile analytics overlay, config type coercion |
-| **v6.0.0** | 2026-05-06 | Admin panel, analytics dashboard, anime effects, sound system |
-| **v5.0.0** | 2026-05-06 | Smooth scrolling & animation overhaul |
 | **v4.2.0** | 2026-05-06 | Share button, custom fonts in config, page loading animation |
+| **v4.1.1** | 2026-05-06 | Proper favicon suite (ICO, PNG, apple-touch, android-chrome) |
 | **v4.1.0** | 2026-05-06 | PWA support, OG/SEO tags, typing bio, accent themes, profile QR |
 | **v4.0.0** | 2026-05-06 | Twitter profile, 34 social links, Instagram posts, lightbox, feature toggles |
-| **v3.0.0** | 2026-05-06 | Complete rebuild, new design, all methods enabled |
+| **v3.1.0** | 2026-05-06 | Icon CDN fix, light/dark theme, README overhaul |
+| **v3.0.0** | 2026-05-06 | Complete rebuild, new design, all methods enabled, theme toggle |
 | **v2.0.0** | 2026-05-06 | Modular architecture, data-driven config |
 | **v1.0.0** | 2025-01-01 | Initial release |
 

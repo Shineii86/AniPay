@@ -1,8 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════
- *  AniPay v5.0 — Application Engine
+ *  AniPay v4.0 — Application Engine
  *  Modular renderer: Profile, Socials, Posts, Payments
- *  Optimized for smooth scrolling & animations
  * ═══════════════════════════════════════════════════════════
  */
 
@@ -12,8 +11,6 @@
   // ── State ──────────────────────────────────────────────
   let activeCategory = 'all';
   let lightboxState = { images: [], index: 0, caption: '' };
-  let scrollTicking = false;
-  let resizeTimer = null;
 
   // ═══════════════════════════════════════════════════════════
   //  CUSTOM FONTS — Load from config
@@ -670,19 +667,10 @@
     $$('.payment-section').forEach(sec => {
       if (activeCategory === 'all' || sec.dataset.category === activeCategory) {
         sec.style.display = '';
-        // Smooth staggered reveal
-        const cards = sec.querySelectorAll('.pay-card');
-        cards.forEach((card, i) => {
-          card.style.transitionDelay = `${i * 50}ms`;
-        });
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => sec.classList.add('visible'));
-        });
+        requestAnimationFrame(() => sec.classList.add('visible'));
       } else {
         sec.classList.remove('visible');
-        const cards = sec.querySelectorAll('.pay-card');
-        cards.forEach(card => { card.style.transitionDelay = '0ms'; });
-        setTimeout(() => sec.style.display = 'none', 350);
+        setTimeout(() => sec.style.display = 'none', 400);
       }
     });
   }
@@ -1099,41 +1087,28 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const isMobile = window.innerWidth < 768;
-    const COUNT = isMobile ? 30 : 60;
+    const COUNT = isMobile ? 40 : 80;
     let w, h;
-    let lastTime = 0;
-    const TARGET_FPS = isMobile ? 30 : 60;
-    const FRAME_MS = 1000 / TARGET_FPS;
 
     function resize() {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
     }
     resize();
-
-    // Debounced resize
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resize, 150);
-    }, { passive: true });
+    window.addEventListener('resize', resize);
 
     const colors = ['#ff2a6d', '#5ffbf1', '#a855f7', '#86a8e7'];
     const particles = Array.from({ length: COUNT }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       r: Math.random() * 2 + 0.5,
-      dx: (Math.random() - 0.5) * 0.4,
-      dy: Math.random() * 0.8 + 0.2,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: Math.random() * 1 + 0.3,
       color: colors[Math.random() * colors.length | 0],
-      alpha: Math.random() * 0.25 + 0.08
+      alpha: Math.random() * 0.3 + 0.1
     }));
 
-    function loop(now) {
-      requestAnimationFrame(loop);
-      // Frame rate limiting for smoothness
-      if (now - lastTime < FRAME_MS) return;
-      lastTime = now;
-
+    function loop() {
       ctx.clearRect(0, 0, w, h);
       for (const p of particles) {
         p.x += p.dx;
@@ -1147,61 +1122,9 @@
         ctx.fill();
       }
       ctx.globalAlpha = 1;
+      requestAnimationFrame(loop);
     }
-    requestAnimationFrame(loop);
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  //  SMOOTH BANNER PARALLAX
-  // ═══════════════════════════════════════════════════════════
-
-  function initBannerParallax() {
-    const banner = $('.profile-banner img');
-    if (!banner) return;
-    let parallaxTicking = false;
-
-    window.addEventListener('scroll', () => {
-      if (parallaxTicking) return;
-      parallaxTicking = true;
-      requestAnimationFrame(() => {
-        const scrolled = window.scrollY;
-        const rate = scrolled * 0.15;
-        if (scrolled < 500) {
-          banner.style.transform = `translateY(${rate}px) scale(1.03)`;
-        }
-        parallaxTicking = false;
-      });
-    }, { passive: true });
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  //  SMOOTH SECTION HEADER PARALLAX
-  // ═══════════════════════════════════════════════════════════
-
-  function initSmoothScrollEffects() {
-    const hero = $('.hero-title');
-    const badge = $('.hero-badge');
-    if (!hero) return;
-
-    let effectTicking = false;
-    window.addEventListener('scroll', () => {
-      if (effectTicking) return;
-      effectTicking = true;
-      requestAnimationFrame(() => {
-        const scrolled = window.scrollY;
-        if (scrolled < 600) {
-          const opacity = Math.max(0, 1 - scrolled / 500);
-          const translateY = scrolled * 0.08;
-          hero.style.opacity = opacity;
-          hero.style.transform = `translateY(${translateY}px)`;
-          if (badge) {
-            badge.style.opacity = opacity;
-            badge.style.transform = `translateY(${translateY * 0.5}px)`;
-          }
-        }
-        effectTicking = false;
-      });
-    }, { passive: true });
+    loop();
   }
 
   // ═══════════════════════════════════════════════════════════
@@ -1213,13 +1136,8 @@
     const bar = $('.scroll-progress');
     if (!bar) return;
     window.addEventListener('scroll', () => {
-      if (scrollTicking) return;
-      scrollTicking = true;
-      requestAnimationFrame(() => {
-        const h = document.documentElement.scrollHeight - window.innerHeight;
-        bar.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0%';
-        scrollTicking = false;
-      });
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0%';
     }, { passive: true });
   }
 
@@ -1260,18 +1178,10 @@
       btn.style.display = 'none';
       return;
     }
-    let backTicking = false;
     window.addEventListener('scroll', () => {
-      if (backTicking) return;
-      backTicking = true;
-      requestAnimationFrame(() => {
-        btn.classList.toggle('visible', window.scrollY > 400);
-        backTicking = false;
-      });
+      btn.classList.toggle('visible', window.scrollY > 400);
     }, { passive: true });
-    btn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
   // ═══════════════════════════════════════════════════════════
@@ -1282,12 +1192,11 @@
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
-          // Use rAF to sync with paint
-          requestAnimationFrame(() => e.target.classList.add('visible'));
+          e.target.classList.add('visible');
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: [0, 0.05, 0.1], rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
     // Observe profile, socials, posts sections
     ['#profile-section', '#socials-section', '#posts-section'].forEach(sel => {
@@ -1295,12 +1204,8 @@
       if (el && el.style.display !== 'none') observer.observe(el);
     });
 
-    // Observe payment sections and cards with stagger
-    $$('.payment-section').forEach(el => observer.observe(el));
-    $$('.pay-card').forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min(i * 40, 200)}ms`;
-      observer.observe(el);
-    });
+    // Observe payment sections and cards
+    $$('.payment-section, .pay-card').forEach(el => observer.observe(el));
   }
 
   // ═══════════════════════════════════════════════════════════
@@ -1327,94 +1232,30 @@
 
   function initAnimations() {
     if (typeof anime === 'undefined') return;
-    const ease = 'easeOutCubic';
-    const spring = 'spring(1, 80, 10, 0)';
+    const ease = 'easeOutExpo';
 
-    // Profile — smooth slide up
-    anime({ targets: '#profile-section', opacity: [0, 1], translateY: [30, 0], duration: 700, easing: ease });
+    // Profile animation
+    anime({ targets: '#profile-section', opacity: [0, 1], translateY: [20, 0], duration: 800, easing: ease });
 
-    // Socials — staggered pop-in
-    anime({ targets: '.social-icon-link', opacity: [0, 1], scale: [0.4, 1], translateY: [10, 0], delay: anime.stagger(25, { start: 250 }), duration: 450, easing: 'easeOutBack' });
+    // Socials animation
+    anime({ targets: '.social-icon-link', opacity: [0, 1], scale: [0.5, 1], delay: anime.stagger(30, { start: 300 }), duration: 500, easing: 'easeOutBack' });
 
-    // Posts — smooth scale reveal
-    anime({ targets: '.post-item', opacity: [0, 1], scale: [0.92, 1], delay: anime.stagger(40, { start: 350 }), duration: 500, easing: ease });
+    // Posts animation
+    anime({ targets: '.post-item', opacity: [0, 1], scale: [0.9, 1], delay: anime.stagger(50, { start: 400 }), duration: 600, easing: ease });
 
-    // Hero — cascading entrance
-    anime({ targets: '.hero-badge', opacity: [0, 1], translateY: [-12, 0], duration: 600, easing: ease });
-    anime({ targets: '.hero-title', opacity: [0, 1], translateY: [-20, 0], delay: 120, duration: 800, easing: ease });
-    anime({ targets: '.hero-subtitle', opacity: [0, 1], translateY: [12, 0], delay: 250, duration: 700, easing: ease });
-    anime({ targets: '.hero-divider', width: [0, 80], delay: 400, duration: 600, easing: ease });
-    anime({ targets: '.stat-item', opacity: [0, 1], translateY: [16, 0], delay: anime.stagger(80, { start: 350 }), duration: 550, easing: ease });
-    anime({ targets: '.category-tab', opacity: [0, 1], scale: [0.92, 1], delay: anime.stagger(50, { start: 500 }), duration: 450, easing: 'easeOutBack' });
+    // Hero animations
+    anime({ targets: '.hero-badge', opacity: [0, 1], translateY: [-15, 0], duration: 800, easing: ease });
+    anime({ targets: '.hero-title', opacity: [0, 1], translateY: [-25, 0], delay: 150, duration: 1000, easing: ease });
+    anime({ targets: '.hero-subtitle', opacity: [0, 1], translateY: [15, 0], delay: 300, duration: 900, easing: ease });
+    anime({ targets: '.hero-divider', width: [0, 80], delay: 500, duration: 800, easing: ease });
+    anime({ targets: '.stat-item', opacity: [0, 1], translateY: [20, 0], delay: anime.stagger(100, { start: 400 }), duration: 700, easing: ease });
+    anime({ targets: '.category-tab', opacity: [0, 1], scale: [0.9, 1], delay: anime.stagger(60, { start: 600 }), duration: 600, easing: 'easeOutBack' });
 
-    // Footer social hover — smooth micro-interaction
+    // Footer social hover
     $$('.social-link').forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        anime({ targets: link, scale: 1.12, duration: 250, easing: 'easeOutQuad' });
-      });
-      link.addEventListener('mouseleave', () => {
-        anime({ targets: link, scale: 1, duration: 300, easing: 'easeOutElastic(1, .8)' });
-      });
+      link.addEventListener('mouseenter', () => anime({ targets: link, scale: 1.15, duration: 200, easing: 'easeOutQuad' }));
+      link.addEventListener('mouseleave', () => anime({ targets: link, scale: 1, duration: 200, easing: 'easeOutQuad' }));
     });
-  }
-
-  // ═══════════════════════════════════════════════════════════
-  //  SOUND HOOKS — Add audio feedback to interactions
-  // ═══════════════════════════════════════════════════════════
-
-  function initSoundHooks() {
-    // Copy sounds
-    document.addEventListener('click', (e) => {
-      if (e.target.closest('.card-value')) SoundFX.play('copy');
-      else if (e.target.closest('.pay-card .btn-primary')) SoundFX.play('copy');
-      else if (e.target.closest('.category-tab')) SoundFX.play('toggle');
-      else if (e.target.closest('.theme-toggle')) SoundFX.play('toggle');
-      else if (e.target.closest('.social-icon-link, .social-link')) SoundFX.play('click');
-      else if (e.target.closest('.accent-dot')) SoundFX.play('click');
-      else if (e.target.closest('.back-to-top')) SoundFX.play('open');
-      else if (e.target.closest('.lightbox-close')) SoundFX.play('close');
-    });
-
-    // Sound toggle in footer
-    const footer = document.querySelector('.site-footer');
-    if (footer) {
-      const soundBtn = document.createElement('button');
-      soundBtn.className = 'footer-sound-btn';
-      soundBtn.setAttribute('aria-label', 'Toggle sounds');
-      soundBtn.innerHTML = `<i class="fas ${SoundFX.isEnabled() ? 'fa-volume-high' : 'fa-volume-xmark'}"></i>`;
-      soundBtn.style.cssText = `
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: var(--bg-glass);
-        border: 1px solid var(--border);
-        color: var(--text-muted);
-        font-size: 0.85rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        margin-top: 12px;
-      `;
-      soundBtn.addEventListener('click', () => {
-        const on = SoundFX.toggle();
-        soundBtn.querySelector('i').className = `fas ${on ? 'fa-volume-high' : 'fa-volume-xmark'}`;
-        soundBtn.style.color = on ? 'var(--accent-teal)' : 'var(--text-muted)';
-        soundBtn.style.borderColor = on ? 'rgba(95,251,241,0.3)' : 'var(--border)';
-      });
-      soundBtn.addEventListener('mouseenter', () => {
-        soundBtn.style.borderColor = 'rgba(95,251,241,0.3)';
-        soundBtn.style.color = 'var(--accent-teal)';
-      });
-      soundBtn.addEventListener('mouseleave', () => {
-        if (!SoundFX.isEnabled()) {
-          soundBtn.style.borderColor = 'var(--border)';
-          soundBtn.style.color = 'var(--text-muted)';
-        }
-      });
-      footer.insertBefore(soundBtn, footer.querySelector('.footer-copy'));
-    }
   }
 
   // ═══════════════════════════════════════════════════════════
@@ -1432,51 +1273,6 @@
   // ═══════════════════════════════════════════════════════════
   //  RENDER ALL
   // ═══════════════════════════════════════════════════════════
-
-  function mergeConfigOverrides() {
-    try {
-      const saved = localStorage.getItem('anipay-config-overrides');
-      if (saved) {
-        const overrides = JSON.parse(saved);
-        if (overrides && typeof overrides === 'object' && !Array.isArray(overrides)) {
-          deepMerge(SITE_CONFIG, overrides);
-        }
-      }
-    } catch (e) {
-      // If saved config is corrupted, remove it to prevent recurring issues
-      try { localStorage.removeItem('anipay-config-overrides'); } catch (_) {}
-    }
-  }
-
-  function deepMerge(target, source) {
-    for (const key of Object.keys(source)) {
-      const srcVal = source[key];
-      const tgtVal = target[key];
-
-      // Skip null/undefined source values to preserve defaults
-      if (srcVal === null || srcVal === undefined) continue;
-
-      if (srcVal && typeof srcVal === 'object' && !Array.isArray(srcVal)) {
-        // Recursively merge objects
-        if (!tgtVal || typeof tgtVal !== 'object' || Array.isArray(tgtVal)) {
-          target[key] = {};
-        }
-        deepMerge(target[key], srcVal);
-      } else {
-        // For arrays and primitives — coerce numbers from strings
-        // (admin form inputs read values as strings)
-        if (typeof tgtVal === 'number' && typeof srcVal === 'string') {
-          const num = Number(srcVal);
-          if (!isNaN(num)) {
-            target[key] = num;
-            continue;
-          }
-        }
-        target[key] = srcVal;
-      }
-    }
-    return target;
-  }
 
   function render() {
     // 1. Profile
@@ -1514,29 +1310,15 @@
   document.addEventListener('DOMContentLoaded', () => {
     initLoadingScreen();
     loadCustomFonts();
-    mergeConfigOverrides();
     render();
     initTheme();
     renderAccentPicker();
     initParticles();
     initScrollProgress();
     initBackToTop();
-    initBannerParallax();
-    initSmoothScrollEffects();
     initKeyboard();
     initLightbox();
     initAnimations();
-
-    // New modules
-    SoundFX.init();
-    Analytics.init();
-    AnimeFX.init();
-    AnimeFX.start();
-    AdminPanel.init();
-
-    // Sound hooks
-    initSoundHooks();
-
     requestAnimationFrame(() => initReveal());
   });
 

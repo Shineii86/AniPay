@@ -55,7 +55,7 @@ const SITE_CONFIG = {
 
   // ── Site Identity ────────────────────────────────────────
   name: "AniPay",
-  version: "5.0",
+  version: "4.0",
   tagline: "Darling in the Franxx Inspired Payment Gateway",
   description: "A beautiful, anime-themed multi-method payment page with social links and posts. Fork it, customize it, make it yours.",
   footer: "Inspired by Code:002 from Darling in the Franxx",
@@ -110,12 +110,6 @@ const SITE_CONFIG = {
     duration: 1500,            // Minimum display time in ms (before fade-out)
     logo: "./Source/logo.png", // Logo shown during loading
     text: "AniPay",            // Text below logo
-  },
-
-  // ── Admin Panel ───────────────────────────────────────
-  // Access at ?admin — visual config editor with password protection.
-  admin: {
-    password: "anipay",           // Admin password (change this!)
   },
 
   // ── Accent Theme ────────────────────────────────────────
