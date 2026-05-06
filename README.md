@@ -20,42 +20,37 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
 
 ## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Activity/Sparkles.webp" alt="Sparkles" width="25" height="25" /> Features
 
-- **Zero Two Themed UI**
-  - [x] Beautiful pink and teal color scheme inspired by Zero Two
-  - [x] Particle animation background with anime.js
-  - [x] Responsive design for all devices
-  - [x] Glassmorphism cards with backdrop blur
-  
-- **Data-Driven Payment Methods** ⚡
-  - [x] Toggle any payment method on/off with `enabled: true/false`
-  - [x] Add new methods by appending a JSON object — no HTML editing needed
-  - [x] Pre-configured: PayPal, Buy Me a Coffee, Ko-fi (disabled by default)
-  - [x] Supports `id`, `url`, `qr`, and `address` payment types
-  - **Indian Payments**
-    - [x] QR Code payment with download option
-    - [x] UPI payment with copy functionality
-  - **International Payments**
-    - [x] Binance ID
-    - [x] Bybit ID
-    - [x] Tonkeeper address
-    - [ ] PayPal (toggle `enabled: true` in config to activate)
-    - [ ] Buy Me a Coffee (toggle `enabled: true` in config to activate)
-    - [ ] Ko-fi (toggle `enabled: true` in config to activate)
+- **All-New Modern Design**
+  - [x] Dark glassmorphism UI with animated gradient title
+  - [x] Particle background with multi-color particles
+  - [x] Scroll progress bar & back-to-top button
+  - [x] Card hover glow effects with unique accent colors
+  - [x] Responsive across all devices
 
-- **Advanced Animations**
-  - [x] Smooth entrance animations with anime.js
-  - [x] Scroll-reveal card animations via IntersectionObserver
-  - [x] Interactive button hover effects with shine sweep
-  - [x] Particle system background
-  - [x] Toast notification system
-  - [x] Animated gradient title
+- **All Payment Methods Enabled** ⚡
+  - [x] **India**: UPI QR, UPI ID, PhonePe
+  - [x] **International**: PayPal, Buy Me a Coffee, Ko-fi
+  - [x] **Crypto**: Binance, Bybit, Tonkeeper, Ethereum, Bitcoin
+  - [x] Toggle any method with `enabled: true/false`
+  - [x] Add new methods by appending a JSON object — no HTML needed
 
-- **Modular Architecture** 🔧
-  - [x] Separated HTML, CSS, and JavaScript files
-  - [x] Config-driven rendering — edit `assets/js/config.js` to manage methods
-  - [x] Built with pure HTML, CSS, and JavaScript
-  - [x] Uses anime.js for advanced animations
-  - [x] Josefin Sans + JetBrains Mono fonts
+- **Category Filtering**
+  - [x] Tab-based navigation: All / India / International / Crypto
+  - [x] Animated section transitions
+  - [x] Badge system: popular, new, beta labels on cards
+
+- **Smart Interactions**
+  - [x] Click-to-copy on all payment values with visual feedback
+  - [x] QR code download for QR-type methods
+  - [x] Stacking toast notifications
+  - [x] Keyboard shortcuts (Esc to reset, Ctrl+K to navigate)
+  - [x] Animated stats counters
+
+- **Fork-Friendly** 🍴
+  - [x] Single config file to manage everything
+  - [x] Fully documented field reference in config.js
+  - [x] Add new categories, methods, or social links easily
+  - [x] Zero HTML editing required — just edit config.js
 
 ㅤㅤ
   <a href="https://github.com/Shineii86/AniPay">
@@ -86,69 +81,53 @@ A stunning anime-inspired payment gateway interface featuring Zero Two (Code:002
     <img src="./Source/Banner3.png" alt="Banner">
   </a>
 
-## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Activity/Artist%20Palette.webp" alt="Artist Palette" width="25" height="25" /> Customization
+## <img src="https://raw.githubusercontent.com/Shineii86/Emojis/main/Activity/Artist%20Palette.webp" alt="Artist Palette" width="25" height="25" /> Quick Start (Fork & Customize)
 
-### 1) Add / Toggle Payment Methods
+### 1. Fork this repo
+Click the **Fork** button on GitHub → you get your own copy.
 
-All payment methods are managed in **`assets/js/config.js`**. No HTML editing needed!
+### 2. Edit `assets/js/config.js`
+That's it. One file controls everything:
 
-**To enable a pre-configured method** (e.g. PayPal):
+**Enable/disable methods:**
 ```javascript
-{
-  name: "PayPal",
-  icon: "fab fa-paypal",        // Font Awesome icon
-  iconColor: "#00457C",         // Icon color
-  type: "id",                   // "id" | "url" | "qr" | "address"
-  value: "your@email.com",     // Payment ID / URL / address
-  description: "Send via PayPal",
-  enabled: true,                // ← Change to true to show
-  copyable: true                // ← Shows copy button
-}
+{ name: "PayPal", ..., enabled: true }   // Shown
+{ name: "PayPal", ..., enabled: false }  // Hidden
 ```
 
-**To add a brand new method**, append to the appropriate array:
+**Add a new method:**
 ```javascript
-// In PAYMENT_CONFIG → indian.methods[] or international.methods[]
 {
-  name: "Google Pay",
-  icon: "fab fa-google",
-  iconColor: "#4285F4",
-  type: "id",
-  value: "your-gpay@okaxis",
-  description: "Pay via Google Pay UPI",
+  name: "Stripe",
+  icon: "fab fa-stripe-s",
+  iconBg: "#635bff",
+  type: "url",
+  value: "https://stripe.com/pay/your-link",
+  label: "Stripe Link",
+  description: "Pay securely with card via Stripe",
+  color: "#635bff",
   enabled: true,
-  copyable: true
+  copyable: true,
+  badge: "new"       // "popular" | "new" | "beta" | null
 }
 ```
 
-**To disable a method**, set `enabled: false`:
+**Add a new category:**
 ```javascript
-{ ..., enabled: false }  // This method will not render
-```
-
-### 2) Supported Payment Types
-
-| Type | Renders | Buttons |
-|------|---------|---------|
-| `qr` | QR code image | Download QR |
-| `id` | Monospace value display | Copy |
-| `address` | Monospace value display | Copy |
-| `url` | Monospace value display | Copy + Open |
-
-### 3) Site Identity
-
-Edit the `site` object in config to change name, tagline, footer text, and social links:
-```javascript
-site: {
-  name: "AniPay",
-  tagline: "Your custom tagline",
-  footer: "Your footer text",
-  year: 2025,
-  socials: [
-    { icon: "fab fa-twitter", url: "https://...", label: "Twitter" }
+// In PAYMENT_METHODS object:
+wallets: {
+  title: "Digital Wallets",
+  subtitle: "Apple Pay, Google Pay & more",
+  icon: "fas fa-wallet",
+  items: [
+    { name: "Apple Pay", ... },
+    { name: "Google Pay", ... }
   ]
 }
 ```
+
+### 3. Deploy
+Push to GitHub → enable GitHub Pages in Settings → Done.
   <a href="https://github.com/Shineii86/AniPay">
     <img src="./Source/Banner4.png" alt="Banner">
   </a>
@@ -157,33 +136,36 @@ site: {
 
 ```
 AniPay/
-├── index.html              # Main page (clean HTML, no inline code)
+├── index.html              → Clean semantic HTML
 ├── assets/
 │   ├── css/
-│   │   └── styles.css      # All styles (glassmorphism, animations, responsive)
+│   │   └── styles.css      → All styles (glassmorphism, responsive, animations)
 │   └── js/
-│       ├── config.js       # ⚡ Payment methods config (edit this to add/toggle methods)
-│       └── app.js          # Rendering engine, particles, animations
-├── Source/                 # Images and banners
-├── CHANGELOG.md            # Version history
+│       ├── config.js       → ⚡ EDIT THIS — payment methods, site info, socials
+│       └── app.js          → Rendering engine, particles, tabs, interactions
+├── Source/                 → Images and banners
+├── CHANGELOG.md            → Version history
 ├── LICENSE
 └── README.md
 ```
 
-**To add a QR-type payment method:**
+**To add a QR-type method:**
 ```javascript
 {
   name: "My UPI QR",
   icon: "fas fa-qrcode",
-  iconColor: "#5ffbf1",
+  iconBg: "#1a1a2e",
   type: "qr",
-  value: "upi://pay?pa=your@upi&pn=YourName",  // Any URL or UPI string
-  description: "Scan to pay via UPI",
+  value: "upi://pay?pa=your@upi&pn=YourName",
+  label: "Scan with any UPI app",
+  description: "PhonePe, Google Pay, Paytm — scan and pay",
+  color: "#5ffbf1",
   enabled: true,
-  downloadable: true  // Shows download button
+  downloadable: true,
+  badge: "popular"
 }
 ```
-The QR code is auto-generated from the `value` field using the qrserver.com API.
+QR codes are auto-generated from the `value` field via qrserver.com API.
 
   <a href="https://github.com/Shineii86/AniPay">
     <img src="./Source/Banner5.png" alt="Banner">

@@ -4,6 +4,46 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.0.0] - 2026-05-06
+
+### Complete Rebuild — New Design, New Features, All Methods Enabled
+
+#### Design
+- **All-new UI** — dark glassmorphism design with neumorphic cards, animated gradient title, particle background
+- **Inter font** added as primary typeface alongside Josefin Sans and JetBrains Mono
+- **Scroll progress bar** — gradient indicator at top of page
+- **Back to top button** — appears on scroll with smooth behavior
+- **Custom scrollbar** — styled pink scrollbar matching theme
+- **Card accent colors** — each card gets a unique color glow on hover
+- **Badge system** — "popular", "new", "beta" badges on cards
+- **3D card hover** — scale + translate + glow shadow on hover
+- **Button shine sweep** — light reflection effect on hover
+
+#### Features
+- **Category tabs** — filter by India / International / Crypto with animated transitions
+- **Stats counter** — animated number counters showing methods, categories, copy-ready count
+- **All payment methods enabled by default** — users see everything, fork & disable what they don't need
+- **New payment methods**: Ethereum, Bitcoin, PhonePe, Ko-fi
+- **Pre-enabled**: PayPal, Buy Me a Coffee, Ko-fi (no longer disabled)
+- **Keyboard shortcuts** — `Esc` resets filter, `Ctrl+K` focuses tabs
+- **Toast notifications** — stacking toast system with icons
+- **Click-to-copy** on all value fields with visual "copied" feedback
+- **Scroll-reveal animations** — IntersectionObserver-based card reveals
+
+#### Config
+- **SITE_CONFIG** — new top-level object for site name, tagline, author, socials
+- **PAYMENT_METHODS** — restructured as categories with `items` arrays
+- **Full documentation** in config.js header — field reference, examples, customization guide
+- **badge field** — `"popular"` | `"new"` | `"beta"` | `null`
+
+#### Architecture
+- `index.html` — semantic HTML with ARIA labels, zero inline code
+- `assets/css/styles.css` — CSS custom properties, modern layout, responsive breakpoints
+- `assets/js/config.js` — fully documented payment config with all methods enabled
+- `assets/js/app.js` — modular renderer with particle system, tabs, stats, keyboard shortcuts
+
+---
+
 ## [2.0.0] - 2026-05-06
 
 ### Complete Redesign - Modular & Data-Driven Architecture

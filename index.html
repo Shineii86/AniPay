@@ -3,65 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AniPay | Zero Two Payment Gateway</title>
-    <meta name="description" content="An anime-inspired payment gateway featuring Zero Two from Darling in the Franxx. Secure, beautiful, and functional.">
+    <title>AniPay | Darling in the Franxx Payment Gateway</title>
+    <meta name="description" content="A beautiful anime-themed multi-method payment gateway. Fork it, customize it, make it yours.">
     <meta name="theme-color" content="#ff2a6d">
+    <meta name="author" content="Shinei Nouzen">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
-    <!-- Particles Background -->
-    <canvas id="particles-canvas"></canvas>
+    <!-- Background -->
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="container">
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
 
-        <!-- Header -->
-        <header>
-            <div class="logo-wrapper">
-                <div class="logo-glow"></div>
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <div class="page-wrapper">
+
+        <!-- Hero -->
+        <header class="hero">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Open Source &middot; Fork &middot; Customize
             </div>
-            <h1 class="title">AniPay</h1>
-            <p class="subtitle">Darling in the Franxx Inspired Payment Gateway</p>
-            <div class="divider"></div>
+            <h1 class="hero-title">AniPay</h1>
+            <p class="hero-subtitle">
+                Darling in the Franxx inspired payment gateway.<br>
+                One config file. All your payment methods. Zero hassle.
+            </p>
+            <p class="hero-hint">
+                Press <kbd>Esc</kbd> to reset filters &middot; <kbd>Ctrl+K</kbd> to navigate
+            </p>
+            <div class="hero-divider"></div>
         </header>
 
-        <!-- Payment Sections (rendered dynamically from config) -->
+        <!-- Stats -->
+        <div class="stats-bar"></div>
+
+        <!-- Category Tabs -->
+        <nav class="category-nav" aria-label="Payment categories"></nav>
+
+        <!-- Payment Sections (rendered from config) -->
         <main id="main-content"></main>
 
         <!-- Footer -->
-        <footer>
-            <div class="footer-content">
-                <div class="footer-icon"><i class="fas fa-code"></i></div>
-                <h3 class="footer-title">Zero Two Payment Gateway</h3>
-                <p class="footer-text">
-                    Inspired by Code:002 from Darling in the Franxx<br>
-                    Secure, reliable, and anime-themed payment solutions
-                </p>
+        <footer class="site-footer">
+            <div class="footer-brand">AniPay</div>
+            <p class="footer-desc">
+                Inspired by Code:002 from Darling in the Franxx<br>
+                Secure, reliable, and anime-themed payment solutions
+            </p>
 
-                <div class="social-links">
-                    <a href="https://x.com/shineii86" class="social-icon" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://github.com/shineii86" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://telegram.me/shineii86" class="social-icon" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                </div>
+            <div class="social-row"></div>
 
-                <p class="copyright">© 2025 AniPay | All rights reserved</p>
-            </div>
+            <p class="footer-copy"></p>
+
+            <a href="https://github.com/Shineii86/AniPay/fork" class="footer-fork" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-code-fork"></i> Fork this repo & make it yours
+            </a>
         </footer>
 
     </div>
