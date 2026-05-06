@@ -112,6 +112,12 @@ const SITE_CONFIG = {
     text: "AniPay",            // Text below logo
   },
 
+  // ── Admin Panel ───────────────────────────────────────
+  // Access at ?admin — visual config editor with password protection.
+  admin: {
+    password: "anipay",           // Admin password (change this!)
+  },
+
   // ── Accent Theme ────────────────────────────────────────
   // Multiple accent color options with a floating picker UI.
   // Stored in localStorage so the user's choice persists.

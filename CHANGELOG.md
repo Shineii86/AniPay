@@ -4,6 +4,56 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [6.0.0] - 2026-05-06
+
+### High-Impact Feature Pack — Admin Panel, Analytics, Anime Effects, Sound System
+
+#### Added — Admin Panel (`admin.js`)
+- **Visual config editor** at `?admin` — form-based UI to edit all SITE_CONFIG settings without touching code
+- **Password protection** — default password `anipay` (configurable in `admin.password`), session-persisted
+- **Section-based navigation** — Identity, Features, Profile, Socials, Payments, Appearance
+- **Form controls** — text inputs, textareas, toggles, color pickers, selects for all config fields
+- **Social link editor** — visual list of all 30+ platforms with URL inputs and enable/disable toggles
+- **Payment method editor** — per-category cards showing each method with name, value, color, description fields
+- **Export config** — download current config as a `config.js` file
+- **Import config** — upload a `config.js` to merge settings
+- **Apply & refresh** — changes apply to live SITE_CONFIG and page refreshes to reflect them
+- **Responsive sidebar** — horizontal scroll on mobile, sticky on desktop
+
+#### Added — Analytics Dashboard (`analytics.js`)
+- **localStorage-based tracking** — zero external dependencies, no cookies, no network requests
+- **Tracks**: page views, payment copy clicks, payment link opens, social link clicks, category tab switches
+- **30-day data retention** with automatic pruning
+- **Visual dashboard** at `Ctrl+Shift+A` — stat cards, 7-day bar chart, top payments/socials, recent events
+- **Canvas chart** — views vs clicks over last 7 days with DPI-aware rendering
+- **Event log** — last 8 interactions with category, action, label, and timestamp
+- **Reset button** — clear all analytics data from the dashboard
+
+#### Added — Anime Effects (`effects.js`)
+- **Custom cursor** — dot + ring that follows mouse with smooth lerp interpolation
+- **Cursor trail** — 6 fading trail particles behind the cursor with screen blend mode
+- **Hover state** — ring expands and turns pink on interactive elements
+- **Click burst** — 8 particles explode outward on every click with random colors and physics
+- **Konami code easter egg** — ↑↑↓↓←→←→BA triggers "Zero Two Mode" with ASCII art, confetti burst, screen flash, and auto-dismiss after 4 seconds
+- **Touch-safe** — all cursor effects disabled on touch devices
+- **Cursor CSS override** — `cursor: none` applied to all interactive elements
+
+#### Added — Sound System (`sounds.js`)
+- **Procedural audio** — all sounds generated via Web Audio API, zero external files (~1KB)
+- **Sound types**: click, copy (ascending arpeggio), toggle, success (C-E-G chord), open, close
+- **Toggle button** — speaker icon in footer, persists preference to localStorage
+- **Smart init** — AudioContext created on first click (browser autoplay policy compliant)
+- **Sound hooks** — automatic audio feedback on copy, category tab, theme toggle, social link, lightbox close
+
+#### Changed
+- **index.html** — added `sounds.js`, `analytics.js`, `effects.js`, `admin.js` script tags
+- **config.js** — added `admin.password` configuration section
+- **app.js** — added `initSoundHooks()`, integrated all new module inits
+- **sw.js** — added all new JS files to pre-cache list
+- **styles.css** — added 400+ lines: custom cursor, Konami overlay, analytics dashboard styles
+
+---
+
 ## [5.0.0] - 2026-05-06
 
 ### Smooth Scrolling & Animation Overhaul — Removes Design Toggles

@@ -10,6 +10,10 @@ const STATIC_ASSETS = [
   './manifest.json',
   './assets/css/styles.css',
   './assets/js/config.js',
+  './assets/js/sounds.js',
+  './assets/js/analytics.js',
+  './assets/js/effects.js',
+  './assets/js/admin.js',
   './assets/js/app.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js'

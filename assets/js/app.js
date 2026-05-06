@@ -1359,6 +1359,65 @@
   }
 
   // ═══════════════════════════════════════════════════════════
+  //  SOUND HOOKS — Add audio feedback to interactions
+  // ═══════════════════════════════════════════════════════════
+
+  function initSoundHooks() {
+    // Copy sounds
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.card-value')) SoundFX.play('copy');
+      else if (e.target.closest('.pay-card .btn-primary')) SoundFX.play('copy');
+      else if (e.target.closest('.category-tab')) SoundFX.play('toggle');
+      else if (e.target.closest('.theme-toggle')) SoundFX.play('toggle');
+      else if (e.target.closest('.social-icon-link, .social-link')) SoundFX.play('click');
+      else if (e.target.closest('.accent-dot')) SoundFX.play('click');
+      else if (e.target.closest('.back-to-top')) SoundFX.play('open');
+      else if (e.target.closest('.lightbox-close')) SoundFX.play('close');
+    });
+
+    // Sound toggle in footer
+    const footer = document.querySelector('.site-footer');
+    if (footer) {
+      const soundBtn = document.createElement('button');
+      soundBtn.className = 'footer-sound-btn';
+      soundBtn.setAttribute('aria-label', 'Toggle sounds');
+      soundBtn.innerHTML = `<i class="fas ${SoundFX.isEnabled() ? 'fa-volume-high' : 'fa-volume-xmark'}"></i>`;
+      soundBtn.style.cssText = `
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--bg-glass);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-top: 12px;
+      `;
+      soundBtn.addEventListener('click', () => {
+        const on = SoundFX.toggle();
+        soundBtn.querySelector('i').className = `fas ${on ? 'fa-volume-high' : 'fa-volume-xmark'}`;
+        soundBtn.style.color = on ? 'var(--accent-teal)' : 'var(--text-muted)';
+        soundBtn.style.borderColor = on ? 'rgba(95,251,241,0.3)' : 'var(--border)';
+      });
+      soundBtn.addEventListener('mouseenter', () => {
+        soundBtn.style.borderColor = 'rgba(95,251,241,0.3)';
+        soundBtn.style.color = 'var(--accent-teal)';
+      });
+      soundBtn.addEventListener('mouseleave', () => {
+        if (!SoundFX.isEnabled()) {
+          soundBtn.style.borderColor = 'var(--border)';
+          soundBtn.style.color = 'var(--text-muted)';
+        }
+      });
+      footer.insertBefore(soundBtn, footer.querySelector('.footer-copy'));
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════
   //  PAYMENTS VISIBILITY
   // ═══════════════════════════════════════════════════════════
 
@@ -1421,6 +1480,17 @@
     initKeyboard();
     initLightbox();
     initAnimations();
+
+    // New modules
+    SoundFX.init();
+    Analytics.init();
+    AnimeFX.init();
+    AnimeFX.start();
+    AdminPanel.init();
+
+    // Sound hooks
+    initSoundHooks();
+
     requestAnimationFrame(() => initReveal());
   });
 
