@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.0.1] - 2026-05-06
+
+### README Overhaul for v4.0
+
+#### Changed
+- **README.md** — complete rewrite to reflect v4.0 features
+- Added Twitter/X-style profile section documentation
+- Added social media icons section (34 platforms) documentation
+- Added Instagram-style posts section documentation
+- Added feature toggle system documentation
+- Updated customization examples for profile, socials, posts
+- Updated changelog table with v4.0.0 entry
+- Added v4.0 version badge
+
+---
+
 ## [4.0.0] - 2026-05-06
 
 ### Complete Redesign — Twitter Profile, Social Links, Instagram Posts, Full Customization

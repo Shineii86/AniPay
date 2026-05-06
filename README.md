@@ -10,12 +10,13 @@
 
   **Darling in the Franxx Inspired Payment Gateway**
 
-  A beautiful, anime-themed multi-method payment page.<br>
-  One config file. All your payment methods. Zero hassle.
+  A beautiful, anime-themed profile page with social links, posts, and payments.<br>
+  One config file. Full customization. Zero code changes needed.
 
   <br>
 
   [![Live Demo](https://img.shields.io/badge/Live-Demo-ff2a6d?style=for-the-badge&logo=vercel&logoColor=white)](https://shineii86.github.io/AniPay/)
+  ![Version](https://img.shields.io/badge/Version-4.0-ff2a6d?style=for-the-badge)
   ![License](https://img.shields.io/github/license/Shineii86/AniPay?style=for-the-badge&color=5ffbf1)
   ![Last Commit](https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge&color=a855f7)
   ![Repo Size](https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge)
@@ -34,20 +35,22 @@
 
 ## 🎯 What is AniPay?
 
-AniPay is a **single-page payment gateway** with an anime aesthetic. It supports **11 payment methods** across 3 categories — India, International, and Crypto. Everything is controlled by one config file, so you can fork it, edit `config.js`, and have your own payment page in minutes.
+AniPay is a **single-page personal profile & payment gateway** with an anime aesthetic. It combines a **Twitter-style profile**, **social media links**, **Instagram-style posts**, and **multi-method payments** — all controlled by one config file.
+
+Fork it → edit `config.js` → done. No HTML. No build tools.
 
 <table>
   <tr>
-    <td align="center"><strong>🎨 Dark & Light Themes</strong></td>
-    <td align="center"><strong>⚡ 11 Payment Methods</strong></td>
-    <td align="center"><strong>🗂️ Category Filtering</strong></td>
-    <td align="center"><strong>🍴 Fork-Friendly</strong></td>
+    <td align="center"><strong>👤 Profile</strong></td>
+    <td align="center"><strong>🔗 Socials</strong></td>
+    <td align="center"><strong>📸 Posts</strong></td>
+    <td align="center"><strong>💳 Payments</strong></td>
   </tr>
   <tr>
-    <td align="center">Toggle with one click<br>Persists via localStorage</td>
-    <td align="center">UPI, PayPal, BTC, ETH<br>Binance, Ko-fi & more</td>
-    <td align="center">India / International<br>Crypto tabs with counts</td>
-    <td align="center">Edit one config file<br>No HTML knowledge needed</td>
+    <td align="center">Twitter/X style<br>Banner, avatar, bio<br>Verified badge, stats</td>
+    <td align="center">34 platforms<br>Enable/disable any<br>Hover color effects</td>
+    <td align="center">Instagram grid<br>Carousel + lightbox<br>Configurable columns</td>
+    <td align="center">11 methods<br>3 categories<br>Copy, QR, links</td>
   </tr>
 </table>
 
@@ -87,18 +90,78 @@ python3 -m http.server 8000
 
 ## ✨ Features
 
-### 🎨 Design & UI
+### 👤 Twitter/X-Style Profile
 
 | Feature | Description |
 |---------|-------------|
-| **Dark / Light Theme** | Toggle with one click, remembers your choice |
-| **Glassmorphism Cards** | Frosted glass effect with backdrop blur |
-| **Animated Background** | Multi-color particle system on canvas |
-| **Scroll Progress Bar** | Gradient indicator at the top of the page |
-| **Card Hover Effects** | Scale + glow + accent color reveal |
-| **Badge System** | `popular` · `new` · `beta` labels on cards |
-| **Custom Scrollbar** | Pink scrollbar matching the theme |
-| **Responsive Layout** | Works on desktop, tablet, and mobile |
+| **Banner Image** | Full-width banner with gradient overlay |
+| **Profile Avatar** | Circular avatar with border and hover effect |
+| **Verified Badge** | Blue checkmark — toggle on/off |
+| **Display Name + Username** | Bold name + muted handle |
+| **Bio** | Multi-line bio text |
+| **Bio Link** | Clickable link with icon |
+| **Location** | Location with map pin icon |
+| **Join Date** | Calendar icon + date text |
+| **Stats** | Posts / Followers / Following — animated counters |
+
+### 🔗 Social Media Icons
+
+**34 platforms** with per-platform enable/disable:
+
+<details>
+<summary><strong>Developer & Code</strong></summary>
+
+GitHub · CodePen · Dev.to · Hashnode · Stack Overflow · Figma
+
+</details>
+
+<details>
+<summary><strong>Social Networks</strong></summary>
+
+X / Twitter · Instagram · Threads · Bluesky · Mastodon · Facebook · LinkedIn · Pinterest · Snapchat · Reddit
+
+</details>
+
+<details>
+<summary><strong>Messaging</strong></summary>
+
+Telegram · Discord · WhatsApp · Signal
+
+</details>
+
+<details>
+<summary><strong>Streaming & Content</strong></summary>
+
+YouTube · TikTok · Twitch · Spotify
+
+</details>
+
+<details>
+<summary><strong>Design & Creative</strong></summary>
+
+Dribbble · Behance · Medium · Steam
+
+</details>
+
+<details>
+<summary><strong>Support & Donations</strong></summary>
+
+Buy Me a Coffee · Ko-fi · Patreon · PayPal · Email
+
+</details>
+
+Each icon shows a **tooltip on hover** and changes to the **platform's brand color**.
+
+### 📸 Instagram-Style Posts
+
+| Feature | Description |
+|---------|-------------|
+| **Grid Layout** | Configurable columns: 2, 3, or 4 |
+| **Single Images** | One image per post |
+| **Carousel** | Multiple images with swipe/dots navigation |
+| **Likes Overlay** | Heart + count shown on hover |
+| **Lightbox** | Click to expand — prev/next, keyboard arrows, touch swipe |
+| **Carousel Indicator** | Image count badge on multi-image posts |
 
 ### 💳 Payment Methods
 
@@ -137,15 +200,19 @@ python3 -m http.server 8000
 
 </details>
 
-### ⚡ Interactions
+### 🎨 Design & UI
 
-- **Click-to-copy** — click any payment value to copy instantly
-- **Toast notifications** — stacking toasts with icons
-- **Category tabs** — filter by India / International / Crypto
-- **Stats counters** — animated number counters
-- **Keyboard shortcuts** — `Esc` reset filter, `Ctrl+K` navigate
-- **QR download** — download QR codes as PNG
-- **Back to top** — floating button on scroll
+| Feature | Description |
+|---------|-------------|
+| **Dark / Light Theme** | Toggle with one click, persists via localStorage |
+| **Glassmorphism** | Frosted glass cards with backdrop blur |
+| **Particle Background** | Animated multi-color canvas particles |
+| **Scroll Progress** | Gradient bar at the top of the page |
+| **Hover Effects** | Scale, glow, accent color on every interactive element |
+| **Toast Notifications** | Stacking toasts for copy/download feedback |
+| **Anime.js Animations** | Smooth entry animations for all sections |
+| **Responsive** | Desktop, tablet, and mobile |
+| **Keyboard Shortcuts** | `Esc` reset · `Ctrl+K` navigate · Arrow keys in lightbox |
 
 ---
 
@@ -153,17 +220,83 @@ python3 -m http.server 8000
 
 Everything is in **`assets/js/config.js`**. No HTML editing needed.
 
-### Toggle a method on/off
+### Enable / Disable Sections
 
 ```javascript
-// Show it
-{ name: "PayPal", ..., enabled: true }
-
-// Hide it
-{ name: "PayPal", ..., enabled: false }
+features: {
+  profile: true,       // Twitter-style profile at top
+  socials: true,       // Social media icons grid
+  posts: true,         // Instagram-style posts
+  payments: true,      // Payment methods
+  themeToggle: true,   // Light/dark toggle button
+  particles: true,     // Animated background
+  scrollProgress: true,// Top scroll bar
+  backToTop: true,     // Back to top button
+  stats: true,         // Stats counter
+}
 ```
 
-### Add a new payment method
+### Edit Profile
+
+```javascript
+profile: {
+  banner: "https://...",          // Banner image URL
+  avatar: "https://...",          // Profile picture URL
+  displayName: "Your Name",       // Display name
+  username: "@yourhandle",        // Username
+  bio: "Your bio text here...",   // Bio
+  bioLink: {
+    url: "https://...",
+    label: "your-site.com",
+    enabled: true,
+  },
+  location: "City, Country",      // Location (set "" to hide)
+  joinDate: "January 2024",       // Join date (set "" to hide)
+  verified: true,                 // Blue checkmark
+  stats: {
+    posts:     { count: 420,  label: "Posts",     enabled: true },
+    followers: { count: 12500, label: "Followers", enabled: true },
+    following: { count: 380,  label: "Following", enabled: true },
+  },
+}
+```
+
+### Toggle Social Links
+
+```javascript
+socials: [
+  { platform: "github",   url: "https://github.com/you",   enabled: true  },
+  { platform: "twitter",  url: "https://x.com/you",        enabled: true  },
+  { platform: "discord",  url: "https://discord.gg/you",   enabled: false }, // hidden
+  // ... 34 platforms available
+]
+```
+
+### Add Posts
+
+```javascript
+posts: {
+  title: "Latest Posts",
+  subtitle: "Snapshots from my world",
+  columns: 3,  // 2, 3, or 4
+  items: [
+    {
+      images: ["https://..."],           // Single image
+      caption: "My first post ✨",
+      likes: 245,
+      enabled: true,
+    },
+    {
+      images: ["https://...", "..."],    // Carousel
+      caption: "Multiple photos!",
+      likes: 512,
+      enabled: true,
+    },
+  ]
+}
+```
+
+### Add a Payment Method
 
 ```javascript
 // Add to any category's items[] array:
@@ -182,35 +315,21 @@ Everything is in **`assets/js/config.js`**. No HTML editing needed.
 }
 ```
 
-### Add a new category
+### Add a Payment Category
 
 ```javascript
-// Add a new key to PAYMENT_METHODS:
-wallets: {
-  title: "Digital Wallets",
-  subtitle: "Apple Pay, Google Pay & more",
-  icon: "fas fa-wallet",
-  items: [
-    { name: "Apple Pay", ... },
-    { name: "Google Pay", ... }
-  ]
+payments: {
+  // ... existing categories
+  wallets: {
+    title: "Digital Wallets",
+    subtitle: "Apple Pay, Google Pay & more",
+    icon: "fas fa-wallet",
+    items: [
+      { name: "Apple Pay", ... },
+      { name: "Google Pay", ... }
+    ]
+  }
 }
-```
-
-### Change site info
-
-```javascript
-// Edit SITE_CONFIG:
-const SITE_CONFIG = {
-  name: "Your Name",
-  tagline: "Your tagline",
-  footer: "Your footer text",
-  year: 2025,
-  author: { name: "You", url: "https://..." },
-  socials: [
-    { icon: "fab fa-github", url: "https://...", label: "GitHub" }
-  ]
-};
 ```
 
 ---
@@ -222,10 +341,10 @@ AniPay/
 ├── index.html                 → Semantic HTML, zero inline code
 ├── assets/
 │   ├── css/
-│   │   └── styles.css         → All styles, light/dark themes, responsive
+│   │   └── styles.css         → All styles, themes, responsive
 │   └── js/
-│       ├── config.js          → ⚡ EDIT THIS — methods, site info, socials
-│       └── app.js             → Rendering engine, particles, tabs, theme
+│       ├── config.js          → ⚡ EDIT THIS — profile, socials, posts, payments
+│       └── app.js             → Rendering engine, particles, lightbox, animations
 ├── Source/                    → Images and banners
 ├── CHANGELOG.md               → Version history
 ├── LICENSE                    → MIT License
@@ -247,7 +366,7 @@ AniPay/
 </div>
 
 - **Fonts:** Inter (primary) · Josefin Sans (display) · JetBrains Mono (code)
-- **Icons:** Font Awesome 6.5.1 (Free)
+- **Icons:** Font Awesome 6.5.1 (Free) — 34 social platform mappings
 - **Animations:** Anime.js 3.2.2
 - **QR API:** goqr.me API (auto-generated)
 - **Hosting:** GitHub Pages
@@ -260,6 +379,7 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| **v4.0.0** | 2026-05-06 | Twitter profile, 34 social links, Instagram posts, lightbox, feature toggles |
 | **v3.0.0** | 2026-05-06 | Complete rebuild, new design, all methods enabled, theme toggle |
 | **v2.0.0** | 2026-05-06 | Modular architecture, data-driven config |
 | **v1.0.0** | 2025-01-01 | Initial release |
