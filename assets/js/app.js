@@ -924,10 +924,19 @@
     const btn = wrap.querySelector('.profile-share-btn');
     const dropdown = wrap.querySelector('.share-dropdown');
 
-    // Toggle dropdown
+    // Toggle dropdown with fixed positioning
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      dropdown.classList.toggle('open');
+      const isOpen = dropdown.classList.toggle('open');
+      if (isOpen) {
+        const rect = btn.getBoundingClientRect();
+        let left = rect.right - 180;
+        let top = rect.bottom + 8;
+        if (left < 10) left = 10;
+        if (top + 150 > window.innerHeight) top = rect.top - 158;
+        dropdown.style.left = left + 'px';
+        dropdown.style.top = top + 'px';
+      }
     });
 
     // Option click
@@ -1028,10 +1037,22 @@
     wrapper.appendChild(qrBtn);
     wrapper.appendChild(popover);
 
-    // Toggle popover
+    // Toggle popover with fixed positioning
     qrBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      popover.classList.toggle('open');
+      const isOpen = popover.classList.toggle('open');
+      if (isOpen) {
+        const rect = qrBtn.getBoundingClientRect();
+        const popoverWidth = 220; // min-width
+        let left = rect.left + rect.width / 2 - popoverWidth / 2;
+        let top = rect.bottom + 10;
+        // Keep within viewport
+        if (left < 10) left = 10;
+        if (left + popoverWidth > window.innerWidth - 10) left = window.innerWidth - popoverWidth - 10;
+        if (top + 280 > window.innerHeight) top = rect.top - 290; // show above if no room below
+        popover.style.left = left + 'px';
+        popover.style.top = top + 'px';
+      }
     });
 
     // Close button

@@ -1659,11 +1659,8 @@ img { max-width: 100%; display: block; }
 }
 
 .qr-popover {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) scale(0.9);
-  z-index: 500;
+  position: fixed;
+  z-index: 10000;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -1674,14 +1671,15 @@ img { max-width: 100%; display: block; }
   text-align: center;
   opacity: 0;
   pointer-events: none;
-  transition: all var(--transition-smooth);
+  transition: opacity 0.25s ease, transform 0.25s ease;
   min-width: 200px;
+  transform: scale(0.9);
 }
 
 .qr-popover.open {
   opacity: 1;
   pointer-events: auto;
-  transform: translateX(-50%) scale(1);
+  transform: scale(1);
 }
 
 .qr-popover-close {
@@ -1770,9 +1768,7 @@ img { max-width: 100%; display: block; }
 }
 
 .share-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
+  position: fixed;
   min-width: 180px;
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1781,17 +1777,17 @@ img { max-width: 100%; display: block; }
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: var(--shadow-lg);
-  z-index: 500;
+  z-index: 10000;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-8px) scale(0.95);
-  transition: all var(--transition-smooth);
+  transform: scale(0.95);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .share-dropdown.open {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0) scale(1);
+  transform: scale(1);
 }
 
 .share-option {

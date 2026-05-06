@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.2.3] - 2026-05-06
+
+### QR Popover & Share Dropdown — Overflow Fix
+
+#### Fixed
+- **QR popover clipped by `overflow: hidden`** — changed from `position: absolute` to `position: fixed`; now calculates viewport-relative position from button's bounding rect, stays fully visible even inside clipped containers
+- **Share dropdown same overflow issue** — also changed to `position: fixed` with viewport-aware positioning
+- **Both popovers viewport-aware** — reposition above button if not enough space below; stay within viewport edges horizontally
+
+#### Changed
+- **styles.css** — `.qr-popover` and `.share-dropdown` use `position: fixed` with `z-index: 10000`
+- **app.js** — toggle handlers now compute `getBoundingClientRect()` and set `style.left`/`style.top` on open
+
+---
+
 ## [4.2.2] - 2026-05-06
 
 ### Deep Audit — Bug Fixes
