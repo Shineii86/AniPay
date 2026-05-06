@@ -14,7 +14,7 @@
   <a href="https://shineii86.github.io/AniPay/">
     <img src="https://img.shields.io/badge/LIVE_DEMO-ff2a6d?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
   </a>
-  <img src="https://img.shields.io/badge/Version-6.0.0-ff2a6d?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/Version-6.0.1-ff2a6d?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/github/license/Shineii86/AniPay?style=for-the-badge&color=5ffbf1" alt="License">
   <img src="https://img.shields.io/github/last-commit/Shineii86/AniPay?style=for-the-badge&color=a855f7" alt="Last Commit">
   <img src="https://img.shields.io/github/repo-size/Shineii86/AniPay?style=for-the-badge" alt="Repo Size">
@@ -629,6 +629,7 @@ See [CHANGELOG.md](CHANGELOG.md) for full version history.
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| **v6.0.1** | 2026-05-06 | Bug fixes: admin panel persistence, mobile analytics overlay, config type coercion |
 | **v6.0.0** | 2026-05-06 | Admin panel, analytics dashboard, anime effects, sound system |
 | **v5.0.0** | 2026-05-06 | Smooth scrolling & animation overhaul |
 | **v4.2.0** | 2026-05-06 | Share button, custom fonts in config, page loading animation |
