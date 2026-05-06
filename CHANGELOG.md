@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [4.1.1] - 2026-05-06
+
+### Proper Favicon Suite
+
+#### Added
+- **favicon.ico** — multi-size ICO file (16/32/48px) for maximum browser compatibility
+- **favicon-16x16.png** — small favicon for tabs and bookmarks
+- **favicon-32x32.png** — standard favicon for most browsers
+- **apple-touch-icon.png** (180×180) — iOS home screen icon
+- **android-chrome-192x192.png** — Android home screen icon
+- **android-chrome-512x512.png** — Android splash screen icon (with maskable purpose)
+
+#### Changed
+- **index.html** — updated favicon links to use proper ICO + PNG sizes + apple-touch-icon
+- **manifest.json** — icon paths now point to `assets/favicons/` with correct sizes and maskable purpose
+
+---
+
 ## [4.1.0] - 2026-05-06
 
 ### Quick Wins — PWA, OG Tags, Typing Bio, Accent Themes, Profile QR
