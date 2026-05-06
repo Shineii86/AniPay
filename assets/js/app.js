@@ -924,6 +924,9 @@
     const btn = wrap.querySelector('.profile-share-btn');
     const dropdown = wrap.querySelector('.share-dropdown');
 
+    // Append dropdown to body to escape backdrop-filter containment
+    document.body.appendChild(dropdown);
+
     // Toggle dropdown with fixed positioning
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -953,7 +956,7 @@
 
     // Close on outside click
     document.addEventListener('click', (e) => {
-      if (!wrap.contains(e.target)) {
+      if (!wrap.contains(e.target) && !dropdown.contains(e.target)) {
         dropdown.classList.remove('open');
       }
     });
@@ -1027,7 +1030,7 @@
       <div class="qr-popover-url">${esc(pageUrl)}</div>
     `;
 
-    // Position relative to the button's parent
+    // Insert QR button next to bio link (popover goes to body to escape backdrop-filter)
     const wrapper = document.createElement('span');
     wrapper.style.position = 'relative';
     wrapper.style.display = 'inline-flex';
@@ -1035,7 +1038,9 @@
     bioLinkWrap.parentNode.insertBefore(wrapper, bioLinkWrap);
     wrapper.appendChild(bioLinkWrap);
     wrapper.appendChild(qrBtn);
-    wrapper.appendChild(popover);
+
+    // Append popover to body so backdrop-filter on .profile-section can't clip it
+    document.body.appendChild(popover);
 
     // Toggle popover with fixed positioning
     qrBtn.addEventListener('click', (e) => {
@@ -1043,13 +1048,13 @@
       const isOpen = popover.classList.toggle('open');
       if (isOpen) {
         const rect = qrBtn.getBoundingClientRect();
-        const popoverWidth = 220; // min-width
-        let left = rect.left + rect.width / 2 - popoverWidth / 2;
+        const popW = 220;
+        const popH = 280;
+        let left = rect.left + rect.width / 2 - popW / 2;
         let top = rect.bottom + 10;
-        // Keep within viewport
         if (left < 10) left = 10;
-        if (left + popoverWidth > window.innerWidth - 10) left = window.innerWidth - popoverWidth - 10;
-        if (top + 280 > window.innerHeight) top = rect.top - 290; // show above if no room below
+        if (left + popW > window.innerWidth - 10) left = window.innerWidth - popW - 10;
+        if (top + popH > window.innerHeight) top = rect.top - popH - 10;
         popover.style.left = left + 'px';
         popover.style.top = top + 'px';
       }
